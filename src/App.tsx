@@ -6,8 +6,8 @@ import Technologies from "./technologies";
 function App() {
   return (
     <div>
-      <Header />
-      <Technologies />
+        <Header/>
+        <Technologies/>
     </div>
   );
 }
