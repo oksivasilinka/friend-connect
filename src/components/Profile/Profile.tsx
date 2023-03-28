@@ -1,5 +1,6 @@
 import React from "react";
 import classes from './Profile.module.css';
+import MyPosts from "./MyPosts/MyPosts";
 
 // let s = {
 //     'content': 'Profile_content__KAfe3',
@@ -14,23 +15,8 @@ function Profile () {
         <div>
             ava + descr
         </div>
-        <div>
-            My post
-            <div>
-                New post
-            </div>
-            <div className={'posts'}>
-                <div className={classes.item}>
-                    post 1
-                </div>
-                <div className={classes.item}>
-                    post 2
-                </div>
-                <div className={classes.item}>
-                    post 3
-                </div>
-            </div>
-        </div>
+        <MyPosts/>
+
     </div>
 }
 
