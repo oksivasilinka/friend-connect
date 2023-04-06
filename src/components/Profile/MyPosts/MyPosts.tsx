@@ -1,19 +1,23 @@
 import React from "react";
-import classes from './MyPosts.module.css';
-import Post from "./MyPost/Post";
+import s from './MyPosts.module.css';
+import Post, {PostType} from "./MyPost/Post";
 
-function MyPosts() {
-    return <div>
-        My posts
+
+function MyPosts(props: PostType) {
+    return (
         <div>
-            New post
+            My posts
+            <div>
+                New post
+            </div>
+            <div className={s.posts}>
+                <Post message="it's my first post" like={10}/>
+                <Post message="it's my second post" like={20}/>
+                <Post message="hello, friends" like={30}/>
+            </div>
         </div>
-        <div className={classes.posts}>
-            <Post message="it's my first post" like={10}/>
-            <Post message="it's my second post" like={20}/>
-            <Post message="hello, friends" like={30}/>
-        </div>
-    </div>
+    )
 }
+
 
 export default MyPosts;

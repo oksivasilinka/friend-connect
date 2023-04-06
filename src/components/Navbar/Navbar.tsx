@@ -1,45 +1,22 @@
 import React from "react";
-import classes from "./Navbar.module.css";
+import s from "./Navbar.module.css";
 
-// let s = {
-//     'nav': 'Navbar_nav__i5XzG',
-//     'item': 'Navbar_item__ZL7iE',
-//     'active': 'classactive'
-// }
-
-// let c1 = "item";
-// let c2 = "active";
-// //item active (если класс: .item.active)
-// let classesOld = c1 + " " + c2; //обычный код
-// let classesNew = `${classes.item} ${classes.active}`: // ES6
-
-
-function Navbar () {
-    return <nav className={classes.nav}>
-        <div className={classes.item}>
-            <a>
-                Profile
-            </a>
+function Navbar() {
+    return <nav className={s.nav}>
+        <div className={s.item}>
+            <a href={'/profile'}>Profile</a>
         </div>
-        <div className={classes.item}>
-            <a>
-                Messages
-            </a>
+        <div className={s.item}>
+            <a href={'/dialogs'}>Messages</a>
         </div>
-        <div className={classes.item}>
-            <a>
-                News
-            </a>
+        <div className={s.item}>
+            <a href={'/news'}>News</a>
         </div>
-        <div className={classes.item}>
-            <a>
-                Musics
-            </a>
+        <div className={s.item}>
+            <a href={'/musics'}>Musics</a>
         </div>
-        <div className={classes.item}>
-            <a>
-                Settings
-            </a>
+        <div className={s.item}>
+            <a href={'/settings'}>Settings</a>
         </div>
     </nav>
 }
