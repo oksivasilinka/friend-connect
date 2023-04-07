@@ -5,10 +5,15 @@ import Post, {PostType} from "./MyPost/Post";
 
 function MyPosts(props: PostType) {
     return (
-        <div>
-            My posts
+        <div className={s.postsBlock}>
+           <h3> My posts</h3>
             <div>
-                New post
+                <div>
+                    <textarea></textarea>
+                </div>
+                <div>
+                    <button>Add Post</button>
+                </div>
             </div>
             <div className={s.posts}>
                 <Post message="it's my first post" like={10}/>

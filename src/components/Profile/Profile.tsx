@@ -1,20 +1,17 @@
 import React from "react";
-import classes from './Profile.module.css';
+import s from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
+import {PostType} from "./MyPosts/MyPost/Post";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 
-
-function Profile (props:any) {
-    return <div>
+function Profile(props: PostType) {
+    return (
         <div>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHCmO7xX0UxUNkyPhxObqf4o9RvB4O0fX_BQ&usqp=CAU" alt="bg"/>
-        </div>
-        <div>
-            ava + descr
-        </div>
-        <MyPosts message={props.message} like={props.like}/>
+            <ProfileInfo/>
+            <MyPosts message={props.message} like={props.like}/>
 
-    </div>
+        </div>)
 }
 
 export default Profile;
