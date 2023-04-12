@@ -19,9 +19,9 @@ function App() {
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs' component={Dialogs}/>
                     <Route path='/profile' component={Profile}/>
-                    <Route path={'/news'} component={News}/>
-                    <Route path={'/musics'} component={Musics}/>
-                    <Route path={'/settings'} component={Settings}/>
+                    <Route path='/news' component={News}/>
+                    <Route path='/musics' component={Musics}/>
+                    <Route path='/settings' component={Settings}/>
                 </div>
             </div>
         </BrowserRouter>
