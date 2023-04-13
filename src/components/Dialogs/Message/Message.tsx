@@ -1,5 +1,12 @@
 import React from "react";
 import s from "./../Dialogs.module.css"
+import {DialogsType} from "../DialogItem/DialogItem";
+
+export type MessagesType = {
+    messagesData: MessageType[];
+    dialogs: DialogsType[];
+
+}
 
 export type MessageType = {
     message: string
