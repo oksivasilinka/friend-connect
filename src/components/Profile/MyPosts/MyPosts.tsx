@@ -10,12 +10,14 @@ export type PostType = {
 
 function MyPosts(props: PostType) {
 
-
-    let postsData = [
+    let posts = [
         {id: 1, message: "it's my first post", likesCount: 10},
         {id: 2, message: "it\'s my second post", likesCount: 20},
-        {id: 3, message: "hello, friends", likesCount: 30}
+        {id: 3, message: "hello, friends", likesCount: 30},
+        {id: 4, message: "wow", likesCount: 40}
     ]
+
+    let postsElements = posts.map((p) => <Post message={p.message} likesCount={p.likesCount}/>)
 
     return (
         <div className={s.postsBlock}>
@@ -29,9 +31,7 @@ function MyPosts(props: PostType) {
                 </div>
             </div>
             <div className={s.posts}>
-                <Post message={postsData[0].message} likesCount={postsData[0].likesCount}/>
-                <Post message={postsData[1].message} likesCount={postsData[1].likesCount}/>
-                <Post message={postsData[2].message} likesCount={postsData[2].likesCount}/>
+                {postsElements}
             </div>
         </div>
     )
