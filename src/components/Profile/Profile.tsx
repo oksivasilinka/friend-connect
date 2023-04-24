@@ -1,7 +1,7 @@
 import React from "react";
-import s from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPosts, {PostsType} from "./MyPosts/MyPosts";
+import {PostsType} from "../../index";
+import MyPosts from "./MyPosts/MyPosts";
 
 
 function Profile(props: PostsType) {

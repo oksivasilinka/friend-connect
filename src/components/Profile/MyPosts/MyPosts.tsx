@@ -1,11 +1,8 @@
 import React from "react";
 import s from './MyPosts.module.css';
 import Post from "./MyPost/Post";
-import {PostType} from "../../../index";
+import {PostsType} from "../../../index";
 
-export type PostsType = {
-    posts: PostType[]
-}
 
 function MyPosts(props: PostsType) {
 

@@ -2,15 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {DialogsType} from "./components/Dialogs/DialogItem/DialogItem";
-import {MessageType} from "./components/Dialogs/Message/Message";
-import post from "./components/Profile/MyPosts/MyPost/Post";
 
-ReactDOM.render(
-    <App />,
-  document.getElementById('root')
-);
+export type MessageType = {
+    message: string
+    id: number
+}
+export type MessagesType = {
+    messagesData: MessageType[];
+    dialogs: DialogsType[];
 
+}
+export type PostsType = {
+    posts: PostType[]
+}
+
+export type DialogsType = {
+    name: string
+    id: number
+}
 export let dialogs: DialogsType[] = [
     {id: 1, name: 'Oksana'},
     {id: 2, name: 'Volodya'},
@@ -39,3 +48,9 @@ export let posts: PostType[] = [
     {id: 3, message: "hello, friends", likesCount: 30},
     {id: 4, message: "wow", likesCount: 40}
 ]
+
+ReactDOM.render(
+    <App posts={posts} dialogs={dialogs} messages={messagesData}/>,
+  document.getElementById('root')
+);
+
