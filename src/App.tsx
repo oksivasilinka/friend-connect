@@ -1,31 +1,46 @@
 import React from 'react';
 import './App.css';
-import Header from "./components/Header/Header";
-import Navbar from "./components/Navbar/Navbar";
-import Profile from "./components/Profile/Profile";
+import {Header} from "./Components/Header/Header";
+import {Nav} from "./Components/Nav/Nav";
+import {Profile} from "./Components/Profile/Profile";
+import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {Dialogs} from "./components/Dialogs/Dialogs";
-import {dialogs, messagesData, posts} from "./index";
+import {News} from "./Components/News/News";
+import {Music} from "./Components/Music/Music";
+import {Settings} from "./Components/Settings/Settings";
+import {Sidebar} from "./Components/Sidebar/Sidebar";
+import {addPost, RootStateType} from "./redux/state";
 
 
-function App(props: any) {
+const App = (props: RootStateType) => {
+
+
     return (
         <BrowserRouter>
-            <div className='app-wrapper'>
+            <div className="App">
                 <Header/>
-                <Navbar/>
-                <div className='app-wrapper-content'>
-                    <Route path='/profile' render={()=> <Profile posts={posts}/>}/>
-                    <Route path='/dialogs' render={()=> <Dialogs messagesData={messagesData} dialogs={dialogs}/>}/>
-                    {/*<Route path='/news' render={()=> <News/>}/>*/}
-                    {/*<Route path='/musics' render={()=> <Musics/>}/>*/}
-                    {/*<Route path='/settings' render={()=> <Settings/>}/>*/}
+                <Nav/>
+                <div className='App-content'>
+                    <Route path='/profile'
+                           render={() =>
+                               <Profile posts={props.profilePage.posts} addPostCallback={addPost}/>}/>
+                    <Route path='/dialogs'
+                           render={() =>
+                               <Dialogs dialogs={props.dialogsPage.dialogs} messages={props.dialogsPage.messages}/>}/>
+                    <Route path='/news'
+                           render={() =>
+                               <News/>}/>
+                    <Route path='/music'
+                           render={() =>
+                               <Music/>}/>
+                    <Route path='/settings'
+                           render={() =>
+                               <Settings/>}/>
                 </div>
+                <Sidebar/>
             </div>
         </BrowserRouter>
-
     );
 }
-
 
 export default App;

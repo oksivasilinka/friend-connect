@@ -1,24 +1,35 @@
 import React from "react";
-import s from "./Dialogs.module.css";
+import s from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
-import {MessagesType} from "../../index";
 import {Message} from "./Message/Message";
+import {DialogsPageType} from "../../redux/state";
 
+export const Dialogs = (props: DialogsPageType) => {
 
-export const Dialogs = (props: MessagesType) => {
+    const dialogsElements = props.dialogs.map((d) => <DialogItem name={d.name} id={d.id}/>)
+    const messagesElements = props.messages.map((m) => <Message message={m.message} id={m.id}/>)
 
-    let dialogsElements = props.dialogs.map((d) => <DialogItem name={d.name} id={d.id}/>)
-    let messagesElements = props.messagesData.map((m) => <Message message={m.message} id={m.id}/>)
+    const newMessage = React.createRef<HTMLTextAreaElement>()
+
+    const addMessage = () => {
+        const text = newMessage.current?.value
+        alert(text)
+    }
 
     return (
         <div className={s.dialogs}>
-            <div className={s.dialogsItem}>
+            <div className={s.dialogsItems}>
                 {dialogsElements}
             </div>
+
             <div className={s.messages}>
                 {messagesElements}
-
+                <div>
+                    <textarea ref={newMessage}></textarea>
+                    <button onClick={addMessage}>Add message</button>
+                </div>
             </div>
+
         </div>
     )
 }

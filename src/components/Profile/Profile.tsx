@@ -1,16 +1,21 @@
 import React from "react";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {PostsType} from "../../index";
-import MyPosts from "./MyPosts/MyPosts";
+import {MyPosts} from "./MyPosts/MyPosts";
+import {ProfileInfo} from "./MyPosts/ProfileInfo/ProfileInfo";
+import {PostsType} from "../../redux/state";
+
+export type MessageType = {
+    posts: PostsType[]
+    addPostCallback: (postMessage: string) => void
+}
+
+export const Profile = (props: MessageType) => {
 
 
-function Profile(props: PostsType) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts posts={props.posts}/>
+            <MyPosts posts={props.posts} addPostCallback={props.addPostCallback}/>
+        </div>
+    )
 
-        </div>)
 }
-
-export default Profile;

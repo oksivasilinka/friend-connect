@@ -1,23 +1,32 @@
 import React from "react";
-import s from './MyPosts.module.css';
-import Post from "./MyPost/Post";
-import {PostsType} from "../../../index";
+import s from './MyPosts.module.css'
+import {Post} from "./Post/Post";
+import {MessageType} from "../Profile";
 
 
-function MyPosts(props: PostsType) {
 
-    let postsElements = props.posts.map((p) => <Post message={p.message} likesCount={p.likesCount}/>)
+export const MyPosts = (props: MessageType) => {
 
+    const postsElements = props.posts.map((p) => <Post message={p.message} likeCount={p.likeCount}/>)
+
+    const newPostElement  = React.createRef<HTMLTextAreaElement>()
+
+    const addPost = () => {
+        if (newPostElement.current) {
+            props.addPostCallback(newPostElement.current?.value)
+        }
+    }
 
     return (
         <div className={s.postsBlock}>
-           <h3> My posts</h3>
+            <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div>
                 <div>
-                    <button>Add Post</button>
+                    <button onClick={addPost}>add post</button>
+                    <button>remove</button>
                 </div>
             </div>
             <div className={s.posts}>
@@ -26,5 +35,3 @@ function MyPosts(props: PostsType) {
         </div>
     )
 }
-
-export default MyPosts;
