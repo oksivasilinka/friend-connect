@@ -1,20 +1,30 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {MessageType} from "../Profile";
+import {PostsType} from "../../../redux/state";
 
+type MyPostsPropsType = {
+    posts: Array<PostsType>
+    addPostCallback: (postMessage: string) => void
+    updateNewPostText: (newPostText: string) => void
+    newPostText: string
+}
 
+export const MyPosts = (props: MyPostsPropsType) => {
 
-export const MyPosts = (props: MessageType) => {
+    const postsElements = props.posts.map((p) =>
+        <Post key={p.id} message={p.message} likeCount={p.likeCount}/>)
 
-    const postsElements = props.posts.map((p) => <Post message={p.message} likeCount={p.likeCount}/>)
-
-    const newPostElement  = React.createRef<HTMLTextAreaElement>()
 
     const addPost = () => {
-        if (newPostElement.current) {
-            props.addPostCallback(newPostElement.current?.value)
-        }
+            props.addPostCallback(props.newPostText)
+
+
+    }
+
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(e.currentTarget.value)
+
     }
 
     return (
@@ -22,7 +32,9 @@ export const MyPosts = (props: MessageType) => {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea value={props.newPostText}
+                              onChange={onPostChange}
+                              />
                 </div>
                 <div>
                     <button onClick={addPost}>add post</button>

@@ -9,7 +9,7 @@ import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {Sidebar} from "./Components/Sidebar/Sidebar";
-import {addPost, RootStateType} from "./redux/state";
+import {addPost, RootStateType, updateNewPostText} from "./redux/state";
 
 
 const App = (props: RootStateType) => {
@@ -23,7 +23,11 @@ const App = (props: RootStateType) => {
                 <div className='App-content'>
                     <Route path='/profile'
                            render={() =>
-                               <Profile posts={props.profilePage.posts} addPostCallback={addPost}/>}/>
+                               <Profile
+                                   posts={props.profilePage.posts}
+                                   addPostCallback={addPost}
+                                   updateNewPostText={updateNewPostText}
+                                   newPostText={props.profilePage.newPostText}/>}/>
                     <Route path='/dialogs'
                            render={() =>
                                <Dialogs dialogs={props.dialogsPage.dialogs} messages={props.dialogsPage.messages}/>}/>

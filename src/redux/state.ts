@@ -18,7 +18,7 @@ export type PostsType = {
 
 export type ProfilePageType = {
     posts: Array<PostsType>
-    // addPostCallback?: (postMessage: string) => void
+    newPostText: string
 }
 
 export type DialogsPageType = {
@@ -43,6 +43,7 @@ export let state: RootStateType = {
             {id: 2, message: 'Hi', likeCount: 10},
             {id: 3, message: 'How are You', likeCount: 15},
         ],
+        newPostText: ''
 
     },
     dialogsPage: {
@@ -64,13 +65,21 @@ export let state: RootStateType = {
     sidebar: {}
 }
 
-export const addPost = (postMessage: string) => {
+
+
+export const addPost = () => {
     const newPost: PostsType = {
         id: new Date().getTime(),
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likeCount: 0
     }
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
+
     rerenderEntireTree(state)
 }
 
+export const updateNewPostText = (newPostText: string) => {
+    state.profilePage.newPostText = newPostText
+    rerenderEntireTree(state)
+}
