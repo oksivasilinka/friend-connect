@@ -28,9 +28,9 @@ const App = (props: PropsType) => {
                            render={() =>
                                <Profile
                                    posts={state.profilePage.posts}
-                                   addPostCallback={props.store.addPost.bind(props.store)}
-                                   updateNewPostText={props.store.updateNewPostText.bind(props.store)}
-                                   newPostText={state.profilePage.newPostText}/>}/>
+                                   dispatch={props.store.dispatch.bind(props.store)}
+                                   newPostText={state.profilePage.newPostText}
+                               />}/>
                     <Route path='/dialogs'
                            render={() =>
                                <Dialogs dialogs={state.dialogsPage.dialogs} messages={state.dialogsPage.messages}/>}/>
