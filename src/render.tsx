@@ -4,13 +4,13 @@ import React from "react";
 import {RootStateType} from "./redux/state";
 
 
-export const rerenderEntireTree = (state: RootStateType) => {
-    ReactDOM.render(
-        <App profilePage={state.profilePage}
-             dialogsPage={state.dialogsPage}
-             sidebar={state.sidebar}
-
-        />,
-        document.getElementById('root')
-    );
-}
+// export const rerenderEntireTree = (state: RootStateType) => {
+//     ReactDOM.render(
+//         <App profilePage={state.profilePage}
+//              dialogsPage={state.dialogsPage}
+//              sidebar={state.sidebar}
+//
+//         />,
+//         document.getElementById('root')
+//     );
+// }

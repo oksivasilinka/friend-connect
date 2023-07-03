@@ -1,7 +1,22 @@
 import React from 'react';
 import './index.css';
-import {rerenderEntireTree} from "./render";
-import {state} from "./redux/state";
+import {RootStateType, state, subscriber} from "./redux/state";
+import ReactDOM from "react-dom";
+import App from "./App";
 
 
-rerenderEntireTree(state)
+// rerenderEntireTree(state)
+
+let rerenderEntireTree = () => {
+    ReactDOM.render(
+        <App profilePage={state.profilePage}
+             dialogsPage={state.dialogsPage}
+             sidebar={state.sidebar}
+
+        />,
+        document.getElementById('root')
+    );
+}
+rerenderEntireTree()
+
+subscriber(rerenderEntireTree)
