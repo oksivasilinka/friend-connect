@@ -17,14 +17,11 @@ export const MyPosts = (props: MyPostsPropsType) => {
 
 
     const addPost = () => {
-            props.addPostCallback(props.newPostText)
-
-
+        props.addPostCallback(props.newPostText)
     }
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.updateNewPostText(e.currentTarget.value)
-
     }
 
     return (
@@ -34,7 +31,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
                 <div>
                     <textarea value={props.newPostText}
                               onChange={onPostChange}
-                              />
+                    />
                 </div>
                 <div>
                     <button onClick={addPost}>add post</button>

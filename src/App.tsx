@@ -9,11 +9,14 @@ import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {Sidebar} from "./Components/Sidebar/Sidebar";
-import {addPost, RootStateType, updateNewPostText} from "./redux/state";
+import {StoreType} from "./redux/state";
 
+type PropsType = {
+    store: StoreType
+}
 
-const App = (props: RootStateType) => {
-
+const App = (props: PropsType) => {
+    const state = props.store.getState()
 
     return (
         <BrowserRouter>
@@ -24,13 +27,13 @@ const App = (props: RootStateType) => {
                     <Route path='/profile'
                            render={() =>
                                <Profile
-                                   posts={props.profilePage.posts}
-                                   addPostCallback={addPost}
-                                   updateNewPostText={updateNewPostText}
-                                   newPostText={props.profilePage.newPostText}/>}/>
+                                   posts={state.profilePage.posts}
+                                   addPostCallback={props.store.addPost.bind(props.store)}
+                                   updateNewPostText={props.store.updateNewPostText.bind(props.store)}
+                                   newPostText={state.profilePage.newPostText}/>}/>
                     <Route path='/dialogs'
                            render={() =>
-                               <Dialogs dialogs={props.dialogsPage.dialogs} messages={props.dialogsPage.messages}/>}/>
+                               <Dialogs dialogs={state.dialogsPage.dialogs} messages={state.dialogsPage.messages}/>}/>
                     <Route path='/news'
                            render={() =>
                                <News/>}/>

@@ -1,11 +1,5 @@
 // import {rerenderEntireTree} from "../render";
 
-
-
-let rerenderEntireTree = () => {
-    console.log('state changed')
-}
-
 export type MessagesType = {
     id: number
     message: string
@@ -39,58 +33,68 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
-
 }
 
-export let state: RootStateType = {
-    profilePage: {
-        posts: [
-            {id: 1, message: 'Hello', likeCount: 20},
-            {id: 2, message: 'Hi', likeCount: 10},
-            {id: 3, message: 'How are You', likeCount: 15},
-        ],
-        newPostText: ''
-
-    },
-    dialogsPage: {
-        dialogs: [
-            {id: 1, name: 'Oksana'},
-            {id: 2, name: 'Vova'},
-            {id: 3, name: 'Valera'},
-            {id: 4, name: 'Masha'},
-            {id: 5, name: 'Olya'},
-        ],
-        messages: [
-            {id: 1, message: 'Hello'},
-            {id: 2, message: 'Hi'},
-            {id: 3, message: 'How are You'},
-            {id: 4, message: 'nice'},
-            {id: 5, message: 'ok'},
-        ]
-    },
-    sidebar: {}
+export type StoreType = {
+    _state: RootStateType,
+    getState: () => RootStateType,
+    _callSubscriber: () => void,
+    addPost: () => void,
+    updateNewPostText: (newPostText: string) => void,
+    subscribe: (observer: () => void) => void
 }
 
+export let store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: 1, message: 'Hello', likeCount: 20},
+                {id: 2, message: 'Hi', likeCount: 10},
+                {id: 3, message: 'How are You', likeCount: 15},
+            ],
+            newPostText: ''
 
-// window.state = state
+        },
+        dialogsPage: {
+            dialogs: [
+                {id: 1, name: 'Oksana'},
+                {id: 2, name: 'Vova'},
+                {id: 3, name: 'Valera'},
+                {id: 4, name: 'Masha'},
+                {id: 5, name: 'Olya'},
+            ],
+            messages: [
+                {id: 1, message: 'Hello'},
+                {id: 2, message: 'Hi'},
+                {id: 3, message: 'How are You'},
+                {id: 4, message: 'nice'},
+                {id: 5, message: 'ok'},
+            ]
+        },
+        sidebar: {}
+    },
+    getState() {
+        return this._state
+    },
+    _callSubscriber() {
+        console.log('state changed')
+    },
+    addPost() {
+        const newPost = {
+            id: new Date().getTime(),
+            message: this._state.profilePage.newPostText,
+            likeCount: 0
+        }
+        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.newPostText = ''
 
-export const addPost = () => {
-    const newPost: PostsType = {
-        id: new Date().getTime(),
-        message: state.profilePage.newPostText,
-        likeCount: 0
+        this._callSubscriber()
+    },
+    updateNewPostText(newPostText) {
+        this._state.profilePage.newPostText = newPostText
+        this._callSubscriber()
+    },
+    subscribe(observer) {
+        this._callSubscriber = observer
     }
-    state.profilePage.posts.push(newPost)
-    state.profilePage.newPostText = ''
-
-    rerenderEntireTree()
-}
-
-export const updateNewPostText = (newPostText: string) => {
-    state.profilePage.newPostText = newPostText
-    rerenderEntireTree()
-}
-
-export const subscriber = (observer: ()=> void) => {
-    rerenderEntireTree = observer
 }
