@@ -33,7 +33,12 @@ const App = (props: PropsType) => {
                                />}/>
                     <Route path='/dialogs'
                            render={() =>
-                               <Dialogs dialogs={state.dialogsPage.dialogs} messages={state.dialogsPage.messages}/>}/>
+                               <Dialogs
+                                   dialogs={state.dialogsPage.dialogs}
+                                   messages={state.dialogsPage.messages}
+                                   newMessageText={state.dialogsPage.newMessageText}
+                                   dispatch={props.store.dispatch.bind(props.store)}
+                               />}/>
                     <Route path='/news'
                            render={() =>
                                <News/>}/>

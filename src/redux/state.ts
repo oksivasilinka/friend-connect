@@ -22,10 +22,10 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
+    newMessageText: string
 }
 
 export type SidebarType = {}
-
 
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -41,13 +41,17 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType
+export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | AddNewMessageACType | ChangeNewMessageType
 
 type AddPostActionType = ReturnType<typeof addPostAC>
 type UpdateNewPostTextActionType = ReturnType<typeof ChangeNewTextAC>
+type AddNewMessageACType = ReturnType<typeof addNewMessageAC>
+type ChangeNewMessageType = ReturnType<typeof ChangeNewMessageAC>
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST-TEXT';
+const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE';
+const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
 
 export const addPostAC = (postText: string) => ({
     type: ADD_POST,
@@ -55,8 +59,18 @@ export const addPostAC = (postText: string) => ({
 }) as const
 
 export const ChangeNewTextAC = (postText: string) => ({
-        type: UPDATE_NEW_POST,
-        postText: postText
+    type: UPDATE_NEW_POST,
+    postText: postText
+}) as const
+
+export const addNewMessageAC = (messageText: string) => ({
+    type: ADD_NEW_MESSAGE,
+    newMessageText: messageText
+}) as const
+
+export const ChangeNewMessageAC = (messageText: string) => ({
+    type: UPDATE_NEW_MESSAGE,
+    messageText: messageText
 }) as const
 
 export let store: StoreType = {
@@ -68,7 +82,6 @@ export let store: StoreType = {
                 {id: 3, message: 'How are You', likeCount: 15},
             ],
             newPostText: ''
-
         },
         dialogsPage: {
             dialogs: [
@@ -84,7 +97,8 @@ export let store: StoreType = {
                 {id: 3, message: 'How are You'},
                 {id: 4, message: 'nice'},
                 {id: 5, message: 'ok'},
-            ]
+            ],
+            newMessageText: ''
         },
         sidebar: {}
     },
@@ -98,7 +112,7 @@ export let store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             const newPost = {
                 id: new Date().getTime(),
                 message: action.newPostText,
@@ -107,8 +121,19 @@ export let store: StoreType = {
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newPostText = ''
             this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST) {
             this._state.profilePage.newPostText = action.postText
+            this._callSubscriber()
+        } else if (action.type === ADD_NEW_MESSAGE) {
+            const newMessage = {
+                id: new Date().getTime(),
+                message: action.newMessageText,
+            }
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageText = ''
+            this._callSubscriber()
+        } else if (action.type === UPDATE_NEW_MESSAGE) {
+            this._state.dialogsPage.newMessageText = action.messageText
             this._callSubscriber()
         }
     }
