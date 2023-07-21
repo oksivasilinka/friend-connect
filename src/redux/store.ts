@@ -47,6 +47,7 @@ export type StoreType = {
 
 export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | AddNewMessageACType | ChangeNewMessageType
 
+
 export let store: StoreType = {
     _state: {
         profilePage: {

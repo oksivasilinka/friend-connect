@@ -9,14 +9,18 @@ import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {Sidebar} from "./Components/Sidebar/Sidebar";
-import {StoreType} from "./redux/state";
+import {ActionTypes, RootStateType, StoreType} from "./redux/store";
+import {store} from "./redux/store";
+
 
 type PropsType = {
+    state: RootStateType
+    dispatch: (action: ActionTypes) => void
     store: StoreType
 }
 
 const App = (props: PropsType) => {
-    const state = props.store.getState()
+    const state = store.getState()
 
     return (
         <BrowserRouter>
@@ -28,7 +32,7 @@ const App = (props: PropsType) => {
                            render={() =>
                                <Profile
                                    posts={state.profilePage.posts}
-                                   dispatch={props.store.dispatch.bind(props.store)}
+                                   dispatch={props.dispatch.bind(store)}
                                    newPostText={state.profilePage.newPostText}
                                />}/>
                     <Route path='/dialogs'
@@ -37,7 +41,7 @@ const App = (props: PropsType) => {
                                    dialogs={state.dialogsPage.dialogs}
                                    messages={state.dialogsPage.messages}
                                    newMessageText={state.dialogsPage.newMessageText}
-                                   dispatch={props.store.dispatch.bind(props.store)}
+                                   dispatch={props.dispatch.bind(store)}
                                />}/>
                     <Route path='/news'
                            render={() =>
