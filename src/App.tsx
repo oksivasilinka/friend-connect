@@ -3,14 +3,13 @@ import './App.css';
 import {Header} from "./Components/Header/Header";
 import {Nav} from "./Components/Nav/Nav";
 import {Profile} from "./Components/Profile/Profile";
-import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {Sidebar} from "./Components/Sidebar/Sidebar";
 import {ActionTypes, RootStateType, StoreType} from "./redux/store";
-import {store} from "./redux/store";
+import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 
 
 type PropsType = {
@@ -20,7 +19,6 @@ type PropsType = {
 }
 
 const App = (props: PropsType) => {
-    const state = store.getState()
 
     return (
         <BrowserRouter>
@@ -30,19 +28,12 @@ const App = (props: PropsType) => {
                 <div className='App-content'>
                     <Route path='/profile'
                            render={() =>
-                               <Profile
-                                   posts={state.profilePage.posts}
-                                   dispatch={props.dispatch.bind(store)}
-                                   newPostText={state.profilePage.newPostText}
+                               <Profile store={props.store}
                                />}/>
                     <Route path='/dialogs'
                            render={() =>
-                               <Dialogs
-                                   dialogs={state.dialogsPage.dialogs}
-                                   messages={state.dialogsPage.messages}
-                                   newMessageText={state.dialogsPage.newMessageText}
-                                   dispatch={props.dispatch.bind(store)}
-                               />}/>
+                               <DialogsContainer store={props.store}/>
+                           }/>
                     <Route path='/news'
                            render={() =>
                                <News/>}/>
