@@ -7,7 +7,7 @@ const UPDATE_NEW_POST = 'UPDATE-NEW-POST-TEXT';
 export type AddPostActionType = ReturnType<typeof addPostAC>
 export type UpdateNewPostTextActionType = ReturnType<typeof ChangeNewTextAC>
 
-export let initialState: {
+export let initialState: ProfilePageType = {
         posts: [
             {id: 1, message: 'Hello', likeCount: 20},
             {id: 2, message: 'Hi', likeCount: 10},

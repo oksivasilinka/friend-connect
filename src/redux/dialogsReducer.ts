@@ -7,7 +7,7 @@ const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
 export type AddNewMessageACType = ReturnType<typeof addNewMessageAC>
 export type ChangeNewMessageType = ReturnType<typeof ChangeNewMessageAC>
 
-let initialState: {
+let initialState: DialogsPageType =  {
     dialogs: [
         {id: 1, name: 'Oksana'},
         {id: 2, name: 'Vova'},

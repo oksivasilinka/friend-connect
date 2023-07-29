@@ -8,17 +8,9 @@ import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {Sidebar} from "./Components/Sidebar/Sidebar";
-import {ActionTypes, RootStateType, StoreType} from "./redux/store";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 
-
-type PropsType = {
-    state: RootStateType
-    dispatch: (action: ActionTypes) => void
-    store: StoreType
-}
-
-const App = (props: PropsType) => {
+const App = () => {
 
     return (
         <BrowserRouter>
@@ -28,11 +20,11 @@ const App = (props: PropsType) => {
                 <div className='App-content'>
                     <Route path='/profile'
                            render={() =>
-                               <Profile store={props.store}
+                               <Profile
                                />}/>
                     <Route path='/dialogs'
                            render={() =>
-                               <DialogsContainer store={props.store}/>
+                               <DialogsContainer/>
                            }/>
                     <Route path='/news'
                            render={() =>
