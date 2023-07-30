@@ -1,24 +1,39 @@
 import React from "react";
-import {addPostAC, ChangeNewTextAC} from "../../../redux/profileReducer";
+import {addPostAC, ChangeNewTextAC, PostsType} from "../../../redux/profileReducer";
 import {MyPosts} from "./MyPosts";
-import {store} from "../../../redux/redux-store";
-
-export const MyPostsContainer = () => {
-    let state = store.getState()
-    const addPost = () => {
-        store.dispatch(addPostAC(store.getState().profilePage.newPostText))
-    }
-
-    const onPostChange = (text: string) => {
-        store.dispatch(ChangeNewTextAC(text))
-    }
+import {AppRootStateType, store} from "../../../redux/redux-store";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
 
 
-    return <MyPosts
-        updateNewPostText={onPostChange}
-        addPost={addPost}
-        posts={state.profilePage.posts}
-        newPostText={state.profilePage.newPostText}
-    />
-
+export type ProfilePageType = {
+    posts: Array<PostsType>,
+    newPostText: string
 }
+
+type MapStateToPropsType = {
+    profilePage: ProfilePageType
+}
+
+type MapDispatchToPropsType = {
+    addPost: () => void,
+    updateNewPostText: (text: string) => void,
+}
+
+let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
+    return {
+        profilePage: state.profilePage,
+    }
+}
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+    return {
+        addPost:( ) => {
+            dispatch(addPostAC(store.getState().profilePage.newPostText))
+        },
+        updateNewPostText: (text: string) => {
+            dispatch(ChangeNewTextAC(text))
+        }
+    }
+}
+
+export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps) (MyPosts)
