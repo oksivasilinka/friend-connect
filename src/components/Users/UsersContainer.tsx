@@ -9,8 +9,6 @@ export type UserPageType = {
     users: UsersType[]
 }
 
-
-
 type MapStateToPropsType = {
     usersPage: UserPageType
 }
@@ -26,6 +24,7 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
         usersPage: state.usersPage
     }
 }
+
 let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         follow:(id: number) => {

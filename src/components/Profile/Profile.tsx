@@ -4,7 +4,6 @@ import {MyPostsContainer} from "./MyPosts/MyPosts.container";
 
 export const Profile = () => {
 
-
     return (
         <div>
             <ProfileInfo/>

@@ -71,7 +71,7 @@ export const Users = (props: UsersPropsType) => {
             {
                 props.usersPage.users.map(u =>
                     <div key={u.id}>
-                        <span>
+                        <div>
                             <div>
                                 <img className={s.photo} src={u.photoUrl} alt={''}/>
                             </div>
@@ -81,20 +81,17 @@ export const Users = (props: UsersPropsType) => {
                                     : <button onClick={() => {props.follow(u.id)}}>FOLLOW</button>
                                 }
                             </div>
-                        </span>
-
-                        <span>
-                            <span>
+                        </div>
+                        <div>
+                            <div>
                                 <div>{u.fullName}</div>
                                 <div>{u.status}</div>
-                            </span>
-
-                            <span>
+                            </div>
+                            <div>
                                     <div>{u.location.country}</div>
                                     <div>{u.location.city}</div>
-                            </span>
-
-                        </span>
+                            </div>
+                        </div>
                     </div>)
             }
         </div>

@@ -5,7 +5,6 @@ import {AppRootStateType, store} from "../../../redux/redux-store";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 
-
 export type ProfilePageType = {
     posts: Array<PostsType>,
     newPostText: string

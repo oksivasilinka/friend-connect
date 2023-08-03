@@ -24,6 +24,10 @@ export const MyPosts = (props: MyPostsPropsType) => {
         props.updateNewPostText(text)
     }
 
+    const removeText = () => {
+        props.updateNewPostText('')
+    }
+
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
@@ -34,8 +38,8 @@ export const MyPosts = (props: MyPostsPropsType) => {
                     />
                 </div>
                 <div>
-                    <button onClick={onAddPost}>add post</button>
-                    <button>remove</button>
+                    <button onClick={onAddPost}>Add post</button>
+                    <button onClick={removeText}>Remove</button>
                 </div>
             </div>
             <div className={s.posts}>
