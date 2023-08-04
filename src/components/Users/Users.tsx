@@ -12,47 +12,50 @@ type UsersPropsType = {
     setUsers: (users: UsersType[]) => void
 }
 
-export const Users = (props: UsersPropsType) => {
-    if (props.usersPage.users.length === 0) {
+export class Users extends React.Component<UsersPropsType, UsersType> {
+    constructor(props: UsersPropsType) {
+        super(props);
         axios.get('https://social-network.samuraijs.com/api/1.0/users')
             .then(res => {
-                props.setUsers(res.data.items)
+                this.props.setUsers(res.data.items)
             })
     }
 
-    return (
-        <div>
-            {
-                props.usersPage.users.map(u =>
-                    <div key={u.id}>
-                        <div>
+    render() {
+        return (
+            <div>
+                {
+                    this.props.usersPage.users.map(u =>
+                        <div key={u.id}>
                             <div>
-                                <img className={s.photo} src={u.photos.small != null ? u.photos.small : userPhoto}
-                                     alt={''}/>
+                                <div>
+                                    <img className={s.photo} src={u.photos.small != null ? u.photos.small : userPhoto}
+                                         alt={''}/>
+                                </div>
+                                <div>
+                                    {u.followed
+                                        ? <button onClick={() => {
+                                            this.props.unFollow(u.id)
+                                        }}>UNFOLLOW</button>
+                                        : <button onClick={() => {
+                                            this.props.follow(u.id)
+                                        }}>FOLLOW</button>
+                                    }
+                                </div>
                             </div>
                             <div>
-                                {u.followed
-                                    ? <button onClick={() => {
-                                        props.unFollow(u.id)
-                                    }}>UNFOLLOW</button>
-                                    : <button onClick={() => {
-                                        props.follow(u.id)
-                                    }}>FOLLOW</button>
-                                }
+                                <div>
+                                    <div>{u.name}</div>
+                                    <div>{u.status}</div>
+                                </div>
+                                <div>
+                                    <div>{'u.location.country'}</div>
+                                    <div>{'u.location.city'}</div>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <div>
-                                <div>{u.name}</div>
-                                <div>{u.status}</div>
-                            </div>
-                            <div>
-                                <div>{'u.location.country'}</div>
-                                <div>{'u.location.city'}</div>
-                            </div>
-                        </div>
-                    </div>)
-            }
-        </div>
-    )
+                        </div>)
+                }
+            </div>
+        )
+    }
 }
