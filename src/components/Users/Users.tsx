@@ -2,6 +2,8 @@ import React from "react";
 import {UsersType} from "../../redux/usersReducer";
 import s from './Users.module.css'
 import {UserPageType} from "./UsersContainer";
+import axios from "axios";
+import userPhoto from './../../assets/img/user.png'
 
 type UsersPropsType = {
     usersPage: UserPageType
@@ -12,58 +14,10 @@ type UsersPropsType = {
 
 export const Users = (props: UsersPropsType) => {
     if (props.usersPage.users.length === 0) {
-        props.setUsers([
-            {
-                id: 1,
-                photoUrl: 'https://oir.mobi/uploads/posts/2021-04/1619619348_59-oir_mobi-p-samie-milie-kotiki-zhivotnie-krasivo-foto-65.jpg',
-                followed: true,
-                fullName: 'Dmitry',
-                status: 'i am a boss',
-                location: {
-                    city: 'Minsk', country: 'Belarus'
-                }
-            },
-            {
-                id: 2,
-                photoUrl: 'https://oir.mobi/uploads/posts/2021-04/1619619348_59-oir_mobi-p-samie-milie-kotiki-zhivotnie-krasivo-foto-65.jpg',
-                followed: true,
-                fullName: 'Vova',
-                status: 'i am a boss',
-                location: {
-                    city: 'Minsk', country: 'Belarus'
-                }
-            },
-            {
-                id: 3,
-                photoUrl: 'https://oir.mobi/uploads/posts/2021-04/1619619348_59-oir_mobi-p-samie-milie-kotiki-zhivotnie-krasivo-foto-65.jpg',
-                followed: true,
-                fullName: 'Valera',
-                status: 'i am a cat',
-                location: {
-                    city: 'Minsk', country: 'Belarus'
-                }
-            },
-            {
-                id: 4,
-                photoUrl: 'https://oir.mobi/uploads/posts/2021-04/1619619348_59-oir_mobi-p-samie-milie-kotiki-zhivotnie-krasivo-foto-65.jpg',
-                followed: false,
-                fullName: 'Oksana',
-                status: 'i am a boss',
-                location: {
-                    city: 'Minsk', country: 'Belarus'
-                }
-            },
-            {
-                id: 5,
-                photoUrl: 'https://oir.mobi/uploads/posts/2021-04/1619619348_59-oir_mobi-p-samie-milie-kotiki-zhivotnie-krasivo-foto-65.jpg',
-                followed: false,
-                fullName: 'Dory',
-                status: 'i am a dog',
-                location: {
-                    city: 'Novopolotsk', country: 'Belarus'
-                }
-            },
-        ] )
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(res => {
+                props.setUsers(res.data.items)
+            })
     }
 
     return (
@@ -73,23 +27,28 @@ export const Users = (props: UsersPropsType) => {
                     <div key={u.id}>
                         <div>
                             <div>
-                                <img className={s.photo} src={u.photoUrl} alt={''}/>
+                                <img className={s.photo} src={u.photos.small != null ? u.photos.small : userPhoto}
+                                     alt={''}/>
                             </div>
                             <div>
                                 {u.followed
-                                    ? <button onClick={() => {props.unFollow(u.id)}}>UNFOLLOW</button>
-                                    : <button onClick={() => {props.follow(u.id)}}>FOLLOW</button>
+                                    ? <button onClick={() => {
+                                        props.unFollow(u.id)
+                                    }}>UNFOLLOW</button>
+                                    : <button onClick={() => {
+                                        props.follow(u.id)
+                                    }}>FOLLOW</button>
                                 }
                             </div>
                         </div>
                         <div>
                             <div>
-                                <div>{u.fullName}</div>
+                                <div>{u.name}</div>
                                 <div>{u.status}</div>
                             </div>
                             <div>
-                                    <div>{u.location.country}</div>
-                                    <div>{u.location.city}</div>
+                                <div>{'u.location.country'}</div>
+                                <div>{'u.location.city'}</div>
                             </div>
                         </div>
                     </div>)
