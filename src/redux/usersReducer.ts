@@ -35,7 +35,7 @@ export type ActionTypes = followACType | unFollowACType | setUsersACType | setCu
 export let initialState = {
     users: [] as Array<UsersType>,
     pageSize: 5,
-    totalUsersCount: 0,
+    totalCount: 0,
     currentPage: 1
 }
 
@@ -60,7 +60,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
         case SET_CURRENT_PAGE:
             return {...state, currentPage: action.currentPage}
         case SET_TOTAL_COUNT:
-            return {...state, totalUsersCount: action.count}
+            return {...state, totalCount: action.count}
         default:
             return state || initialState
     }
