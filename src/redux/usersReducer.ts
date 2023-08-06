@@ -34,7 +34,7 @@ export type ActionTypes = followACType | unFollowACType | setUsersACType | setCu
 
 export let initialState = {
     users: [] as Array<UsersType>,
-    pageSize: 5,
+    pageSize: 10,
     totalCount: 0,
     currentPage: 1
 }
