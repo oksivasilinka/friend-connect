@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {AppRootStateType} from "../../redux/redux-store";
+import {AppRootStateType} from "../../redux/store";
 import {
     follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unFollow, UsersType
 } from "../../redux/usersReducer";
