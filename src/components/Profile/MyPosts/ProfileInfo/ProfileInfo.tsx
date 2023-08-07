@@ -1,7 +1,17 @@
 import React from "react";
 import s from './ProfileInfo.module.css'
+import {ProfileType} from "../../../../redux/profileReducer";
+import {Preloader} from "../../../common/preloader/preloader";
 
-export const ProfileInfo = () => {
+
+export type ProfileInfo = {
+    profile: ProfileType | null
+}
+export const ProfileInfo = (props: ProfileInfo) => {
+    if (!props.profile) {
+        return <Preloader/>
+    }
+
     return (
         <div>
             <img
@@ -9,10 +19,42 @@ export const ProfileInfo = () => {
                 alt="'main"/>
             <div className={s.descriptionBlock}>
                 <img
-                    src="data:image/jpeg;base64,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"
+                    src={props.profile.photos.large}
                     alt="logo-main"/>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem illum ipsum laborum nisi odio quam quod.
-                Ad aperiam dolor incidunt quae sequi sint ut! Ex fugit hic sequi ut voluptas.
+                <div className={s.infoBlock}>
+                    <h2>{props.profile.fullName}</h2>
+                    <h4>Обо мне</h4>
+                    {props.profile.aboutMe}
+                    <h4>Поиск работы:</h4> {props.profile.lookingForAJob ? 'Ищу работу' : 'Не ищу работу'}
+                    <h4>Описание:</h4> {props.profile.lookingForAJobDescription}
+                    <div>
+                        <h4>Контакты:</h4>
+                        <div>facebook:
+                            {props.profile.contacts.facebook === null ? '-' : props.profile.contacts.facebook}
+                        </div>
+                        <div>website:
+                            {props.profile.contacts.website === null ? '-' : props.profile.contacts.website}
+                        </div>
+                        <div> vk:
+                            {props.profile.contacts.vk === null ? '-' : props.profile.contacts.vk}
+                        </div>
+                        <div> twitter:
+                            {props.profile.contacts.twitter === null ? '-' : props.profile.contacts.twitter}
+                        </div>
+                        <div> instagram:
+                            {props.profile.contacts.instagram === null ? '-' : props.profile.contacts.instagram}
+                        </div>
+                        <div> youtube:
+                            {props.profile.contacts.youtube === null ? '-' : props.profile.contacts.youtube}
+                        </div>
+                        <div> github:
+                            {props.profile.contacts.github === null ? '-' : props.profile.contacts.github}
+                        </div>
+                        <div> mainLink:
+                            {props.profile.contacts.mainLink === null ? '-' : props.profile.contacts.mainLink}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
