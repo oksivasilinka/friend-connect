@@ -2,6 +2,7 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/img/user.png";
 import React from "react";
 import {UserPageType} from "./UsersContainer";
+import {NavLink} from "react-router-dom";
 
 type UsersPropsType = {
     usersPage: UserPageType
@@ -39,8 +40,10 @@ export const Users = (props: UsersPropsType) => {
                     <div key={u.id}>
                         <div>
                             <div>
-                                <img className={s.photo} src={u.photos.small != null ? u.photos.small : userPhoto}
-                                     alt={''}/>
+                                <NavLink to={'/profile/' + u.id}>
+                                    <img className={s.photo} src={u.photos.small != null ? u.photos.small : userPhoto}
+                                         alt={'avatar'}/>
+                                </NavLink>
                             </div>
                             <div>
                                 {u.followed
