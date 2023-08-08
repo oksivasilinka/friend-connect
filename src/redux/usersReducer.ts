@@ -4,6 +4,7 @@ const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS';
 
 type LocationUsersType = {
     city: string
@@ -26,6 +27,7 @@ export type setUsersType = ReturnType<typeof setUsers>
 export type setCurrentPageType = ReturnType<typeof setCurrentPage>
 export type setTotalUsersCountType = ReturnType<typeof setTotalUsersCount>
 export type toggleIsFetchingType = ReturnType<typeof toggleIsFetching>
+export type toggleIsFollowingProgressType = ReturnType<typeof toggleIsFollowingProgress>
 export type InitialStateType = typeof initialState
 export type ActionTypes =
     followType
@@ -34,13 +36,15 @@ export type ActionTypes =
     | setCurrentPageType
     | setTotalUsersCountType
     | toggleIsFetchingType
+    | toggleIsFollowingProgressType
 
 export let initialState = {
     users: [] as Array<UsersType>,
     pageSize: 10,
     totalCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: [] as number[]
 }
 
 export const usersReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
@@ -57,6 +61,11 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             return {...state, totalCount: action.count}
         case TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching}
+        case TOGGLE_IS_FOLLOWING_PROGRESS:
+            return {
+                ...state,
+                followingInProgress: action.isFetching ? [...state.followingInProgress, action.id] : state.followingInProgress.filter(id => id !== action.id)
+            }
         default:
             return state || initialState
     }
@@ -73,3 +82,6 @@ export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE,
 export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_COUNT, count: totalCount}) as const
 
 export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching}) as const
+
+export const toggleIsFollowingProgress = (isFetching: boolean, id: number) =>
+    ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, id}) as const

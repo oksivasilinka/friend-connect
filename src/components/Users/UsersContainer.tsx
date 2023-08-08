@@ -2,11 +2,18 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
 import {
-    follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unFollow, UsersType
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    toggleIsFollowingProgress,
+    unFollow,
+    UsersType
 } from "../../redux/usersReducer";
-import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/preloader";
+import {usersAPI} from "../../api/api";
 
 export type UserPageType = {
     users: UsersType[]
@@ -18,6 +25,7 @@ type MapStateToPropsType = {
     totalCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: number[]
 }
 
 let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
@@ -26,15 +34,16 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         totalCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
 
 type UsersApiPropsType = {
     usersPage: UserPageType
-    follow: (id: any) => void,
-    unFollow: (id: any) => void,
+    follow: (id: number) => void,
+    unFollow: (id: number) => void,
     setUsers: (users: UsersType[]) => void
     pageSize: number
     totalCount: number
@@ -43,27 +52,27 @@ type UsersApiPropsType = {
     setTotalUsersCount: (totalCount: number) => void
     isFetching: boolean
     toggleIsFetching: (isFetching: boolean) => void
+    toggleIsFollowingProgress: (isFetching: boolean, id: number) => void
+    followingInProgress: number[]
 }
 
 class UsersAPIComponent extends React.Component<UsersApiPropsType, UsersType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true, headers: {'API-KEY':'b8ffb6e7-45c3-4a90-bff5-2d282762bc9f'}})
-            .then(res => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(res.data.items)
-                this.props.setTotalUsersCount(res.data.totalCount)
-            })
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+            this.props.toggleIsFetching(false)
+            this.props.setUsers(data.items)
+            this.props.setTotalUsersCount(data.totalCount)
+        })
     }
 
     onPageChanged = (page: number) => {
         this.props.setCurrentPage(page)
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, {withCredentials: true, headers: {'API-KEY':'b8ffb6e7-45c3-4a90-bff5-2d282762bc9f'}})
-            .then(res => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(res.data.items)
-            })
+        usersAPI.getUsers(page, this.props.pageSize).then(data => {
+            this.props.toggleIsFetching(false)
+            this.props.setUsers(data.items)
+        })
     }
 
     render() {
@@ -77,6 +86,8 @@ class UsersAPIComponent extends React.Component<UsersApiPropsType, UsersType> {
                 onPageChanged={this.onPageChanged}
                 follow={this.props.follow}
                 unFollow={this.props.unFollow}
+                toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
+                followingInProgress={this.props.followingInProgress}
             />
         </>
     }
@@ -88,6 +99,7 @@ export const UsersContainer = connect(mapStateToProps, {
         setUsers,
         setCurrentPage,
         setTotalUsersCount,
-        toggleIsFetching
+        toggleIsFetching,
+        toggleIsFollowingProgress
     }
 )(UsersAPIComponent)
