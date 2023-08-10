@@ -10,24 +10,15 @@ export const usersAPI = {
     getUsers: (currentPage: number, pageSize: number) => {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(res => res.data)
-    }
-}
-
-export const userProfileAPI = {
+    },
     getUserProfile: (userId: string) => {
         return instance.get(`profile/${userId}`)
             .then(res => res.data)
-    }
-}
-
-export const authMeAPI = {
+    },
     getAuthMe: () => {
         return instance.get(`auth/me`)
             .then(res => res.data)
-    }
-}
-
-export const followAPI = {
+    },
     followUser: (userId: number) => {
         return instance.post(`follow/${userId}`, {})
             .then(res => res.data)

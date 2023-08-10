@@ -53,41 +53,19 @@ export let initialState = {
 export const profileReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
         case ADD_POST:
-            const newPost = {
-                id: new Date().getTime(),
-                message: state.newPostText,
-                likeCount: 0
-            }
-            return {
-                ...state,
-                posts: [...state.posts, newPost],
-                newPostText: ''
-            };
+            const newPost = {id: new Date().getTime(), message: state.newPostText, likeCount: 0}
+            return {...state, posts: [...state.posts, newPost], newPostText: ''};
         case UPDATE_NEW_POST:
-            return {
-                ...state,
-                newPostText: action.postText
-            };
+            return {...state, newPostText: action.postText};
         case SET_USER_PROFILE:
-            return {
-                ...state, profile: action.profile
-            }
+            return {...state, profile: action.profile}
         default:
             return state || initialState
     }
 }
 
-export const addPostAC = (postText: string) => ({
-    type: ADD_POST,
-    newPostText: postText
-}) as const
+export const addPostAC = (postText: string) => ({type: ADD_POST, newPostText: postText}) as const
 
-export const changeNewTextAC = (postText: string) => ({
-    type: UPDATE_NEW_POST,
-    postText
-}) as const
+export const changeNewTextAC = (postText: string) => ({type: UPDATE_NEW_POST, postText}) as const
 
-export const setUserProfile = (profile: any) => ({
-    type: SET_USER_PROFILE,
-    profile
-}) as const
+export const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profile}) as const
