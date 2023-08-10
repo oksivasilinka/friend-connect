@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
@@ -31,16 +34,15 @@ export type PostsType = {
     likeCount: number
 }
 
+type AddPostACType = ReturnType<typeof addPostAC>
+type UpdateNewPostTextACType = ReturnType<typeof changeNewTextAC>
+type setUserProfileACType = ReturnType<typeof setUserProfile>
 
-export type AddPostACType = ReturnType<typeof addPostAC>
-export type UpdateNewPostTextACType = ReturnType<typeof changeNewTextAC>
-export type setUserProfileACType = ReturnType<typeof setUserProfile>
+type InitialStateType = typeof initialState
 
-export type InitialStateType = typeof initialState
+type ActionTypes = AddPostACType | UpdateNewPostTextACType | setUserProfileACType
 
-export type ActionTypes = AddPostACType | UpdateNewPostTextACType | setUserProfileACType
-
-export let initialState = {
+let initialState = {
     posts: [
         {id: 1, message: 'Hello', likeCount: 20},
         {id: 2, message: 'Hi', likeCount: 10},
@@ -65,7 +67,11 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 }
 
 export const addPostAC = (postText: string) => ({type: ADD_POST, newPostText: postText}) as const
-
 export const changeNewTextAC = (postText: string) => ({type: UPDATE_NEW_POST, postText}) as const
+const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profile}) as const
 
-export const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profile}) as const
+export const getProfile = (id: string) => (dispatch: Dispatch) => {
+    usersAPI.getUserProfile(id).then(data => {
+        dispatch(setUserProfile(data))
+    })
+}
