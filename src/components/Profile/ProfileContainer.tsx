@@ -7,6 +7,7 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 
 type MapStateToPropsType = {
     profile: ProfileType | null
+    isAuth: boolean
 }
 type MapDispatchToPropsType = {
     getProfile: (id: string) => void
@@ -33,7 +34,8 @@ export class ProfileAPIContainer extends React.Component<PropsType, ProfileType>
 }
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
 })
 
 const WithUrlDataContainerComponent = withRouter(ProfileAPIContainer)
