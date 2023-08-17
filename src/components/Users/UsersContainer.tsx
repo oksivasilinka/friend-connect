@@ -4,6 +4,7 @@ import {AppRootStateType} from "../../redux/store";
 import {follow, getUsers, setCurrentPage, unFollow, UsersType} from "../../redux/usersReducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/preloader";
+import {compose} from "redux";
 
 export type UserPageType = {
     users: UsersType[]
@@ -68,11 +69,6 @@ class UsersAPIComponent extends React.Component<UsersApiPropsType, UsersType> {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, {
-        follow,
-        unFollow,
-        setCurrentPage,
-        getUsers,
-
-    }
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {follow, unFollow, setCurrentPage, getUsers,})
 )(UsersAPIComponent)
