@@ -7,6 +7,8 @@ import {ProfileStatus} from "./ProfileStatus";
 
 export type ProfileInfo = {
     profile: ProfileType | null
+    status: string
+    updateStatus: (status: string) => void
 }
 export const ProfileInfo = (props: ProfileInfo) => {
     if (!props.profile) {
@@ -15,9 +17,6 @@ export const ProfileInfo = (props: ProfileInfo) => {
 
     return (
         <div>
-            {/*<img*/}
-            {/*    src="https://thumbs.dreamstime.com/b/%D1%88%D0%B8%D1%80%D0%BE%D0%BA%D0%B0%D1%8F-%D0%BF%D0%B0%D0%BD%D0%BE%D1%80%D0%B0%D0%BC%D0%B0-%D0%B4%D0%BE%D1%80%D0%BE%D0%B3%D0%B8-%D0%B0%D1%81%D1%84%D0%B0%D0%BB%D1%8C%D1%82%D0%B0-%D0%B2-%D1%81%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%BE%D0%B9-%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B9-%D0%B4%D0%B5%D0%BD%D1%8C-%D0%BD%D0%B0-214241529.jpg"*/}
-            {/*    alt="'main"/>*/}
             <div className={s.descriptionBlock}>
                 <img
                     src={props.profile.photos.large}
@@ -25,8 +24,7 @@ export const ProfileInfo = (props: ProfileInfo) => {
                 <div className={s.infoBlock}>
                     <h2>{props.profile.fullName}</h2>
 
-
-                    <ProfileStatus status={'dskfjsdfa'}/>
+                    <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
 
                     <h4>Обо мне</h4>
                     {props.profile.aboutMe}
@@ -62,6 +60,5 @@ export const ProfileInfo = (props: ProfileInfo) => {
                 </div>
             </div>
         </div>
-
     )
 }
