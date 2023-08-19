@@ -32,6 +32,13 @@ export class ProfileStatus extends React.Component <ProfileStatusPropsType> {
         })
     }
 
+    componentDidUpdate(prevProps: ProfileStatusPropsType, prevState: ProfileStatusPropsType) {
+        if (prevProps.status !== this.props.status)
+            this.setState({
+                status: this.props.status
+            })
+    }
+
     render() {
         return (
             <div>
