@@ -39,3 +39,4 @@ export const ProfileAPI = {
             .then(res => res.data)
     },
 }
+
