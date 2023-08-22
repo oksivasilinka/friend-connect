@@ -1,7 +1,4 @@
-
 const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE';
-const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE'
-
 
 export type MessagesType = {
     id: number
@@ -12,12 +9,10 @@ export type DialogsType = {
     name: string
 }
 
-export type AddNewMessageACType = ReturnType<typeof addNewMessageAC>
-export type ChangeNewMessageType = ReturnType<typeof ChangeNewMessageAC>
 export type InitialStateType = typeof initialState
-export type ActionTypes = AddNewMessageACType | ChangeNewMessageType
+export type ActionTypes = ReturnType<typeof addNewMessageAC>
 
-let initialState =  {
+let initialState = {
     dialogs: [
         {id: 1, name: 'Oksana'},
         {id: 2, name: 'Vova'},
@@ -32,38 +27,19 @@ let initialState =  {
         {id: 4, message: 'nice'},
         {id: 5, message: 'ok'},
     ] as Array<MessagesType>,
-    newMessageText: ''
 }
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
         case ADD_NEW_MESSAGE:
-            const newMessage = {
-                id: new Date().getTime(),
-                message: state.newMessageText,
-            }
-            return {
-                ...state,
-                messages: [...state.messages, newMessage],
-                newMessageText: ''
-            };
-        case UPDATE_NEW_MESSAGE :
-            return {
-                ...state,
-                newMessageText: action.messageText
-            };
+            const newMessage = {id: new Date().getTime(), message: action.newMessageText}
+            return {...state, messages: [...state.messages, newMessage],};
         default:
             return state || initialState
     }
 }
 
-export const addNewMessageAC = (messageText: string) => ({
-    type: ADD_NEW_MESSAGE,
-    newMessageText: messageText
-}) as const
+export const addNewMessageAC = (newMessageText: string) => ({type: ADD_NEW_MESSAGE, newMessageText}) as const
 
-export const ChangeNewMessageAC = (messageText: string) => ({
-    type: UPDATE_NEW_MESSAGE,
-    messageText: messageText
-}) as const
+
 
