@@ -1,4 +1,4 @@
-export const requiredField = (value: any) => {
+export const requiredField = (value: string | null) => {
     if (!!value) {
         return undefined
     } else {
@@ -6,7 +6,7 @@ export const requiredField = (value: any) => {
     }
 }
 
-export const maxLengthCreator = (maxLength: number) => (value: any) => {
+export const maxLengthCreator = (maxLength: number) => (value: string) => {
     if (value.length > maxLength) {
         return `Max length is ${maxLength} symbols`
     } else {
