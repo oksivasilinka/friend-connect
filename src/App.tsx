@@ -8,9 +8,9 @@ import {Settings} from "./Components/Settings/Settings";
 import {Sidebar} from "./Components/Sidebar/Sidebar";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import {HeaderContainer} from "./Components/Header/HeaderContainer";
-import {Login} from "./Components/login/Login";
 import UsersContainer from "./Components/Users/UsersContainer";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import Login from "./Components/login/Login";
 
 const App = () => {
 

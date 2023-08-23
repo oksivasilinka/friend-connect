@@ -53,9 +53,9 @@ export let initialState = {
 export const usersReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
         case FOLLOW :
-            return {...state, users: state.users.map(u => u.id === action.id ? {...u, followed: true} : u)}
-        case UNFOLLOW:
             return {...state, users: state.users.map(u => u.id === action.id ? {...u, followed: false} : u)}
+        case UNFOLLOW:
+            return {...state, users: state.users.map(u => u.id === action.id ? {...u, followed: true} : u)}
         case SET_USERS:
             return {...state, users: [...action.users]}
         case SET_CURRENT_PAGE:
@@ -87,10 +87,10 @@ export const toggleIsFollowingProgress = (isFetching: boolean, id: number) =>
 export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(true))
     usersAPI.getUsers(currentPage, pageSize)
-        .then(data => {
+        .then(res => {
         dispatch(toggleIsFetching(false))
-        dispatch(setUsers(data.items))
-        dispatch(setTotalUsersCount(data.totalCount))
+        dispatch(setUsers(res.data.items))
+        dispatch(setTotalUsersCount(res.data.totalCount))
     })
 }
 
