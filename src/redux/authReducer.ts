@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 import {AppRootStateType} from "./store";
 import {ThunkDispatch} from "redux-thunk";
+import {FormAction, stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET-USER-DATA';
 const LOGOUT_USER_DATA = 'LOGOUT_USER_DATA';
@@ -12,16 +13,16 @@ type InitialStateType = typeof initialState
 type ActionTypes = setUserDataType | logOutUserType
 
 export type DataType = {
-    id: any
-    login: any
-    email: any
+    id: string | null
+    login: string | null
+    email: string | null
     isAuth: boolean
 }
 
 let initialState = {
-    id: null,
-    login: null,
-    email: null,
+    id: null as string | null,
+    login: null as string | null,
+    email: null as string | null,
     isAuth: false
 }
 
@@ -48,11 +49,15 @@ export const getAuthMe = () => (dispatch: Dispatch) => {
     });
 }
 
-export const login = (email: string, password: string, rememberMe: boolean = true) => (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionTypes>) => {
+export const login = (email: string, password: string, rememberMe: boolean = true) => (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionTypes | FormAction>) => {
+
     usersAPI.loginUser(email, password, rememberMe)
         .then((res) => {
         if (res.data.resultCode === 0) {
             dispatch(getAuthMe())
+        } else {
+            let message = res.data.messages.length > 0 ? res.data.messages : 'Some error'
+            dispatch(stopSubmit('login', {_error: message}))
         }
     });
 }
