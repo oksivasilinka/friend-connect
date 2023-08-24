@@ -13,9 +13,24 @@
 
 .loginBlock {
     float: right;
+    padding: 15px;
 }
 
 .loginBlock a{
     color: white;
     text-decoration: none;
 }
+
+.login {
+    color: white;
+}
+
+.button {
+    width: 80px;
+    height: 30px;
+    background-color: lavender;
+    border: none;
+    color: darkslategray;
+    margin-left: 10px;
+}
+
