@@ -7,8 +7,8 @@ import {FormAction, stopSubmit} from "redux-form";
 const SET_USER_DATA = 'SET-USER-DATA';
 const LOGOUT_USER_DATA = 'LOGOUT_USER_DATA';
 
-type setUserDataType = ReturnType<typeof setUserData>
-type logOutUserType = ReturnType<typeof logOutUser>
+export type setUserDataType = ReturnType<typeof setUserData>
+export type logOutUserType = ReturnType<typeof logOutUser>
 type InitialStateType = typeof initialState
 type ActionTypes = setUserDataType | logOutUserType
 
