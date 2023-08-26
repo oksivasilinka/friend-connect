@@ -5,6 +5,13 @@ import {follow, getUsers, setCurrentPage, unFollow, UsersType} from "../../redux
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/preloader";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount, getUsersPage
+} from "../../redux/usersSelectors";
 
 export type UserPageType = {
     users: UsersType[]
@@ -21,12 +28,12 @@ type MapStateToPropsType = {
 
 let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
-        usersPage: state.usersPage,
-        pageSize: state.usersPage.pageSize,
-        totalCount: state.usersPage.totalCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        usersPage: getUsersPage(state),
+        pageSize: getPageSize(state),
+        totalCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
     }
 }
 
