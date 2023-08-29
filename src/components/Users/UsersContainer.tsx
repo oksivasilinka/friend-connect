@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
-import {follow, getUsers, setCurrentPage, unFollow, UsersType} from "../../redux/usersReducer";
+import {follow, getUsersTC, setCurrentPage, unFollow, UsersType} from "../../redux/usersReducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/preloader";
 import {compose} from "redux";
@@ -10,7 +10,7 @@ import {
     getFollowingInProgress,
     getIsFetching,
     getPageSize,
-    getTotalUsersCount, getUsersPage
+    getTotalUsersCount, getUsers,
 } from "../../redux/usersSelectors";
 
 export type UserPageType = {
@@ -18,7 +18,7 @@ export type UserPageType = {
 }
 
 type MapStateToPropsType = {
-    usersPage: UserPageType
+    users: UsersType[]
     pageSize: number
     totalCount: number
     currentPage: number
@@ -28,7 +28,7 @@ type MapStateToPropsType = {
 
 let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
-        usersPage: getUsersPage(state),
+        users: getUsers(state),
         pageSize: getPageSize(state),
         totalCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
@@ -38,7 +38,7 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 }
 
 type UsersApiPropsType = {
-    usersPage: UserPageType
+    users: UsersType[]
     follow: (id: number) => void,
     unFollow: (id: number) => void,
     pageSize: number
@@ -63,7 +63,7 @@ class UsersAPIComponent extends React.Component<UsersApiPropsType, UsersType> {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
             <Users
-                usersPage={this.props.usersPage}
+                users={this.props.users}
                 pageSize={this.props.pageSize}
                 totalCount={this.props.totalCount}
                 currentPage={this.props.currentPage}
@@ -77,5 +77,5 @@ class UsersAPIComponent extends React.Component<UsersApiPropsType, UsersType> {
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {follow, unFollow, setCurrentPage, getUsers,})
+    connect(mapStateToProps, {follow, unFollow, setCurrentPage, getUsers: getUsersTC,})
 )(UsersAPIComponent)

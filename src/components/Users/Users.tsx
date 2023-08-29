@@ -1,11 +1,11 @@
 import s from "./Users.module.css";
 import userPhoto from "../../assets/img/user.png";
 import React from "react";
-import {UserPageType} from "./UsersContainer";
 import {NavLink} from "react-router-dom";
+import {UsersType} from "../../redux/usersReducer";
 
 type UsersPropsType = {
-    usersPage: UserPageType
+    users: UsersType[]
     pageSize: number
     totalCount: number
     currentPage: number
@@ -37,7 +37,7 @@ export const Users = (props: UsersPropsType) => {
                 })}
             </div>
             {
-                props.usersPage.users.map(u =>
+                props.users.map(u =>
                     <div key={u.id}>
                         <div>
                             <div>
