@@ -5,12 +5,9 @@ import {AppRootStateType} from "../../../redux/store";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 
-export type ProfilePageType = {
-    posts: Array<PostsType>,
-}
 
 type MapStateToPropsType = {
-    profilePage: ProfilePageType
+    posts: PostsType[]
 }
 
 type MapDispatchToPropsType = {
@@ -19,7 +16,7 @@ type MapDispatchToPropsType = {
 
 let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
-        profilePage: state.profilePage,
+        posts: state.profilePage.posts
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
