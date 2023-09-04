@@ -4,6 +4,7 @@ import {ProfileAPI} from "../api/api";
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_STATUS = 'SET-STATUS';
+const DELETE_POST = 'DELETE-POST';
 
 
 export type ProfileType = {
@@ -35,12 +36,13 @@ export type PostsType = {
 }
 
 type AddPostACType = ReturnType<typeof addPostAC>
-type setUserProfileACType = ReturnType<typeof setUserProfile>
-type setStatusACType = ReturnType<typeof setStatus>
+type SetUserProfileACType = ReturnType<typeof setUserProfile>
+type SetStatusACType = ReturnType<typeof setStatus>
+type DeletePostACType = ReturnType<typeof deletePostAC>
 
 type InitialStateType = typeof initialState
 
-type ActionTypes = AddPostACType | setUserProfileACType | setStatusACType
+type ActionTypes = AddPostACType | SetUserProfileACType | SetStatusACType | DeletePostACType
 
 let initialState = {
     posts: [
@@ -57,6 +59,8 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
         case ADD_POST:
             const newPost = {id: new Date().getTime(), message: action.newPostText, likeCount: 0}
             return {...state, posts: [...state.posts, newPost]};
+        case DELETE_POST:
+            return {...state, posts: state.posts.filter(el => el.id != action.id)};
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
         case SET_STATUS:
@@ -67,8 +71,9 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 }
 
 export const addPostAC = (postText: string) => ({type: ADD_POST, newPostText: postText}) as const
-const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profile}) as const
-const setStatus = (status: string) => ({type: SET_STATUS, status}) as const
+export const setUserProfile = (profile: any) => ({type: SET_USER_PROFILE, profile}) as const
+export const setStatus = (status: string) => ({type: SET_STATUS, status}) as const
+export const deletePostAC = (id: number) => ({type: DELETE_POST, id}) as const
 
 export const getProfile = (id: string) => (dispatch: Dispatch) => {
     ProfileAPI.getUserProfile(id)
