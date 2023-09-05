@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Nav} from "./Components/Nav/Nav";
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {Route, withRouter} from "react-router-dom";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
@@ -33,7 +33,6 @@ class App extends React.Component<PropsType> {
             return <Preloader/>
         }
         return (
-            <BrowserRouter>
                 <div className="App">
                     <HeaderContainer/>
                     <Nav/>
@@ -48,7 +47,6 @@ class App extends React.Component<PropsType> {
                     </div>
                     <Sidebar/>
                 </div>
-            </BrowserRouter>
         );
     }
 }

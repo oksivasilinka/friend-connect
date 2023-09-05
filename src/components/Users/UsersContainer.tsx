@@ -6,16 +6,9 @@ import {Users} from "./Users";
 import {Preloader} from "../common/preloader/preloader";
 import {compose} from "redux";
 import {
-    getCurrentPage,
-    getFollowingInProgress,
-    getIsFetching,
-    getPageSize,
-    getTotalUsersCount, getUsers,
+    getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers,
 } from "../../redux/usersSelectors";
 
-export type UserPageType = {
-    users: UsersType[]
-}
 
 type MapStateToPropsType = {
     users: UsersType[]
@@ -37,7 +30,7 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     }
 }
 
-type UsersApiPropsType = {
+type UsersPagePropsType = {
     users: UsersType[]
     follow: (id: number) => void,
     unFollow: (id: number) => void,
@@ -50,13 +43,16 @@ type UsersApiPropsType = {
     getUsers: (currentPage: number, pageSize: number) => void
 }
 
-class UsersAPIComponent extends React.Component<UsersApiPropsType, UsersType> {
+class UsersPage extends React.Component<UsersPagePropsType, UsersType> {
+
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        const {getUsers, currentPage, pageSize} = this.props
+        getUsers(currentPage, pageSize)
     }
 
     onPageChanged = (page: number) => {
-        this.props.getUsers(page, this.props.pageSize)
+        const {getUsers, pageSize} = this.props
+        getUsers(page, pageSize)
     }
 
     render() {
@@ -78,4 +74,4 @@ class UsersAPIComponent extends React.Component<UsersApiPropsType, UsersType> {
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {follow, unFollow, setCurrentPage, getUsers: getUsersTC,})
-)(UsersAPIComponent)
+)(UsersPage)

@@ -19,14 +19,12 @@ type PropsType = {
     isAuth: boolean
 }
 
-const Login = (props: PropsType) => {
+const Login: React.FC<PropsType> = ({login, isAuth}) => {
     const onSubmit = (formData: FormDataType) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        login(formData.email, formData.password, formData.rememberMe)
     }
-
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={"/profile"}/>
-
     }
     return (
         <div>
@@ -34,23 +32,32 @@ const Login = (props: PropsType) => {
             <LoginReduxForm onSubmit={onSubmit}/>
         </div>
     )
-
 }
 
-export const LoginForm = (props: InjectedFormProps<FormDataType>) => {
+
+export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
-                <Field placeholder="Email" name={'email'} component={Input} validate={[requiredField]}/>
-            </div>
-            <div>
-                <Field placeholder="Password" name={'password'} type={'password'} component={Input}
+                <Field placeholder="Email"
+                       name={'email'}
+                       component={Input}
                        validate={[requiredField]}/>
             </div>
             <div>
-                <Field type="checkbox" name={'rememberMe'} component={Input}/> remember me
+                <Field placeholder="Password"
+                       name={'password'}
+                       type={'password'}
+                       component={Input}
+                       validate={[requiredField]}/>
             </div>
-            {props.error && <div className={s.formSummaryError}> {props.error} </div>}
+            <div>
+                <Field type="checkbox"
+                       name={'rememberMe'}
+                       component={Input}/>
+                remember me
+            </div>
+            {error && <div className={s.formSummaryError}> {error} </div>}
             <div>
                 <button>login</button>
             </div>
@@ -58,8 +65,8 @@ export const LoginForm = (props: InjectedFormProps<FormDataType>) => {
     )
 }
 
-const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
+const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
 type MapStateToPropsType = {
     isAuth: boolean
@@ -69,7 +76,6 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         isAuth: state.auth.isAuth
     }
-
 }
 
 export default connect(mapStateToProps, {login})(Login)

@@ -1,11 +1,10 @@
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
-import {AppRootStateType} from "./store";
-import {ThunkDispatch} from "redux-thunk";
-import {FormAction, stopSubmit} from "redux-form";
+import {ThunkType} from "./store";
+import {stopSubmit} from "redux-form";
 
-const SET_USER_DATA = 'SET-USER-DATA';
-const LOGOUT_USER_DATA = 'LOGOUT_USER_DATA';
+const SET_USER_DATA = 'samurai-network/auth/SET-USER-DATA';
+const LOGOUT_USER_DATA = 'samurai-network/auth/LOGOUT_USER_DATA';
 
 export type setUserDataType = ReturnType<typeof setUserData>
 export type logOutUserType = ReturnType<typeof logOutUser>
@@ -37,39 +36,35 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
     }
 }
 
-const setUserData = (data: DataType) => ({type: SET_USER_DATA, data }) as const
+const setUserData = (data: DataType) => ({type: SET_USER_DATA, data}) as const
 const logOutUser = (data: DataType) => ({type: LOGOUT_USER_DATA, data}) as const
 
-export const getAuthMe = () => (dispatch: Dispatch) => {
-    usersAPI.getAuthMe()
-        .then((res) => {
-        if (res.data.resultCode === 0) {
-            dispatch(setUserData(res.data.data))
-        }
-    });
+export const getAuthMe = () => async (dispatch: Dispatch) => {
+    let res = await usersAPI.getAuthMe()
+    if (res.data.resultCode === 0) {
+        dispatch(setUserData(res.data.data))
+    }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean = true) => (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionTypes | FormAction>) => {
+export const login = (email: string, password: string, rememberMe: boolean = true) => async (dispatch: ThunkType) => {
 
-    usersAPI.loginUser(email, password, rememberMe)
-        .then((res) => {
-        if (res.data.resultCode === 0) {
-            dispatch(getAuthMe())
-        } else {
-            let message = res.data.messages.length > 0 ? res.data.messages : 'Some error'
-            dispatch(stopSubmit('login', {_error: message}))
-        }
-    });
+    let res = await usersAPI.loginUser(email, password, rememberMe)
+            if (res.data.resultCode === 0) {
+                await dispatch(getAuthMe())
+            } else {
+                let message = res.data.messages.length > 0 ? res.data.messages : 'Some error'
+                dispatch(stopSubmit('login', {_error: message}))
+            }
 }
 
-export const logOut = () => (dispatch: Dispatch) => {
-    usersAPI.logOut()
-        .then((res) => {
-        if (res.data.resultCode === 0) {
-            dispatch(logOutUser({id: null,
-                login: null,
-                email: null,
-                isAuth: false}))
-        }
-    });
+export const logOut = () => async (dispatch: Dispatch) => {
+    let res = await usersAPI.logOut()
+            if (res.data.resultCode === 0) {
+                dispatch(logOutUser({
+                    id: null,
+                    login: null,
+                    email: null,
+                    isAuth: false
+                }))
+            }
 }
