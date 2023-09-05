@@ -10,51 +10,49 @@ export type ProfileInfo = {
     status: string
     updateStatus: (status: string) => void
 }
-export const ProfileInfo = (props: ProfileInfo) => {
-    if (!props.profile) {
-        return <Preloader/>
-    }
+export const ProfileInfo: React.FC<ProfileInfo> = ({profile, status, updateStatus}) => {
+    if (!profile) return <Preloader/>
 
     return (
         <div>
             <div className={s.descriptionBlock}>
                 <img
-                    src={props.profile.photos.large}
+                    src={profile.photos.large}
                     alt="logo-main"/>
                 <div className={s.infoBlock}>
-                    <h2>{props.profile.fullName}</h2>
+                    <h2>{profile.fullName}</h2>
 
-                    <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
+                    <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
 
                     <h4>Обо мне</h4>
-                    {props.profile.aboutMe}
-                    <h4>Поиск работы:</h4> {props.profile.lookingForAJob ? 'Ищу работу' : 'Не ищу работу'}
-                    <h4>Описание:</h4> {props.profile.lookingForAJobDescription}
+                    {profile.aboutMe}
+                    <h4>Поиск работы:</h4> {profile.lookingForAJob ? 'Ищу работу' : 'Не ищу работу'}
+                    <h4>Описание:</h4> {profile.lookingForAJobDescription}
                     <div>
                         <h4>Контакты:</h4>
                         <div>facebook:
-                            {props.profile.contacts.facebook === null ? '-' : props.profile.contacts.facebook}
+                            {profile.contacts.facebook === null ? '-' : profile.contacts.facebook}
                         </div>
                         <div>website:
-                            {props.profile.contacts.website === null ? '-' : props.profile.contacts.website}
+                            {profile.contacts.website === null ? '-' : profile.contacts.website}
                         </div>
                         <div> vk:
-                            {props.profile.contacts.vk === null ? '-' : props.profile.contacts.vk}
+                            {profile.contacts.vk === null ? '-' : profile.contacts.vk}
                         </div>
                         <div> twitter:
-                            {props.profile.contacts.twitter === null ? '-' : props.profile.contacts.twitter}
+                            {profile.contacts.twitter === null ? '-' : profile.contacts.twitter}
                         </div>
                         <div> instagram:
-                            {props.profile.contacts.instagram === null ? '-' : props.profile.contacts.instagram}
+                            {profile.contacts.instagram === null ? '-' : profile.contacts.instagram}
                         </div>
                         <div> youtube:
-                            {props.profile.contacts.youtube === null ? '-' : props.profile.contacts.youtube}
+                            {profile.contacts.youtube === null ? '-' : profile.contacts.youtube}
                         </div>
                         <div> github:
-                            {props.profile.contacts.github === null ? '-' : props.profile.contacts.github}
+                            {profile.contacts.github === null ? '-' : profile.contacts.github}
                         </div>
                         <div> mainLink:
-                            {props.profile.contacts.mainLink === null ? '-' : props.profile.contacts.mainLink}
+                            {profile.contacts.mainLink === null ? '-' : profile.contacts.mainLink}
                         </div>
                     </div>
                 </div>
