@@ -49,7 +49,7 @@ let initialState = {
         {id: 1, message: 'Hello', likeCount: 20},
         {id: 2, message: 'Hi', likeCount: 10},
         {id: 3, message: 'How are You', likeCount: 15},
-    ] as Array<PostsType>,
+    ] as PostsType[],
     profile: null,
     status: ''
 }

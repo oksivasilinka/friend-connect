@@ -19,21 +19,21 @@ let initialState = {
         {id: 3, name: 'Valera'},
         {id: 4, name: 'Masha'},
         {id: 5, name: 'Olya'},
-    ] as Array<DialogsType>,
+    ] as DialogsType[],
     messages: [
         {id: 1, message: 'Hello'},
         {id: 2, message: 'Hi'},
         {id: 3, message: 'How are You'},
         {id: 4, message: 'nice'},
         {id: 5, message: 'ok'},
-    ] as Array<MessagesType>,
+    ] as MessagesType[],
 }
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
         case ADD_NEW_MESSAGE:
             const newMessage = {id: new Date().getTime(), message: action.newMessageText}
-            return {...state, messages: [...state.messages, newMessage],};
+            return {...state, messages: [...state.messages, newMessage]};
         default:
             return state || initialState
     }

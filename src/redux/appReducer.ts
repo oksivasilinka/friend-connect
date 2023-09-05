@@ -22,7 +22,6 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 const initializedSuccess = () => ({type: INITIALIZED_SUCCESS}) as const
 
 
-
 export const initializeApp = () => async (dispatch: ThunkType) => {
     await dispatch(getAuthMe());
     dispatch(initializedSuccess());

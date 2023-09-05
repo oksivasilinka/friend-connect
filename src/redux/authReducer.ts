@@ -47,24 +47,23 @@ export const getAuthMe = () => async (dispatch: Dispatch) => {
 }
 
 export const login = (email: string, password: string, rememberMe: boolean = true) => async (dispatch: ThunkType) => {
-
     let res = await usersAPI.loginUser(email, password, rememberMe)
-            if (res.data.resultCode === 0) {
-                await dispatch(getAuthMe())
-            } else {
-                let message = res.data.messages.length > 0 ? res.data.messages : 'Some error'
-                dispatch(stopSubmit('login', {_error: message}))
-            }
+    if (res.data.resultCode === 0) {
+        await dispatch(getAuthMe())
+    } else {
+        let message = res.data.messages.length > 0 ? res.data.messages : 'Some error'
+        dispatch(stopSubmit('login', {_error: message}))
+    }
 }
 
 export const logOut = () => async (dispatch: Dispatch) => {
     let res = await usersAPI.logOut()
-            if (res.data.resultCode === 0) {
-                dispatch(logOutUser({
-                    id: null,
-                    login: null,
-                    email: null,
-                    isAuth: false
-                }))
-            }
+    if (res.data.resultCode === 0) {
+        dispatch(logOutUser({
+            id: null,
+            login: null,
+            email: null,
+            isAuth: false
+        }))
+    }
 }

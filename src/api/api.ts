@@ -23,7 +23,7 @@ export const usersAPI = {
         return instance.post(`auth/login`, {email, password, rememberMe})
     },
     logOut: () => {
-        return instance.delete(`auth/login`, )
+        return instance.delete(`auth/login`,)
     },
 }
 

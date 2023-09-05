@@ -43,7 +43,7 @@ export type ActionTypes =
     | toggleIsFollowingProgressType
 
 export let initialState = {
-    users: [] as Array<UsersType>,
+    users: [] as UsersType[],
     pageSize: 10,
     totalCount: 0,
     currentPage: 1,
