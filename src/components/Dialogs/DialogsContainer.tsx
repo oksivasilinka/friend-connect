@@ -8,8 +8,8 @@ import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 export type DialogsPageType = {
-    dialogs: Array<DialogsType>,
-    messages: Array<MessagesType>,
+    dialogs: DialogsType[],
+    messages: MessagesType[],
 }
 
 type MapStateToPropsType = {
@@ -25,6 +25,7 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
         dialogsPage: state.dialogsPage,
     }
 }
+
 let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         addNewMessage: (text: string) => {
@@ -33,8 +34,7 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 }
 
-
 export default compose<React.ComponentType>(
     connect(mapStateToProps, mapDispatchToProps),
     WithAuthRedirect
-    )(Dialogs)
+)(Dialogs)

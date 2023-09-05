@@ -18,9 +18,9 @@ type PropsType = {
     children: ReactNode;
 }
 
-export const FormControl = ({meta, children, ...props}: PropsType) => {
+export const FormControl = ({meta, children}: PropsType) => {
 
-    const hasError  = meta.touched && meta.error
+    const hasError = meta.touched && meta.error
 
     return (
         <div className={s.formControl + ' ' + (hasError ? s.error : '')}>
@@ -38,7 +38,6 @@ export const Textarea = (props: PropsType) => {
         <textarea {...input} {...restProps}/>
     </FormControl>
 }
-
 
 export const Input = (props: PropsType) => {
     const {input, meta, children, ...restProps} = props

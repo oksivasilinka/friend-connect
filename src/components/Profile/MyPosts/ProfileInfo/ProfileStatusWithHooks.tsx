@@ -5,22 +5,22 @@ type ProfileStatusPropsType = {
     updateStatus: (status: string) => void
 }
 
-export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
+export const ProfileStatusWithHooks: React.FC<ProfileStatusPropsType> = ({status, updateStatus}) => {
 
     const [editMode, setEditMode] = useState(true)
-    const [status, setStatus] = useState(props.status)
+    const [userStatus, setUserStatus] = useState(status)
 
     useEffect(() => {
-        setStatus(props.status)
-    }, [props.status])
+        setUserStatus(status)
+    }, [status])
 
     const onDoubleClickHandler = () => {
         setEditMode(!editMode)
-        props.updateStatus(status)
+        updateStatus(userStatus)
     }
 
     const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
-        setStatus(e.currentTarget.value)
+        setUserStatus(e.currentTarget.value)
     }
 
     return (
@@ -29,7 +29,7 @@ export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
                 <div>
                     <h4>Статус: </h4>
                     <span onDoubleClick={onDoubleClickHandler}>
-                        {status || 'no status'}
+                        {userStatus || 'no status'}
                     </span>
                 </div>
             }
@@ -37,7 +37,7 @@ export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
                 <div>
                     <input onBlur={onDoubleClickHandler}
                            onChange={onChangeStatus}
-                           value={status}
+                           value={userStatus}
                            autoFocus>
                     </input>
                 </div>

@@ -8,7 +8,6 @@ import {maxLengthCreator, requiredField} from "../../utils/validators/validators
 import {Textarea} from "../common/formsControls/FormControls";
 
 type DialogsPropsType = {
-    updateNewMessageBody: (body: string) => void
     addNewMessage: (text: string) => void
     dialogsPage: DialogsPageType
 }
@@ -19,23 +18,21 @@ type FormDataType = {
 
 const maxLength50 = maxLengthCreator(50)
 
-export const Dialogs = (props: DialogsPropsType) => {
-    let state = props.dialogsPage
+export const Dialogs: React.FC<DialogsPropsType> = ({dialogsPage, addNewMessage}) => {
 
-    const dialogsElements = state.dialogs.map((d) => <DialogItem key={d.id} name={d.name} id={d.id}/>)
-    const messagesElements = state.messages.map((m) => <Message key={m.id} message={m.message} id={m.id}/>)
+    const dialogsElements = dialogsPage.dialogs.map((d) => <DialogItem key={d.id} name={d.name} id={d.id}/>)
+    const messagesElements = dialogsPage.messages.map((m) => <Message key={m.id} message={m.message} id={m.id}/>)
 
-    const addNewMessage = (value: FormDataType) => props.addNewMessage(value.newMessageBody)
-
+    const addNewMessageHandler = (value: FormDataType) => {
+        addNewMessage(value.newMessageBody)
+    }
 
     return (
         <div className={s.dialogs}>
-            <div className={s.dialogsItems}>
-                {dialogsElements}
-            </div>
+            <div className={s.dialogsItems}> {dialogsElements} </div>
             <div className={s.messages}>
                 <div>{messagesElements}</div>
-                <AddMessageFormRedux onSubmit={addNewMessage}/>
+                <AddMessageFormRedux onSubmit={addNewMessageHandler}/>
             </div>
         </div>
     )
@@ -49,7 +46,6 @@ export const AddMessageForm = (props: InjectedFormProps<FormDataType>) => {
                        name={'newMessageBody'}
                        placeholder={'Enter your message'}
                        validate={[requiredField, maxLength50]}>
-
                 </Field>
             </div>
             <button>Add message</button>

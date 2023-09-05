@@ -27,15 +27,16 @@ type ProfileContainerPropsType = RouteComponentProps<PathParamsType> & OwnPropsT
 
 export class ProfileAPIContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
-        let userId: string | null = this.props.match.params.userId as string | null;
+        const {match, authorizedUserId, history, getProfile, getStatus} = this.props
+        let userId: string | null = match.params.userId as string | null;
         if (!userId) {
-            userId = this.props.authorizedUserId
+            userId = authorizedUserId
             if (!userId) {
-                this.props.history.push('/login')
+                history.push('/login')
             }
         }
-        this.props.getProfile(userId)
-        this.props.getStatus(userId)
+        getProfile(userId)
+        getStatus(userId)
     }
 
     render() {

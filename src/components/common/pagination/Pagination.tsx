@@ -16,20 +16,15 @@ export const Pagination: React.FC<UsersPropsType> = ({pageSize, totalCount, curr
     }
     return (
         <div>
-            <div>
-                {pages.map((p, index) => {
-                    return (
-                        <span key={index}
-                              className={currentPage === p ? s.selectedPage : ''}
-                              onClick={() => {
-                                  onPageChanged(p)
-                              }}>
-                                 {p}
-                            </span>
-                    )
-                })}
-            </div>
-
+            {pages.map((page, index) => {
+                return (
+                    <span key={index}
+                          className={currentPage === page ? s.selectedPage : ''}
+                          onClick={() => onPageChanged(page)}>
+                        {page}
+                    </span>
+                )
+            })}
         </div>
     )
 }

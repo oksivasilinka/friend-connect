@@ -10,11 +10,11 @@ export type ProfileInfo = {
     status: string
     updateStatus: (status: string) => void
 }
+
 export const ProfileInfo: React.FC<ProfileInfo> = ({profile, status, updateStatus}) => {
     if (!profile) return <Preloader/>
 
     return (
-        <div>
             <div className={s.descriptionBlock}>
                 <img
                     src={profile.photos.large}
@@ -29,34 +29,17 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({profile, status, updateStatu
                     <h4>Поиск работы:</h4> {profile.lookingForAJob ? 'Ищу работу' : 'Не ищу работу'}
                     <h4>Описание:</h4> {profile.lookingForAJobDescription}
                     <div>
-                        <h4>Контакты:</h4>
-                        <div>facebook:
-                            {profile.contacts.facebook === null ? '-' : profile.contacts.facebook}
-                        </div>
-                        <div>website:
-                            {profile.contacts.website === null ? '-' : profile.contacts.website}
-                        </div>
-                        <div> vk:
-                            {profile.contacts.vk === null ? '-' : profile.contacts.vk}
-                        </div>
-                        <div> twitter:
-                            {profile.contacts.twitter === null ? '-' : profile.contacts.twitter}
-                        </div>
-                        <div> instagram:
-                            {profile.contacts.instagram === null ? '-' : profile.contacts.instagram}
-                        </div>
-                        <div> youtube:
-                            {profile.contacts.youtube === null ? '-' : profile.contacts.youtube}
-                        </div>
-                        <div> github:
-                            {profile.contacts.github === null ? '-' : profile.contacts.github}
-                        </div>
-                        <div> mainLink:
-                            {profile.contacts.mainLink === null ? '-' : profile.contacts.mainLink}
-                        </div>
+                        <h4> Контакты: </h4>
+                        <div> facebook: {profile.contacts.facebook || ' -'} </div>
+                        <div> website: {profile.contacts.website || ' -'} </div>
+                        <div> vk: {profile.contacts.vk || ' -'} </div>
+                        <div> twitter: {profile.contacts.twitter || ' -'} </div>
+                        <div> instagram: {profile.contacts.instagram || ' -'} </div>
+                        <div> youtube: {profile.contacts.youtube || ' -'} </div>
+                        <div> github: {profile.contacts.github || ' -'} </div>
+                        <div> mainLink: {profile.contacts.mainLink || ' -'} </div>
                     </div>
                 </div>
             </div>
-        </div>
     )
 }
