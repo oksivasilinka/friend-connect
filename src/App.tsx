@@ -18,7 +18,7 @@ import {Preloader} from "./Components/common/preloader/preloader";
 import {initializeApp} from "./redux/appReducer";
 
 type PropsType = {
-    initializeApp: ()=> void
+    initializeApp: () => void
     initialized: boolean
 }
 
@@ -33,20 +33,20 @@ class App extends React.Component<PropsType> {
             return <Preloader/>
         }
         return (
-                <div className="App">
-                    <HeaderContainer/>
-                    <Nav/>
-                    <div className='App-content'>
-                        <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-                        <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-                        <Route path='/news' render={() => <News/>}/>
-                        <Route path='/music' render={() => <Music/>}/>
-                        <Route path='/settings' render={() => <Settings/>}/>
-                        <Route path='/users' render={() => <UsersContainer/>}/>
-                        <Route path='/login' render={() => <Login/>}/>
-                    </div>
-                    <Sidebar/>
+            <div className="App">
+                <HeaderContainer/>
+                <Nav/>
+                <div className='App-content'>
+                    <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                    <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+                    <Route path='/news' render={() => <News/>}/>
+                    <Route path='/music' render={() => <Music/>}/>
+                    <Route path='/settings' render={() => <Settings/>}/>
+                    <Route path='/users' render={() => <UsersContainer/>}/>
+                    <Route path='/login' render={() => <Login/>}/>
                 </div>
+                <Sidebar/>
+            </div>
         );
     }
 }
@@ -63,3 +63,4 @@ export default compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {initializeApp})
 )(App)
+
