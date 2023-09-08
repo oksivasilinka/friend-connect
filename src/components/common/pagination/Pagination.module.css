@@ -1,3 +1,24 @@
+.paginationBlock {
+    margin: 10px 50px;
+    display: grid;
+    grid-template-areas: 'bl p br';
+    grid-template-columns: 1fr 10fr 1fr;
+}
+
+.pagesBlock {
+    grid-area: p;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.buttonLeft {
+    grid-area: bl;
+}
+
+.buttonRight {
+    grid-area: br;
+}
+
 
 .selectedPage {
     font-weight: bold;
