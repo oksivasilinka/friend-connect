@@ -4,15 +4,15 @@ img {
 .descriptionBlock {
     padding: 10px;
     display: flex;
-    align-items: center;
-    gap: 20px;
+    align-items: start;
+    gap: 50px;
 }
 
-.descriptionBlock img {
-    max-width: 500px;
-}
 .infoBlock {
     display: flex;
     flex-direction: column;
 }
 
+.mainPhoto {
+    max-width: 200px;
+}
