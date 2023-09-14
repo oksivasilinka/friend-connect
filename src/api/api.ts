@@ -1,5 +1,5 @@
 import axios from "axios";
-import {FormDataType} from "Components/Profile/MyPosts/ProfileInfo/ProfileInfo";
+import {ProfileType} from "redux/profileReducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -51,8 +51,8 @@ export const ProfileAPI = {
         })
             .then(res => res.data)
     },
-    saveProfile: (profile: FormDataType) => {
-        return instance.put(`/profile`, profile)
+    saveProfile: (profile: ProfileType) => {
+        return instance.put('/profile', profile)
             .then(res => res.data)
     },
 }

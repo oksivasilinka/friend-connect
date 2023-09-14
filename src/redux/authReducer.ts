@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {usersAPI} from "api/api";
 import {ThunkType} from "./store";
 import {stopSubmit} from "redux-form";
 
