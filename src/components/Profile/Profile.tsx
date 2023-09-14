@@ -1,5 +1,5 @@
 import React from "react";
-import {ProfileInfo} from "./MyPosts/ProfileInfo/ProfileInfo";
+import {FormDataType, ProfileInfo} from "./MyPosts/ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPosts.container";
 import {ProfileType} from "redux/profileReducer";
 
@@ -9,9 +9,10 @@ type PropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
+    saveProfile: (formData: FormDataType) => void
 }
 
-export const Profile: React.FC<PropsType> = ({profile, status, updateStatus, isOwner, savePhoto}) => {
+export const Profile: React.FC<PropsType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
     return (
         <div>
             <ProfileInfo
@@ -19,7 +20,9 @@ export const Profile: React.FC<PropsType> = ({profile, status, updateStatus, isO
                 status={status}
                 updateStatus={updateStatus}
                 isOwner={isOwner}
-                savePhoto={savePhoto}/>
+                savePhoto={savePhoto}
+                saveProfile={saveProfile}
+            />
             <MyPostsContainer/>
         </div>
     )
