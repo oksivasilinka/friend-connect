@@ -6,7 +6,7 @@ import {AppRootStateType} from "redux/store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {WithAuthRedirect} from "hoc/WithAuthRedirect";
-import {FormDataType} from "Components/Profile/MyPosts/ProfileInfo/ProfileInfo";
+import {FormDataType,} from "Components/Profile/MyPosts/ProfileInfo/ProfileInfo";
 
 type MapStateToPropsType = {
     profile: ProfileType | null

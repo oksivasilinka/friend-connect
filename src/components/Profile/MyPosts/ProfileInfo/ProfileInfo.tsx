@@ -1,11 +1,10 @@
 import React, {ChangeEvent, useState} from "react";
 import s from './ProfileInfo.module.css'
-import {ProfileType} from "redux/profileReducer";
+import {ContactsType, ProfileType} from "redux/profileReducer";
 import {Preloader} from "../../../common/preloader/preloader";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
-import userPhoto from "./../../../../assets/img/user.png"
+import userPhoto from "assets/img/user.png"
 import {ProfileReduxDataForm} from "Components/Profile/MyPosts/ProfileInfo/ProfileDataForm";
-
 
 export type ProfileInfo = {
     profile: ProfileType | null
@@ -21,21 +20,28 @@ export type FormDataType = {
     aboutMe: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
-
 }
 
-export const ProfileInfo: React.FC<ProfileInfo> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
-    const onSubmit = (formData: FormDataType) => {
-        saveProfile(formData)
-    }
-
+export const ProfileInfo: React.FC<ProfileInfo> = ({
+                                                       profile,
+                                                       status,
+                                                       updateStatus,
+                                                       isOwner,
+                                                       savePhoto,
+                                                       saveProfile
+                                                   }) => {
     const [editMode, setEditMode] = useState(false)
+
     if (!profile) return <Preloader/>
 
     const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget && e.currentTarget.files && e.currentTarget.files.length) {
             savePhoto(e.currentTarget.files[0])
         }
+    }
+    const onSubmit = (formData: FormDataType) => {
+        saveProfile(formData)
+        setEditMode(false)
     }
 
     return (
@@ -52,19 +58,17 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({profile, status, updateStatu
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
 
-            {editMode ? <ProfileReduxDataForm onSubmit={onSubmit}/> :
+            {editMode ? <ProfileReduxDataForm initialValues={profile} onSubmit={onSubmit}/> :
                 <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => {
                     setEditMode(true)
                 }}/>}
-
-
         </div>
     )
 }
 
 type ContactProps = {
     contactTitle: string
-    contactValue: string | null
+    contactValue: ContactsType
 }
 
 type ProfileDataProps = {
@@ -72,6 +76,7 @@ type ProfileDataProps = {
     isOwner: boolean
     goToEditMode: () => void
 }
+
 
 export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataProps) => {
     return (
@@ -86,10 +91,8 @@ export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataProps) 
             <h4>Описание: </h4> {profile.lookingForAJobDescription}
             <div>
                 <h4> Контакты: </h4>
-                {Object.keys(profile.contacts).map(key => {
-
-                    // @ts-ignore
-                    return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+                {Object.entries(profile.contacts).map(([key, value]) => {
+                    return <Contact key={key} contactTitle={key} contactValue={value}/>
                 })}
             </div>
         </div>
