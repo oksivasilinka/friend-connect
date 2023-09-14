@@ -15,4 +15,9 @@ img {
 
 .mainPhoto {
     max-width: 200px;
+    padding: 10px;
+}
+.imageBlock {
+    display: flex;
+    flex-direction: column;
 }

@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {ProfileAPI} from "api/api";
+import {FormDataType} from "Components/Profile/MyPosts/ProfileInfo/ProfileInfo";
 
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
@@ -100,6 +101,13 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
 
 export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
     let res = await ProfileAPI.savePhoto(file)
+    if (res.data.resultCode === 0) {
+        dispatch(setPhotoSuccess(res.data.data.photos))
+    }
+}
+
+export const saveProfile = (profile: FormDataType) => async (dispatch: Dispatch) => {
+    let res = await ProfileAPI.saveProfile(profile)
     if (res.data.resultCode === 0) {
         dispatch(setPhotoSuccess(res.data.data.photos))
     }
