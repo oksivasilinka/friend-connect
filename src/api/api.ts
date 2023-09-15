@@ -20,8 +20,8 @@ export const usersAPI = {
     unFollowUser: (userId: number) => {
         return instance.delete(`follow/${userId}`)
     },
-    loginUser: (email: string, password: string, rememberMe: boolean = false) => {
-        return instance.post(`auth/login`, {email, password, rememberMe})
+    loginUser: (email: string, password: string, rememberMe: boolean = false, captcha = null as string | null) => {
+        return instance.post(`auth/login`, {email, password, rememberMe, captcha})
     },
     logOut: () => {
         return instance.delete(`auth/login`,)
@@ -44,7 +44,7 @@ export const ProfileAPI = {
     savePhoto: (file: File) => {
         let formData = new FormData()
         formData.append('image', file)
-        return instance.put(`/profile/photo`, formData, {
+        return instance.put(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -52,8 +52,14 @@ export const ProfileAPI = {
             .then(res => res.data)
     },
     saveProfile: (profile: ProfileType) => {
-        return instance.put('/profile', profile)
+        return instance.put('profile', profile)
             .then(res => res.data)
     },
 }
 
+export const SecurityAPI = {
+    getCaptchaUrl: () => {
+        return instance.get(`security/get-captcha-url`)
+            .then(res => res.data)
+    },
+}

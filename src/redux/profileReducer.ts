@@ -120,10 +120,8 @@ export const saveProfile = (profile: ProfileType) => async (dispatch: ThunkType,
         const res = await ProfileAPI.saveProfile(profile)
         if (res.data.resultCode === 0) {
             await dispatch(getProfile(userId))
-            return Promise.resolve();
         } else {
-            await dispatch(stopSubmit('edit-profile', {_error: res.messages}))
-            return Promise.reject(res.messages)
+            await dispatch(stopSubmit('edit-profile', {_error: res.messages[0]}))
         }
     }
 }
