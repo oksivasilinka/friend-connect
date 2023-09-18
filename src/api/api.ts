@@ -1,5 +1,4 @@
 import axios from "axios";
-import {ProfileType} from "redux/profileReducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -8,58 +7,134 @@ const instance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers: (currentPage: number, pageSize: number) => {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-    },
-    getAuthMe: () => {
-        return instance.get(`auth/me`)
+    getUsers: async (currentPage: number, pageSize: number) => {
+        const res = await instance.get<UsersResponseType>(`users?page=${currentPage}&count=${pageSize}`);
+        return res.data;
     },
     followUser: (userId: number) => {
-        return instance.post(`follow/${userId}`, {})
+        return instance.post<ResponseType>(`follow/${userId}`, {})
     },
     unFollowUser: (userId: number) => {
-        return instance.delete(`follow/${userId}`)
-    },
-    loginUser: (email: string, password: string, rememberMe: boolean = false, captcha = null as string | null) => {
-        return instance.post(`auth/login`, {email, password, rememberMe, captcha})
-    },
-    logOut: () => {
-        return instance.delete(`auth/login`,)
+        return instance.delete<ResponseType>(`follow/${userId}`)
     },
 }
 
-export const ProfileAPI = {
-    getUserProfile: (userId: string) => {
-        return instance.get(`profile/${userId}`)
-            .then(res => res.data)
+export const authAPI = {
+    me: async () => {
+        const res = await instance.get<ResponseType<MeResponseData>>(`auth/me`);
+        return res.data;
     },
-    getStatus: (userId: string) => {
-        return instance.get(`profile/status/${userId}`)
-            .then(res => res.data)
+    login: async (email: string, password: string, rememberMe = false, captcha: string | null = null) => {
+        const res = await instance.post<ResponseType<{ data: LoginResponseData }, ResultCode & ResultCodeForCaptcha>>(`auth/login`, {email, password, rememberMe, captcha});
+        return res.data;
     },
-    updateStatus: (status: string) => {
-        return instance.put(`profile/status`, {status})
-            .then(res => res.data)
+    logout: async () => {
+        const res = await instance.delete<ResponseType>(`auth/login`);
+        return res.data;
     },
-    savePhoto: (file: File) => {
+}
+
+export const profileAPI = {
+    getUserProfile: async (userId: number) => {
+        const res = await instance.get<ProfileResponseType>(`profile/${userId}`);
+        return res.data;
+    },
+    getStatus: async (userId: number) => {
+        const res = await instance.get<string>(`profile/status/${userId}`);
+        return res.data;
+    },
+    updateStatus: async (status: string) => {
+        const res = await instance.put<ResponseType>(`profile/status`, {status});
+        return res.data;
+    },
+    savePhoto: async (file: File) => {
         let formData = new FormData()
         formData.append('image', file)
-        return instance.put(`profile/photo`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-            .then(res => res.data)
+        const res = await instance.put<ResponseType<{ photos: PhotosType }>>(`profile/photo`, formData, {
+            headers: {'Content-Type': 'multipart/form-data'}
+        });
+        return res.data;
     },
-    saveProfile: (profile: ProfileType) => {
-        return instance.put('profile', profile)
-            .then(res => res.data)
+    saveProfile: async (profile: ProfileResponseType) => {
+        const res = await instance.put<ResponseType>('profile', profile);
+        return res.data;
+    }
+}
+
+export const securityAPI = {
+    getCaptchaUrl: async () => {
+        const res = await instance.get<CaptchaResponseType>(`security/get-captcha-url`);
+        return res.data;
     },
 }
 
-export const SecurityAPI = {
-    getCaptchaUrl: () => {
-        return instance.get(`security/get-captcha-url`)
-            .then(res => res.data)
-    },
+type ResponseType<T = {}, R = ResultCode> = {
+    resultCode: R
+    messages: string[],
+    data: T
+}
+
+type MeResponseData = {
+    id: number
+    email: string
+    login: string
+}
+
+type LoginResponseData = {
+    userId: number
+    email: string
+    login: string
+}
+
+type CaptchaResponseType = {
+    url: string
+}
+
+export type UserResponseType = {
+    name: string
+    id: number
+    photos: PhotosType
+    status: string | null,
+    followed: boolean
+}
+
+type UsersResponseType = {
+    items: UserResponseType[]
+    totalCount: number
+    error: string | null
+}
+
+export type ContactsType = {
+    facebook?: string | null
+    website?: string | null
+    vk?: string | null
+    twitter?: string | null
+    instagram?: string | null
+    youtube?: string | null
+    github?: string | null
+    mainLink?: string | null
+}
+
+export type PhotosType = {
+    small: string | null
+    large: string | null
+}
+
+export type ProfileResponseType = {
+    aboutMe?: string | undefined
+    contacts?: ContactsType | undefined | {}
+    lookingForAJob?: boolean | undefined
+    lookingForAJobDescription?: string | undefined
+    fullName?: string | undefined
+    userId?: number | undefined
+    photos: PhotosType
+}
+
+export enum ResultCode {
+    SUCCESS = 0,
+    ERROR = 1,
+}
+
+export enum ResultCodeForCaptcha {
+    CAPTCHA = 10
 }

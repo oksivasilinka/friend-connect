@@ -1,10 +1,10 @@
 import React from "react";
-import {UsersType} from "../../redux/usersReducer";
 import {Pagination} from "../common/pagination/Pagination";
 import {User} from "./User";
+import {UserResponseType} from "api/api";
 
 type UsersPropsType = {
-    users: UsersType[]
+    users: UserResponseType[]
     pageSize: number
     totalCount: number
     currentPage: number

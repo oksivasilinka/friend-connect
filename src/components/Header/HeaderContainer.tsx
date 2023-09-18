@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {AppRootStateType} from "../../redux/store";
-import {DataType, logOut} from "../../redux/authReducer";
-import {Header} from "./Header";
+import {AppRootStateType} from "redux/store";
+import {logOut} from "redux/authReducer";
+import {Header, LoginDataType} from "./Header";
 
 
 type MapStateToPropsType = {
-    data: DataType | null;
+    data: LoginDataType | null;
 };
 
 type MapDispatchToPropsType = {
@@ -15,7 +15,7 @@ type MapDispatchToPropsType = {
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 
-class HeaderAPIContainer extends Component<PropsType, DataType> {
+class HeaderAPIContainer extends Component<PropsType, LoginDataType> {
 
 
     render() {

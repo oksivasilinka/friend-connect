@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {SecurityAPI, usersAPI} from "api/api";
+import {authAPI, ResultCode, ResultCodeForCaptcha, securityAPI} from "api/api";
 import {ThunkType} from "./store";
 import {stopSubmit} from "redux-form";
 
@@ -7,22 +7,8 @@ const SET_USER_DATA = 'samurai-network/auth/SET-USER-DATA';
 const LOGOUT_USER_DATA = 'samurai-network/auth/LOGOUT-USER-DATA';
 const GET_CAPTCHA_URL = 'samurai-network/auth/GET-CAPTCHA-URL';
 
-export type setUserDataType = ReturnType<typeof setUserData>
-export type logOutUserType = ReturnType<typeof logOutUser>
-export type GetCaptchaUrlSuccessType = ReturnType<typeof getCaptchaUrlSuccess>
-type InitialStateType = typeof initialState
-type ActionTypes = setUserDataType | logOutUserType | GetCaptchaUrlSuccessType
-
-export type DataType = {
-    id: string | null
-    login: string | null
-    email: string | null
-    isAuth: boolean
-    captchaUrl: string | null
-}
-
 let initialState = {
-    id: null as string | null,
+    id: null as number | null,
     login: null as string | null,
     email: null as string | null,
     isAuth: false,
@@ -42,40 +28,42 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
     }
 }
 
-const setUserData = (data: DataType) => ({type: SET_USER_DATA, data}) as const
-const logOutUser = (data: DataType) => ({type: LOGOUT_USER_DATA, data}) as const
+const setUserData = (data: InitialStateType) => ({type: SET_USER_DATA, data}) as const
+const logOutUser = (data: InitialStateType) => ({type: LOGOUT_USER_DATA, data}) as const
 const getCaptchaUrlSuccess = (captchaUrl: string | null) => ({type: GET_CAPTCHA_URL, payload: {captchaUrl}}) as const
 
 export const getAuthMe = () => async (dispatch: Dispatch) => {
-    let res = await usersAPI.getAuthMe()
-    if (res.data.resultCode === 0) {
-        dispatch(setUserData(res.data.data))
+    const meData = await authAPI.me()
+    if (meData.resultCode === ResultCode.SUCCESS) {
+        const {id, login, email} = meData.data
+        dispatch(setUserData({id, email, login, isAuth: true, captchaUrl: null}))
     }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean = true, captcha: string | null) => async (dispatch: ThunkType) => {
-    let res = await usersAPI.loginUser(email, password, rememberMe, captcha)
-    if (res.data.resultCode === 0) {
-        await dispatch(getAuthMe())
-    } else if (res.data.resultCode === 10) {
-        await dispatch(getCaptchaUrlTC())
-    } else {
-        let message = res.data.messages.length > 0 ? res.data.messages : 'Some error'
-        dispatch(stopSubmit('login', {_error: message}))
+export const login = (email: string, password: string, rememberMe: boolean = true, captcha: string | null) =>
+    async (dispatch: ThunkType) => {
+        const loginData = await authAPI.login(email, password, rememberMe, captcha)
+        if (loginData.resultCode === ResultCode.SUCCESS) {
+            await dispatch(getAuthMe())
+        } else if (loginData.resultCode === ResultCodeForCaptcha.CAPTCHA) {
+            await dispatch(getCaptchaUrlTC())
+        } else if (loginData.resultCode === ResultCode.ERROR) {
+            const message = loginData.messages.length > 0 ? loginData.messages[0] : 'Some error'
+            dispatch(stopSubmit('login', {_error: message}))
+        }
     }
-}
 
 
 export const getCaptchaUrlTC = () => async (dispatch: ThunkType) => {
-    const res = await SecurityAPI.getCaptchaUrl()
+    const captchaData = await securityAPI.getCaptchaUrl()
     await dispatch(getAuthMe())
-    const captchaUrl = res.data.url
+    const captchaUrl = captchaData.url
     dispatch(getCaptchaUrlSuccess(captchaUrl))
 }
 
 export const logOut = () => async (dispatch: Dispatch) => {
-    let res = await usersAPI.logOut()
-    if (res.data.resultCode === 0) {
+    let logoutData = await authAPI.logout()
+    if (logoutData.resultCode === ResultCode.SUCCESS) {
         dispatch(logOutUser({
             id: null,
             login: null,
@@ -85,3 +73,10 @@ export const logOut = () => async (dispatch: Dispatch) => {
         }))
     }
 }
+
+export type setUserDataType = ReturnType<typeof setUserData>
+export type logOutUserType = ReturnType<typeof logOutUser>
+export type GetCaptchaUrlSuccessType = ReturnType<typeof getCaptchaUrlSuccess>
+type InitialStateType = typeof initialState
+type ActionTypes = setUserDataType | logOutUserType | GetCaptchaUrlSuccessType
+

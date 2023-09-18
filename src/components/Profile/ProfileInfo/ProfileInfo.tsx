@@ -1,13 +1,13 @@
 import React, {ChangeEvent, useState} from "react";
-import s from './ProfileInfo.module.css'
-import {ContactsType, ProfileType} from "redux/profileReducer";
-import {Preloader} from "../../../common/preloader/preloader";
-import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
+import s from 'Components/Profile/ProfileInfo/ProfileInfo.module.css'
+import {Preloader} from "Components/common/preloader/preloader";
+import {ProfileStatus} from "Components/Profile/ProfileInfo/ProfileStatus";
 import userPhoto from "assets/img/user.png"
-import {ProfileReduxDataForm} from "Components/Profile/MyPosts/ProfileInfo/ProfileDataForm";
+import {ProfileReduxDataForm} from "Components/Profile/ProfileInfo/ProfileDataForm";
+import {ProfileResponseType} from "api/api";
 
 export type ProfileInfo = {
-    profile: ProfileType | null
+    profile: ProfileResponseType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
@@ -55,7 +55,7 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({
 
                     {isOwner && <input className={s.input} type={'file'} onChange={onMainPhotoSelected}/>}
                 </div>
-                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
+                <ProfileStatus status={status} updateStatus={updateStatus}/>
             </div>
 
             {editMode ? <ProfileReduxDataForm initialValues={profile} onSubmit={onSubmit}/> :
@@ -68,11 +68,11 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({
 
 type ContactProps = {
     contactTitle: string
-    contactValue: ContactsType
+    contactValue: string | null
 }
 
 type ProfileDataProps = {
-    profile: ProfileType
+    profile: ProfileResponseType
     isOwner: boolean
     goToEditMode: () => void
 }
@@ -91,7 +91,7 @@ export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataProps) 
             <h4>Описание: </h4> {profile.lookingForAJobDescription}
             <div>
                 <h4> Контакты: </h4>
-                {Object.entries(profile.contacts).map(([key, value]) => {
+                {profile.contacts && Object.entries(profile.contacts).map(([key, value]) => {
                     return <Contact key={key} contactTitle={key} contactValue={value}/>
                 })}
             </div>

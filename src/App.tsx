@@ -1,19 +1,19 @@
 import React, {Suspense} from 'react';
 import './App.css';
-import {Nav} from "./Components/Nav/Nav";
-import {Route, withRouter} from "react-router-dom";
-import {News} from "./Components/News/News";
-import {Music} from "./Components/Music/Music";
-import {Settings} from "./Components/Settings/Settings";
-import {Sidebar} from "./Components/Sidebar/Sidebar";
-import {HeaderContainer} from "./Components/Header/HeaderContainer";
+import {Nav} from "Components/Nav/Nav";
+import {Redirect, Route, withRouter} from "react-router-dom";
+import {News} from "Components/News/News";
+import {Music} from "Components/Music/Music";
+import {Settings} from "Components/Settings/Settings";
+import {Sidebar} from "Components/Sidebar/Sidebar";
+import {HeaderContainer} from "Components/Header/HeaderContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import Login from "./Components/login/Login";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {AppRootStateType} from "./redux/store";
-import {Preloader} from "./Components/common/preloader/preloader";
-import {initializeApp} from "./redux/appReducer";
+import {AppRootStateType} from "redux/store";
+import {Preloader} from "Components/common/preloader/preloader";
+import {initializeApp} from "redux/appReducer";
 
 
 const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
@@ -26,8 +26,17 @@ type PropsType = {
 
 
 class App extends React.Component<PropsType> {
+    catchAllHandledErrors = () => {
+        console.log('some error')
+    }
+
     componentDidMount() {
         this.props.initializeApp()
+        window.addEventListener('unhandledrejection', this.catchAllHandledErrors)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllHandledErrors)
     }
 
     render() {
@@ -40,6 +49,7 @@ class App extends React.Component<PropsType> {
                 <Nav/>
                 <div className='App-content'>
                     <Suspense fallback={<Preloader/>}>
+                        <Route exact path='/' render={() => <Redirect to={'/profile'}/>}/>
                         <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                         <Route path='/dialogs' render={() => <DialogsContainer/>}/>
                         <Route path='/news' render={() => <News/>}/>

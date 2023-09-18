@@ -1,10 +1,17 @@
 import React from "react";
 import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
-import {DataType} from "../../redux/authReducer";
+
+export type LoginDataType = {
+    id: number | null
+    login: string | null
+    email: string | null
+    isAuth: boolean
+    captchaUrl: string | null
+}
 
 export type HeaderPropsType = {
-    data: DataType | null
+    data: LoginDataType | null
     logOut: () => void
 }
 

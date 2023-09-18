@@ -1,17 +1,18 @@
 import React from "react";
 import {connect} from "react-redux";
-import {AppRootStateType} from "../../redux/store";
-import {follow, getUsersTC, setCurrentPage, unFollow, UsersType} from "../../redux/usersReducer";
+import {AppRootStateType} from "redux/store";
+import {follow, getUsersTC, setCurrentPage, unFollow} from "redux/usersReducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/preloader";
 import {compose} from "redux";
 import {
     getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers,
-} from "../../redux/usersSelectors";
+} from "redux/usersSelectors";
+import {UserResponseType} from "api/api";
 
 
 type MapStateToPropsType = {
-    users: UsersType[]
+    users: UserResponseType[]
     pageSize: number
     totalCount: number
     currentPage: number
@@ -31,7 +32,7 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 }
 
 type UsersPagePropsType = {
-    users: UsersType[]
+    users: UserResponseType[]
     follow: (id: number) => void,
     unFollow: (id: number) => void,
     pageSize: number
@@ -43,7 +44,7 @@ type UsersPagePropsType = {
     getUsers: (currentPage: number, pageSize: number) => void
 }
 
-class UsersPage extends React.Component<UsersPagePropsType, UsersType> {
+class UsersPage extends React.Component<UsersPagePropsType, UserResponseType> {
 
     componentDidMount() {
         const {getUsers, currentPage, pageSize} = this.props

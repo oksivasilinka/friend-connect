@@ -1,22 +1,23 @@
 import React from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getProfile, getStatus, ProfileType, savePhoto, saveProfile, updateStatus} from "redux/profileReducer";
+import {getProfile, getStatus, savePhoto, saveProfile, updateStatus} from "redux/profileReducer";
 import {AppRootStateType} from "redux/store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {WithAuthRedirect} from "hoc/WithAuthRedirect";
-import {FormDataType,} from "Components/Profile/MyPosts/ProfileInfo/ProfileInfo";
+import {FormDataType,} from "Components/Profile/ProfileInfo/ProfileInfo";
+import {ProfileResponseType} from "api/api";
 
 type MapStateToPropsType = {
-    profile: ProfileType | null
+    profile: ProfileResponseType | null
     status: string
-    authorizedUserId: string | null
+    authorizedUserId: number | null
     isAuth: boolean
 }
 type MapDispatchToPropsType = {
-    getProfile: (id: string | null) => void
-    getStatus: (id: string | null) => void
+    getProfile: (id: number | null) => void
+    getStatus: (id: number | null) => void
     updateStatus: (status: string) => void
     savePhoto: (file: File) => void
     saveProfile: (formData: FormDataType) => void
@@ -32,7 +33,7 @@ type ProfileContainerPropsType = RouteComponentProps<PathParamsType> & OwnPropsT
 export class ProfileAPIContainer extends React.Component<ProfileContainerPropsType> {
 
     refreshProfile() {
-        let userId: string | null = this.props.match.params.userId as string | null;
+        let userId: number | null = Number(this.props.match.params.userId)
         if (!userId) {
             userId = this.props.authorizedUserId
             if (!userId) {
@@ -47,7 +48,7 @@ export class ProfileAPIContainer extends React.Component<ProfileContainerPropsTy
         this.refreshProfile()
     }
 
-    componentDidUpdate(prevProps: Readonly<ProfileContainerPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+    componentDidUpdate(prevProps: Readonly<ProfileContainerPropsType>) {
         if (this.props.match.params.userId != prevProps.match.params.userId)
             this.refreshProfile()
     }

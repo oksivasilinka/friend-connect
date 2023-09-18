@@ -2,10 +2,10 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/img/user.png";
 import React from "react";
 import {NavLink} from "react-router-dom";
-import {UsersType} from "../../redux/usersReducer";
+import {UserResponseType} from "api/api";
 
 type UserPropsType = {
-    user: UsersType
+    user: UserResponseType
     follow: (id: number) => void
     unFollow: (id: number) => void
     followingInProgress: number[]

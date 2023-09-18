@@ -1,10 +1,10 @@
 import React from "react";
-import {FormDataType, ProfileInfo} from "./MyPosts/ProfileInfo/ProfileInfo";
+import {FormDataType, ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPosts.container";
-import {ProfileType} from "redux/profileReducer";
+import {ProfileResponseType} from "api/api";
 
 type PropsType = {
-    profile: ProfileType | null
+    profile: ProfileResponseType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean

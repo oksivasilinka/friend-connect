@@ -1,17 +1,17 @@
-import s from "Components/Profile/MyPosts/ProfileInfo/ProfileInfo.module.css";
+import s from "Components/Profile/ProfileInfo/ProfileInfo.module.css";
 import React from "react";
 import {Input, Textarea} from "Components/common/formsControls/FormControls";
 import {createField} from "Components/login/Login";
 import {InjectedFormProps, reduxForm} from "redux-form";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "redux/store";
-import {FormDataType} from "Components/Profile/MyPosts/ProfileInfo/ProfileInfo";
-import {ProfileType} from "redux/profileReducer";
+import {FormDataType} from "Components/Profile/ProfileInfo/ProfileInfo";
+import {ProfileResponseType} from "api/api";
 
 
 const ProfileDataForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
 
-    const profile = useSelector<AppRootStateType, ProfileType>(state => state.profilePage.profile)
+    const profile = useSelector<AppRootStateType, ProfileResponseType | null>(state => state.profilePage.profile)
 
     return (
         <form className={s.infoBlock} onSubmit={handleSubmit}>
@@ -30,7 +30,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmi
             <div>
                 <h4> Контакты: </h4>
 
-                {Object.keys(profile.contacts).map((key) => {
+                {profile?.contacts && Object.keys(profile.contacts).map((key) => {
                     return (
                         <div key={key}>
                             <b>{key}: </b>

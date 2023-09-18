@@ -1,6 +1,6 @@
-import {usersAPI} from "../api/api";
+import {ResultCode, UserResponseType, usersAPI} from "api/api";
 import {Dispatch} from "redux";
-import {updateObjectArray} from "../utils/object-helpers";
+import {updateObjectArray} from "utils/object-helpers";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = 'UNFOLLOW';
@@ -10,40 +10,9 @@ const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS';
 
-type LocationUsersType = {
-    city: string
-    country: string
-}
-export type UsersType = {
-    id: number
-    photos: {
-        small: string | null
-        large: string | null
-    }
-    followed: boolean
-    name: string
-    status: string
-    location: LocationUsersType
-}
-export type followType = ReturnType<typeof followAC>
-export type unFollowType = ReturnType<typeof unFollowAC>
-export type setUsersType = ReturnType<typeof setUsers>
-export type setCurrentPageType = ReturnType<typeof setCurrentPage>
-export type setTotalUsersCountType = ReturnType<typeof setTotalUsersCount>
-export type toggleIsFetchingType = ReturnType<typeof toggleIsFetching>
-export type toggleIsFollowingProgressType = ReturnType<typeof toggleIsFollowingProgress>
-export type InitialStateType = typeof initialState
-export type ActionTypes =
-    followType
-    | unFollowType
-    | setUsersType
-    | setCurrentPageType
-    | setTotalUsersCountType
-    | toggleIsFetchingType
-    | toggleIsFollowingProgressType
 
 export let initialState = {
-    users: [] as UsersType[],
+    users: [] as UserResponseType[],
     pageSize: 10,
     totalCount: 0,
     currentPage: 1,
@@ -84,7 +53,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
 
 export const followAC = (id: number) => ({type: FOLLOW, id}) as const
 export const unFollowAC = (id: number) => ({type: UNFOLLOW, id}) as const
-export const setUsers = (users: UsersType[]) => ({type: SET_USERS, users}) as const
+export const setUsers = (users: UserResponseType[]) => ({type: SET_USERS, users}) as const
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
 export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_COUNT, count: totalCount}) as const
 export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching}) as const
@@ -94,10 +63,10 @@ export const toggleIsFollowingProgress = (isFetching: boolean, id: number) =>
 export const getUsersTC = (currentPage: number, pageSize: number) => async (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(true))
     dispatch(setCurrentPage(currentPage))
-    let res = await usersAPI.getUsers(currentPage, pageSize)
+    const usersData = await usersAPI.getUsers(currentPage, pageSize)
     dispatch(toggleIsFetching(false))
-    dispatch(setUsers(res.data.items))
-    dispatch(setTotalUsersCount(res.data.totalCount))
+    dispatch(setUsers(usersData.items))
+    dispatch(setTotalUsersCount(usersData.totalCount))
 }
 
 export const follow = (id: number) => async (dispatch: Dispatch) => {
@@ -110,9 +79,30 @@ export const unFollow = (id: number) => async (dispatch: Dispatch) => {
 
 const followUnfollowFlow = async (dispatch: Dispatch, id: number, apiMethod: any, actionCreator: any) => {
     dispatch(toggleIsFollowingProgress(true, id))
-    let res = await apiMethod(id)
-    if (res.data.resultCode === 0) {
+    const res = await apiMethod(id)
+    if (res.data.resultCode === ResultCode.SUCCESS) {
         dispatch(actionCreator(id))
     }
     dispatch(toggleIsFollowingProgress(false, id))
 }
+
+
+
+export type followType = ReturnType<typeof followAC>
+export type unFollowType = ReturnType<typeof unFollowAC>
+export type setUsersType = ReturnType<typeof setUsers>
+export type setCurrentPageType = ReturnType<typeof setCurrentPage>
+export type setTotalUsersCountType = ReturnType<typeof setTotalUsersCount>
+export type toggleIsFetchingType = ReturnType<typeof toggleIsFetching>
+export type toggleIsFollowingProgressType = ReturnType<typeof toggleIsFollowingProgress>
+
+export type InitialStateType = typeof initialState
+
+export type ActionTypes =
+    followType
+    | unFollowType
+    | setUsersType
+    | setCurrentPageType
+    | setTotalUsersCountType
+    | toggleIsFetchingType
+    | toggleIsFollowingProgressType
