@@ -1,10 +1,10 @@
 import React from "react";
-import {addNewMessageAC, DialogsType, MessagesType} from "../../redux/dialogsReducer";
+import {addNewMessageAC, DialogsType, MessagesType} from "redux/dialogsReducer";
 import {Dialogs} from "./Dialogs";
-import {AppRootStateType} from "../../redux/store";
+import {AppRootStateType} from "redux/store";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {WithAuthRedirect} from "hoc/WithAuthRedirect";
 
 
 export type DialogsPageType = {
