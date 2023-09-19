@@ -19,7 +19,17 @@
     grid-area: br;
 }
 
+.page {
+    border: 1px solid mediumpurple;
+    width: 25px;
+    text-align: center;
+    cursor: pointer;
+}
 
 .selectedPage {
-    font-weight: bold;
+    font-weight: bolder;
+    border: 1px solid mediumpurple;
+    width: 25px;
+    text-align: center;
+    color: darkslategrey;
 }

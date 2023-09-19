@@ -20,7 +20,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmi
                 }}>Сохранить профиль
                 </button>
 
-                {error && <div className={s.formSummaryError}> {error} </div>}
+                {error && <div className={s.error}> {error} </div>}
 
             </div>
             <h4>Full name: </h4> {createField('Полное имя...', 'fullName', [], Input)}

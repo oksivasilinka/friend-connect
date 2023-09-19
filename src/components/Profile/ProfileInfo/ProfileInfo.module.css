@@ -21,3 +21,8 @@ img {
     display: flex;
     flex-direction: column;
 }
+
+.error {
+    color: red;
+    border: 1px solid red;
+}

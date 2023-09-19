@@ -12,7 +12,7 @@ export type ProfileInfo = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
-    saveProfile: (formData: FormDataType) => void
+    saveProfile: (formData: FormDataType) => any
 }
 
 export type FormDataType = {
@@ -40,8 +40,9 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({
         }
     }
     const onSubmit = (formData: FormDataType) => {
-        saveProfile(formData)
-        setEditMode(false)
+        saveProfile(formData).then(()=> {
+            setEditMode(false)
+        })
     }
 
     return (
