@@ -84,6 +84,7 @@ type LoginResponseData = {
     userId: number
     email: string
     login: string
+    captcha?: string | null
 }
 
 type CaptchaResponseType = {

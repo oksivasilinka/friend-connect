@@ -77,8 +77,11 @@ export const saveProfile = (profile: ProfileResponseType) =>
         const data = await profileAPI.saveProfile(profile)
         if (data.resultCode === ResultCode.SUCCESS) {
             await dispatch(getProfile(userId))
+            return Promise.resolve()
         } else {
             dispatch(stopSubmit('edit-profile', {_error: data.messages[0]}))
+            // dispatch(stopSubmit('edit-profile', {'contacts': {'facebook': data.messages[0]}}))
+            return Promise.reject(data.messages[0])
         }
     }
 }
