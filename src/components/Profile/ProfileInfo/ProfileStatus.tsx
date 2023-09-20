@@ -1,11 +1,11 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, { ChangeEvent, useEffect, useState } from "react"
 
 type ProfileStatusPropsType = {
     status: string
     updateStatus: (status: string) => void
 }
 
-export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({status, updateStatus}) => {
+export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({ status, updateStatus }) => {
 
     const [editMode, setEditMode] = useState(true)
     const [userStatus, setUserStatus] = useState(status)
@@ -29,7 +29,7 @@ export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({status, updateS
                 <div>
                     <h4>Статус: </h4>
                     <span onDoubleClick={onDoubleClickHandler}>
-                        {userStatus || 'no status'}
+                        {userStatus || "no status"}
                     </span>
                 </div>
             }

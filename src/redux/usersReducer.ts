@@ -20,7 +20,7 @@ export let initialState = {
     followingInProgress: [] as number[]
 }
 
-export const usersReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
+export const usersReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
         case FOLLOW :
             return {

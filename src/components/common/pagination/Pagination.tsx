@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import s from './Pagination.module.css'
+import React, { useState } from "react"
+import s from "./Pagination.module.css"
 
 type UsersPropsType = {
     pageSize: number
@@ -22,7 +22,7 @@ export const Pagination: React.FC<UsersPropsType> = ({
         pages.push(i)
     }
 
-    const portionCount: number = Math.ceil(pagesCount / portionSize)
+    const portionCount = Math.ceil(pagesCount / portionSize)
     const [portionNumber, setPortionNumber] = useState(1)
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     const rightPortionPageNumber = portionNumber * portionSize
@@ -32,19 +32,19 @@ export const Pagination: React.FC<UsersPropsType> = ({
             {portionNumber > 1 && <button className={s.buttonLeft} onClick={() => {
                 setPortionNumber(portionNumber - 1)
             }}>Prev</button>}
-           <div className={s.pagesBlock}>
-               {pages
-                   .filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
-                   .map((page, index) => {
-                       return (
-                           <span key={index}
-                                 className={currentPage === page ? s.selectedPage : s.page}
-                                 onClick={() => onPageChanged(page)}>
+            <div className={s.pagesBlock}>
+                {pages
+                    .filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
+                    .map((page, index) => {
+                        return (
+                            <span key={index}
+                                  className={currentPage === page ? s.selectedPage : s.page}
+                                  onClick={() => onPageChanged(page)}>
                         {` ${page} `}
                     </span>
-                       )
-                   })}
-           </div>
+                        )
+                    })}
+            </div>
             {portionCount > portionNumber && <button className={s.buttonRight} onClick={() => {
                 setPortionNumber(portionNumber + 1)
             }}>Next</button>}
