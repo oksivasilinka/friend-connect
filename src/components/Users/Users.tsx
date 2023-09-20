@@ -1,7 +1,7 @@
-import React from "react";
-import {Pagination} from "../common/pagination/Pagination";
-import {User} from "./User";
-import {UserResponseType} from "api/api";
+import React from 'react'
+import { Pagination } from '../common/pagination/Pagination'
+import { User } from './User'
+import { UserResponseType } from 'api/api'
 
 type UsersPropsType = {
     users: UserResponseType[]
@@ -15,21 +15,27 @@ type UsersPropsType = {
 }
 
 export const Users: React.FC<UsersPropsType> = ({
-                                                    users, pageSize, totalCount, currentPage, onPageChanged, follow,
-                                                    unFollow, followingInProgress
+                                                    users,
+                                                    pageSize,
+                                                    totalCount,
+                                                    currentPage,
+                                                    onPageChanged,
+                                                    follow,
+                                                    unFollow,
+                                                    followingInProgress
                                                 }) => {
     return (
         <div>
             <Pagination pageSize={pageSize}
                         onPageChanged={onPageChanged}
                         currentPage={currentPage}
-                        totalCount={totalCount}/>
+                        totalCount={totalCount} />
             {
                 users.map(user => <User key={user.id}
-                                     user={user}
-                                     follow={follow}
-                                     unFollow={unFollow}
-                                     followingInProgress={followingInProgress}/>)
+                                        user={user}
+                                        follow={follow}
+                                        unFollow={unFollow}
+                                        followingInProgress={followingInProgress} />)
             }
         </div>
     )

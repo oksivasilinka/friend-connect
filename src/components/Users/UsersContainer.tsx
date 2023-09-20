@@ -31,20 +31,18 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     }
 }
 
-type UsersPagePropsType = {
-    users: UserResponseType[]
+
+type MapDispatchToProps = {
     follow: (id: number) => void,
     unFollow: (id: number) => void,
-    pageSize: number
-    totalCount: number
-    currentPage: number
     setCurrentPage: (pageNumber: number) => void
-    isFetching: boolean
-    followingInProgress: number[]
     getUsers: (currentPage: number, pageSize: number) => void
 }
 
-class UsersPage extends React.Component<UsersPagePropsType, UserResponseType> {
+type PropsType = MapStateToPropsType & MapDispatchToProps
+
+
+class UsersPage extends React.Component<PropsType> {
 
     componentDidMount() {
         const {getUsers, currentPage, pageSize} = this.props
@@ -74,5 +72,5 @@ class UsersPage extends React.Component<UsersPagePropsType, UserResponseType> {
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {follow, unFollow, setCurrentPage, getUsers: getUsersTC,})
+    connect<MapStateToPropsType, MapDispatchToProps, null, AppRootStateType>(mapStateToProps, {follow, unFollow, setCurrentPage, getUsers: getUsersTC,})
 )(UsersPage)
