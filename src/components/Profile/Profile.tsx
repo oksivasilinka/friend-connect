@@ -1,7 +1,7 @@
 import React from "react";
 import {FormDataType, ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPosts.container";
-import {ProfileResponseType} from "api/api";
+import {ProfileResponseType} from "api/profileApi";
 
 type PropsType = {
     profile: ProfileResponseType | null

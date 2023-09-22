@@ -7,7 +7,7 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {WithAuthRedirect} from "hoc/WithAuthRedirect";
 import {FormDataType,} from "Components/Profile/ProfileInfo/ProfileInfo";
-import {ProfileResponseType} from "api/api";
+import {ProfileResponseType} from "api/profileApi";
 
 type MapStateToPropsType = {
     profile: ProfileResponseType | null

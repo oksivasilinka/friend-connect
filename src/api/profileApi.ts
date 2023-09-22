@@ -1,40 +1,4 @@
-import axios from "axios"
-
-const instance = axios.create({
-    withCredentials: true,
-    headers: { "API-KEY": "b8ffb6e7-45c3-4a90-bff5-2d282762bc9f" },
-    baseURL: "https://social-network.samuraijs.com/api/1.0/"
-})
-
-export const usersAPI = {
-    getUsers: async (currentPage: number, pageSize: number) => {
-        const res = await instance.get<UsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
-        return res.data
-    },
-    followUser: (userId: number) => {
-        return instance.post<ResponseType>(`follow/${userId}`, {})
-    },
-    unFollowUser: (userId: number) => {
-        return instance.delete<ResponseType>(`follow/${userId}`)
-    }
-}
-
-export const authAPI = {
-    me: async () => {
-        const res = await instance.get<ResponseType<MeResponseData>>(`auth/me`)
-        return res.data
-    },
-    login: async (email: string, password: string, rememberMe = false, captcha: string | null = null) => {
-        const res = await instance.post<ResponseType<{
-            data: LoginResponseData
-        }, ResultCode & ResultCodeForCaptcha>>(`auth/login`, { email, password, rememberMe, captcha })
-        return res.data
-    },
-    logout: async () => {
-        const res = await instance.delete<ResponseType>(`auth/login`)
-        return res.data
-    }
-}
+import { instance } from 'api/commonApi'
 
 export const profileAPI = {
     getUserProfile: async (userId: number) => {
@@ -63,35 +27,14 @@ export const profileAPI = {
     }
 }
 
-export const securityAPI = {
-    getCaptchaUrl: async () => {
-        const res = await instance.get<CaptchaResponseType>(`security/get-captcha-url`)
-        return res.data
-    }
-}
 
-type ResponseType<T = {}, R = ResultCode> = {
+export type ResponseType<T = {}, R = ResultCode> = {
     resultCode: R
     messages: string[],
     data: T
 }
 
-type MeResponseData = {
-    id: number
-    email: string
-    login: string
-}
 
-type LoginResponseData = {
-    userId: number
-    email: string
-    login: string
-    captcha?: string | null
-}
-
-type CaptchaResponseType = {
-    url: string
-}
 
 export type UserResponseType = {
     name: string
@@ -101,7 +44,7 @@ export type UserResponseType = {
     followed: boolean
 }
 
-type UsersResponseType = {
+export type UsersResponseType = {
     items: UserResponseType[]
     totalCount: number
     error: string | null
@@ -138,6 +81,3 @@ export enum ResultCode {
     ERROR = 1,
 }
 
-export enum ResultCodeForCaptcha {
-    CAPTCHA = 10
-}

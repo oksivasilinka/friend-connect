@@ -4,7 +4,7 @@ import {Preloader} from "Components/common/preloader/preloader";
 import {ProfileStatus} from "Components/Profile/ProfileInfo/ProfileStatus";
 import userPhoto from "assets/img/user.png"
 import {ProfileReduxDataForm} from "Components/Profile/ProfileInfo/ProfileDataForm";
-import {ProfileResponseType} from "api/api";
+import {ProfileResponseType} from "api/profileApi";
 
 export type ProfileInfo = {
     profile: ProfileResponseType | null

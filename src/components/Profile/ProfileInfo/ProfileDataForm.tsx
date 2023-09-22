@@ -6,7 +6,7 @@ import { InjectedFormProps, reduxForm } from "redux-form"
 import { useSelector } from "react-redux"
 import { AppRootStateType } from "redux/store"
 import { FormDataType } from "Components/Profile/ProfileInfo/ProfileInfo"
-import { ProfileResponseType } from "api/api"
+import { ProfileResponseType } from "api/profileApi"
 
 
 const ProfileDataForm: React.FC<InjectedFormProps<FormDataType>> = ({ handleSubmit, error }) => {

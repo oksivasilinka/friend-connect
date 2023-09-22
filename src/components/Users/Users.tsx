@@ -1,7 +1,7 @@
 import React from 'react'
 import { Pagination } from '../common/pagination/Pagination'
 import { User } from './User'
-import { UserResponseType } from 'api/api'
+import { UserResponseType } from 'api/profileApi'
 
 type UsersPropsType = {
     users: UserResponseType[]

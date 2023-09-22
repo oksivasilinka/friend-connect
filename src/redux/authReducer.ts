@@ -1,7 +1,8 @@
-import { Dispatch } from 'redux'
-import { authAPI, ResultCode, ResultCodeForCaptcha, securityAPI } from 'api/api'
+import { ResultCode } from 'api/profileApi'
 import { ThunkType } from './store'
 import { stopSubmit } from 'redux-form'
+import { authAPI, ResultCodeForCaptcha } from 'api/authApi'
+import { securityAPI } from 'api/securityApi'
 
 const SET_USER_DATA = 'samurai-network/auth/SET-USER-DATA'
 const LOGOUT_USER_DATA = 'samurai-network/auth/LOGOUT-USER-DATA'
@@ -35,7 +36,7 @@ const getCaptchaUrlSuccess = (captchaUrl: string | null) => ({
     payload: { captchaUrl }
 }) as const
 
-export const getAuthMe = () => async (dispatch: Dispatch) => {
+export const getAuthMe = () => async (dispatch: ThunkType) => {
     const meData = await authAPI.me()
     if (meData.resultCode === ResultCode.SUCCESS) {
         const { id, login, email } = meData.data
@@ -64,7 +65,7 @@ export const getCaptchaUrlTC = () => async (dispatch: ThunkType) => {
     dispatch(getCaptchaUrlSuccess(captchaUrl))
 }
 
-export const logOut = () => async (dispatch: Dispatch) => {
+export const logOut = () => async (dispatch: ThunkType) => {
     let logoutData = await authAPI.logout()
     if (logoutData.resultCode === ResultCode.SUCCESS) {
         dispatch(logOutUser({

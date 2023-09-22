@@ -1,5 +1,4 @@
-import { Dispatch } from "redux"
-import { PhotosType, profileAPI, ProfileResponseType, ResultCode } from "api/api"
+import { PhotosType, profileAPI, ProfileResponseType, ResultCode } from "api/profileApi"
 import { AppRootStateType, ThunkType } from "redux/store"
 import { stopSubmit } from "redux-form"
 
@@ -44,17 +43,17 @@ export const setStatus = (status: string) => ({ type: SET_STATUS, status }) as c
 export const deletePostAC = (id: number) => ({ type: DELETE_POST, id }) as const
 export const setPhotoSuccess = (photos: PhotosType) => ({ type: SET_PHOTO, photos }) as const
 
-export const getProfile = (id: number) => async (dispatch: Dispatch) => {
+export const getProfile = (id: number) => async (dispatch: ThunkType) => {
     let data = await profileAPI.getUserProfile(id)
     dispatch(setUserProfile(data))
 }
 
-export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
+export const getStatus = (userId: number) => async (dispatch: ThunkType) => {
     let data = await profileAPI.getStatus(userId)
     dispatch(setStatus(data))
 }
 
-export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
+export const updateStatus = (status: string) => async (dispatch: ThunkType) => {
     let data = await profileAPI.updateStatus(status)
     if (data.resultCode === ResultCode.SUCCESS) {
         dispatch(setStatus(status))
@@ -63,7 +62,7 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
     }
 }
 
-export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
+export const savePhoto = (file: File) => async (dispatch: ThunkType) => {
     let photoData = await profileAPI.savePhoto(file)
     if (photoData.resultCode === ResultCode.SUCCESS) {
         dispatch(setPhotoSuccess(photoData.data.photos))

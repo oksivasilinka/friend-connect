@@ -1,6 +1,6 @@
 import {AppRootStateType} from "./store";
 import {createSelector} from "reselect";
-import {UserResponseType} from "api/api";
+import {UserResponseType} from "api/profileApi";
 
 const getUsersSelector = (state: AppRootStateType) => {
     return state.usersPage.users
