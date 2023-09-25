@@ -1,24 +1,9 @@
-import React, {ChangeEvent, ReactNode} from "react";
+import React from 'react'
 import s from './FormControls.module.css'
+import { WrappedFieldProps } from 'redux-form'
 
-type MetaType = {
-    touched: boolean;
-    error: string;
-}
 
-type InputType = {
-    value: string;
-    onChange: (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void;
-}
-
-type PropsType = {
-    input: InputType;
-    meta: MetaType;
-    placeholder?: string;
-    children: ReactNode;
-}
-
-export const FormControl = ({meta, children}: PropsType) => {
+export const FormControl:React.FC<WrappedFieldProps> = ({meta, children}) => {
 
     const hasError = meta.touched && meta.error
 
@@ -32,15 +17,15 @@ export const FormControl = ({meta, children}: PropsType) => {
     )
 }
 
-export const Textarea = (props: PropsType) => {
-    const {input, meta, children, ...restProps} = props
+export const Textarea: React.FC<WrappedFieldProps> = (props) => {
+    const {input, meta, ...restProps} = props
     return <FormControl {...props}>
         <textarea {...input} {...restProps}/>
     </FormControl>
 }
 
-export const Input = (props: PropsType) => {
-    const {input, meta, children, ...restProps} = props
+export const Input: React.FC<WrappedFieldProps> = (props) => {
+    const {input, ...restProps} = props
     return <FormControl {...props}>
         <input {...input} {...restProps} />
     </FormControl>
