@@ -1,13 +1,6 @@
 import { PhotosType, profileAPI, ProfileResponseType, ResultCode } from "api/profileApi"
-import { AppRootStateType, ThunkType } from "redux/store"
+import { AppRootStateType, InferActionsType, ThunkType } from 'redux/store'
 import { stopSubmit } from "redux-form"
-
-const ADD_POST = "ADD-POST"
-const SET_USER_PROFILE = "SET-USER-PROFILE"
-const SET_STATUS = "SET-STATUS"
-const DELETE_POST = "DELETE-POST"
-const SET_PHOTO = "SET-PHOTO"
-
 
 let initialState = {
     posts: [
@@ -21,42 +14,44 @@ let initialState = {
 
 export const profileReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
-        case ADD_POST:
+        case 'ADD_POST':
             const newPost = { id: new Date().getTime(), message: action.newPostText, likeCount: 0 }
             return { ...state, posts: [...state.posts, newPost] }
-        case DELETE_POST:
+        case 'DELETE_POST':
             return { ...state, posts: state.posts.filter(el => el.id != action.id) }
-        case SET_USER_PROFILE:
+        case 'SET_USER_PROFILE':
             return { ...state, profile: action.profile }
-        case SET_STATUS:
+        case 'SET_STATUS':
             return { ...state, status: action.status }
-        case SET_PHOTO:
+        case 'SET_PHOTO':
             return { ...state, profile: { ...state.profile, photos: action.photos } }
         default:
             return state || initialState
     }
 }
+export const profileActions = {
+    addPostAC: (postText: string) => ({ type: 'ADD_POST', newPostText: postText }) as const,
+    setUserProfile: (profile: ProfileResponseType) => ({ type: 'SET_USER_PROFILE', profile }) as const,
+    setStatus: (status: string) => ({ type: 'SET_STATUS', status }) as const,
+    deletePostAC: (id: number) => ({ type: 'DELETE_POST', id }) as const,
+    setPhotoSuccess: (photos: PhotosType) => ({ type: 'SET_PHOTO', photos }) as const
+}
 
-export const addPostAC = (postText: string) => ({ type: ADD_POST, newPostText: postText }) as const
-export const setUserProfile = (profile: ProfileResponseType) => ({ type: SET_USER_PROFILE, profile }) as const
-export const setStatus = (status: string) => ({ type: SET_STATUS, status }) as const
-export const deletePostAC = (id: number) => ({ type: DELETE_POST, id }) as const
-export const setPhotoSuccess = (photos: PhotosType) => ({ type: SET_PHOTO, photos }) as const
 
 export const getProfile = (id: number) => async (dispatch: ThunkType) => {
     let data = await profileAPI.getUserProfile(id)
-    dispatch(setUserProfile(data))
+    dispatch(profileActions.setUserProfile(data))
 }
 
 export const getStatus = (userId: number) => async (dispatch: ThunkType) => {
     let data = await profileAPI.getStatus(userId)
-    dispatch(setStatus(data))
+    dispatch(profileActions.setStatus(data))
 }
 
 export const updateStatus = (status: string) => async (dispatch: ThunkType) => {
     let data = await profileAPI.updateStatus(status)
     if (data.resultCode === ResultCode.SUCCESS) {
-        dispatch(setStatus(status))
+        dispatch(profileActions.setStatus(status))
     } else {
         console.log(data.messages[0])
     }
@@ -65,7 +60,7 @@ export const updateStatus = (status: string) => async (dispatch: ThunkType) => {
 export const savePhoto = (file: File) => async (dispatch: ThunkType) => {
     let photoData = await profileAPI.savePhoto(file)
     if (photoData.resultCode === ResultCode.SUCCESS) {
-        dispatch(setPhotoSuccess(photoData.data.photos))
+        dispatch(profileActions.setPhotoSuccess(photoData.data.photos))
     }
 }
 
@@ -91,13 +86,5 @@ export type PostsType = {
     message: string
     likeCount: number
 }
-
-type AddPostACType = ReturnType<typeof addPostAC>
-type SetUserProfileACType = ReturnType<typeof setUserProfile>
-type SetStatusACType = ReturnType<typeof setStatus>
-type DeletePostACType = ReturnType<typeof deletePostAC>
-type SetPhotoSuccessType = ReturnType<typeof setPhotoSuccess>
-
 type InitialStateType = typeof initialState
-
-type ActionTypes = AddPostACType | SetUserProfileACType | SetStatusACType | DeletePostACType | SetPhotoSuccessType
+type ActionTypes = InferActionsType<typeof profileActions>

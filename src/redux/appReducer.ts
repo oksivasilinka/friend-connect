@@ -1,9 +1,8 @@
-import { getAuthMe } from "./authReducer"
-import { ThunkType } from "./store"
+import { getAuthMe } from './authReducer'
+import { InferActionsType, ThunkType } from './store'
 
-const INITIALIZED_SUCCESS = "INITIALIZED-SUCCESS"
 
-type ActionTypes = ReturnType<typeof initializedSuccess>
+type ActionTypes = InferActionsType<typeof appActions>
 type InitialStateType = typeof initialState
 
 let initialState = {
@@ -12,18 +11,18 @@ let initialState = {
 
 export const appReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
-        case INITIALIZED_SUCCESS :
+        case 'INITIALIZED_SUCCESS' :
             return { ...state, initialized: true }
         default:
             return state || initialState
     }
 }
 
-const initializedSuccess = () => ({ type: INITIALIZED_SUCCESS }) as const
+export const appActions = { initializedSuccess: () => ({ type: 'INITIALIZED_SUCCESS' }) as const }
 
 
 export const initializeApp = () => async (dispatch: ThunkType) => {
     await dispatch(getAuthMe())
-    dispatch(initializedSuccess())
+    dispatch(appActions.initializedSuccess())
 }
 
