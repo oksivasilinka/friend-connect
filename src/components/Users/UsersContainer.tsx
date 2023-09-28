@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {AppRootStateType} from "redux/store";
-import {follow, getUsersTC, setCurrentPage, unFollow} from "redux/usersReducer";
+import { usersActions, follow, getUsersTC, unFollow } from 'redux/usersReducer'
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/preloader";
 import {compose} from "redux";
@@ -72,5 +72,5 @@ class UsersPage extends React.Component<PropsType> {
 }
 
 export default compose<React.ComponentType>(
-    connect<MapStateToPropsType, MapDispatchToProps, null, AppRootStateType>(mapStateToProps, {follow, unFollow, setCurrentPage, getUsers: getUsersTC,})
+    connect<MapStateToPropsType, MapDispatchToProps, null, AppRootStateType>(mapStateToProps, {follow, unFollow, setCurrentPage: usersActions.setCurrentPage, getUsers: getUsersTC,})
 )(UsersPage)
