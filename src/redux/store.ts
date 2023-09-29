@@ -1,10 +1,10 @@
-import { AnyAction, applyMiddleware, combineReducers, createStore } from 'redux'
+import { Action, applyMiddleware, combineReducers, createStore } from 'redux'
 import { profileReducer } from './profileReducer'
 import { dialogsReducer } from './dialogsReducer'
 import { sidebarReducer } from './sidebarReducer'
 import { usersReducer } from './usersReducer'
 import { authReducer } from './authReducer'
-import thunk, { ThunkDispatch } from 'redux-thunk'
+import thunk, { ThunkAction } from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
 import { appReducer } from './appReducer'
 
@@ -28,7 +28,7 @@ export type InferActionsType<T extends { [key: string]: (...args: any[]) => any 
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))
 
-export type ThunkType = ThunkDispatch<AppRootStateType, unknown, AnyAction>
+export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppRootStateType, unknown, A>
 
 
 // @ts-ignore

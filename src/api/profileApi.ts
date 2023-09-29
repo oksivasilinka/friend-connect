@@ -1,4 +1,4 @@
-import { instance } from 'api/commonApi'
+import { BaseResponseType, instance } from 'api/commonApi'
 
 export const profileAPI = {
     getUserProfile: async (userId: number) => {
@@ -10,44 +10,32 @@ export const profileAPI = {
         return res.data
     },
     updateStatus: async (status: string) => {
-        const res = await instance.put<ResponseType>(`profile/status`, { status })
+        const res = await instance.put<BaseResponseType>(`profile/status`, { status })
         return res.data
     },
     savePhoto: async (file: File) => {
         let formData = new FormData()
-        formData.append("image", file)
-        const res = await instance.put<ResponseType<{ photos: PhotosType }>>(`profile/photo`, formData, {
-            headers: { "Content-Type": "multipart/form-data" }
+        formData.append('image', file)
+        const res = await instance.put<BaseResponseType<{ photos: PhotosType }>>(`profile/photo`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
         })
         return res.data
     },
     saveProfile: async (profile: ProfileResponseType) => {
-        const res = await instance.put<ResponseType>("profile", profile)
+        const res = await instance.put<BaseResponseType>('profile', profile)
         return res.data
     }
 }
 
 
-export type ResponseType<T = {}, R = ResultCode> = {
-    resultCode: R
-    messages: string[],
-    data: T
-}
-
-
-
-export type UserResponseType = {
-    name: string
-    id: number
+export type ProfileResponseType = {
+    userId?: number | undefined
+    lookingForAJob?: boolean | undefined
+    lookingForAJobDescription?: string | undefined
+    fullName?: string | undefined
+    contacts?: ContactsType | undefined | {}
     photos: PhotosType
-    status: string | null,
-    followed: boolean
-}
-
-export type UsersResponseType = {
-    items: UserResponseType[]
-    totalCount: number
-    error: string | null
+    aboutMe?: string | undefined // or mainLink
 }
 
 export type ContactsType = {
@@ -64,16 +52,6 @@ export type ContactsType = {
 export type PhotosType = {
     small: string | null
     large: string | null
-}
-
-export type ProfileResponseType = {
-    aboutMe?: string | undefined
-    contacts?: ContactsType | undefined | {}
-    lookingForAJob?: boolean | undefined
-    lookingForAJobDescription?: string | undefined
-    fullName?: string | undefined
-    userId?: number | undefined
-    photos: PhotosType
 }
 
 export enum ResultCode {

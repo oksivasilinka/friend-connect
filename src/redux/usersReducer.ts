@@ -1,9 +1,9 @@
-import { ResultCode, UserResponseType } from 'api/profileApi'
-import { Action } from 'redux'
+import { ResultCode } from 'api/profileApi'
+import { Action, Dispatch } from 'redux'
 import { updateObjectArray } from 'utils/object-helpers'
-import { usersAPI } from 'api/usersApi'
+import { UserResponseType, usersAPI } from 'api/usersApi'
 import { AxiosResponse } from 'axios'
-import { InferActionsType, ThunkType } from 'redux/store'
+import { BaseThunkType, InferActionsType } from 'redux/store'
 
 export let initialState = {
     users: [] as UserResponseType[],
@@ -60,7 +60,7 @@ export const usersActions = {
 }
 
 
-export const getUsersTC = (currentPage: number, pageSize: number) => async (dispatch: ThunkType) => {
+export const getUsersTC = (currentPage: number, pageSize: number): ThunkType => async (dispatch) => {
     dispatch(usersActions.toggleIsFetching(true))
     dispatch(usersActions.setCurrentPage(currentPage))
     const usersData = await usersAPI.getUsers(currentPage, pageSize)
@@ -69,15 +69,15 @@ export const getUsersTC = (currentPage: number, pageSize: number) => async (disp
     dispatch(usersActions.setTotalUsersCount(usersData.totalCount))
 }
 
-export const follow = (id: number) => async (dispatch: ThunkType) => {
+export const follow = (id: number): ThunkType => async (dispatch) => {
     await followUnfollowFlow(dispatch, id, usersAPI.unFollowUser.bind(usersAPI), usersActions.followAC)
 }
 
-export const unFollow = (id: number) => async (dispatch: ThunkType) => {
+export const unFollow = (id: number): ThunkType => async (dispatch) => {
     await followUnfollowFlow(dispatch, id, usersAPI.followUser.bind(usersAPI), usersActions.unFollowAC)
 }
 
-const followUnfollowFlow = async (dispatch: ThunkType, id: number, apiMethod: ApiMethod, actionCreator: ActionCreator) => {
+const followUnfollowFlow = async (dispatch: Dispatch, id: number, apiMethod: ApiMethod, actionCreator: ActionCreator) => {
     dispatch(usersActions.toggleIsFollowingProgress(true, id))
     const res = await apiMethod(id)
     if (res.data.resultCode === ResultCode.SUCCESS) {
@@ -91,3 +91,4 @@ export type ActionTypes = InferActionsType<typeof usersActions>
 export type InitialStateType = typeof initialState
 type ApiMethod = (id: number) => Promise<AxiosResponse>
 type ActionCreator = (id: number) => Action
+type ThunkType = BaseThunkType<ActionTypes>

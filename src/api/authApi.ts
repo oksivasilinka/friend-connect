@@ -1,20 +1,18 @@
-import { instance } from 'api/commonApi'
-import { ResultCode, ResponseType } from 'api/profileApi'
+import { BaseResponseType, instance } from 'api/commonApi'
+import { ResultCode } from 'api/profileApi'
 
 
 export const authAPI = {
     me: async () => {
-        const res = await instance.get<ResponseType<MeResponseData>>(`auth/me`)
+        const res = await instance.get<BaseResponseType<MeResponseData>>(`auth/me`)
         return res.data
     },
     login: async (email: string, password: string, rememberMe = false, captcha: string | null = null) => {
-        const res = await instance.post<ResponseType<{
-            data: LoginResponseData
-        }, ResultCode & ResultCodeForCaptcha>>(`auth/login`, { email, password, rememberMe, captcha })
+        const res = await instance.post<BaseResponseType<LoginResponseData, ResultCode & ResultCodeForCaptcha>>(`auth/login`, { email, password, rememberMe, captcha })
         return res.data
     },
     logout: async () => {
-        const res = await instance.delete<ResponseType>(`auth/login`)
+        const res = await instance.delete<BaseResponseType>(`auth/login`)
         return res.data
     }
 }

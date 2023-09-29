@@ -1,9 +1,8 @@
 import { ResultCode } from 'api/profileApi'
-import { InferActionsType, ThunkType } from './store'
-import { stopSubmit } from 'redux-form'
+import { BaseThunkType, InferActionsType } from './store'
+import { FormAction, stopSubmit } from 'redux-form'
 import { authAPI, ResultCodeForCaptcha } from 'api/authApi'
 import { securityAPI } from 'api/securityApi'
-
 
 let initialState = {
     id: null as number | null,
@@ -35,7 +34,7 @@ export const authActions = {
     }) as const
 }
 
-export const getAuthMe = () => async (dispatch: ThunkType) => {
+export const getAuthMe = (): ThunkType => async (dispatch) => {
     const meData = await authAPI.me()
     if (meData.resultCode === ResultCode.SUCCESS) {
         const { id, login, email } = meData.data
@@ -43,8 +42,8 @@ export const getAuthMe = () => async (dispatch: ThunkType) => {
     }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean = true, captcha: string | null) =>
-    async (dispatch: ThunkType) => {
+export const login = (email: string, password: string, rememberMe: boolean = true, captcha: string | null): ThunkType =>
+    async (dispatch) => {
         const loginData = await authAPI.login(email, password, rememberMe, captcha)
         if (loginData.resultCode === ResultCode.SUCCESS) {
             await dispatch(getAuthMe())
@@ -56,14 +55,14 @@ export const login = (email: string, password: string, rememberMe: boolean = tru
         }
     }
 
-export const getCaptchaUrlTC = () => async (dispatch: ThunkType) => {
+export const getCaptchaUrlTC = (): ThunkType => async (dispatch) => {
     const captchaData = await securityAPI.getCaptchaUrl()
     await dispatch(getAuthMe())
     const captchaUrl = captchaData.url
     dispatch(authActions.getCaptchaUrlSuccess(captchaUrl))
 }
 
-export const logOut = () => async (dispatch: ThunkType) => {
+export const logOut = (): ThunkType => async (dispatch) => {
     let logoutData = await authAPI.logout()
     if (logoutData.resultCode === ResultCode.SUCCESS) {
         dispatch(authActions.logOutUser({
@@ -76,7 +75,7 @@ export const logOut = () => async (dispatch: ThunkType) => {
     }
 }
 
-
 type InitialStateType = typeof initialState
 export type ActionTypes = InferActionsType<typeof authActions>
+type ThunkType = BaseThunkType<ActionTypes | FormAction>
 
