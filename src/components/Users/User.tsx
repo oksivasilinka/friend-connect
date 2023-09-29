@@ -2,7 +2,7 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/img/user.png";
 import React from "react";
 import {NavLink} from "react-router-dom";
-import {UserResponseType} from "api/profileApi";
+import { UserResponseType } from 'api/usersApi'
 
 type UserPropsType = {
     user: UserResponseType

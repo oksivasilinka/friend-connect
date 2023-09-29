@@ -8,7 +8,7 @@ import {compose} from "redux";
 import {
     getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers,
 } from "redux/usersSelectors";
-import {UserResponseType} from "api/profileApi";
+import { UserResponseType } from 'api/usersApi'
 
 
 type MapStateToPropsType = {
