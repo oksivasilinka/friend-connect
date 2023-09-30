@@ -3,11 +3,11 @@ import {connect} from "react-redux";
 import {AppRootStateType} from "redux/store";
 import { usersActions, follow, getUsersTC, unFollow } from 'redux/usersReducer'
 import {Users} from "./Users";
-import {Preloader} from "../common/preloader/preloader";
+import {Preloader} from "components/common/preloader";
 import {compose} from "redux";
 import {
     getCurrentPage, getFollowingInProgress, getIsFetching, getPageSize, getTotalUsersCount, getUsers,
-} from "redux/usersSelectors";
+} from "components/users/usersSelectors";
 import { UserResponseType } from 'api/usersApi'
 
 

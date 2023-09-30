@@ -1,23 +1,23 @@
 import React, { Suspense } from 'react'
 import './App.css'
-import { Nav } from 'Components/Nav/Nav'
+import { Nav } from 'components/navigation/Nav'
 import { Redirect, Route, withRouter } from 'react-router-dom'
-import { News } from 'Components/News/News'
-import { Music } from 'Components/Music/Music'
-import { Settings } from 'Components/Settings/Settings'
-import { Sidebar } from 'Components/Sidebar/Sidebar'
-import { HeaderContainer } from 'Components/Header/HeaderContainer'
-import UsersContainer from './Components/Users/UsersContainer'
-import Login from './Components/login/Login'
+import { News } from 'components/news/News'
+import { Music } from 'components/music/Music'
+import { Settings } from 'components/settings/Settings'
+import { Sidebar } from 'components/sidebar/Sidebar'
+import { HeaderContainer } from 'components/header/HeaderContainer'
+import UsersContainer from './components/users/UsersContainer'
+import Login from './components/login/Login'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { AppRootStateType } from 'redux/store'
-import { Preloader } from 'Components/common/preloader/preloader'
+import { Preloader } from 'components/common/preloader'
 import { initializeApp } from 'redux/appReducer'
 
 
-const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'))
-const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'))
+const DialogsContainer = React.lazy(() => import('./components/dialogs/DialogsContainer'))
+const ProfileContainer = React.lazy(() => import('./components/profile/ProfileContainer'))
 
 type PropsType = {
     initializeApp: () => void

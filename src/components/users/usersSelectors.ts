@@ -1,4 +1,4 @@
-import {AppRootStateType} from "./store";
+import {AppRootStateType} from "redux/store";
 import {createSelector} from "reselect";
 import { UserResponseType } from 'api/usersApi'
 
@@ -6,7 +6,7 @@ const getUsersSelector = (state: AppRootStateType) => {
     return state.usersPage.users
 }
 export const getUsers = createSelector(getUsersSelector, (users: UserResponseType[]) => {
-    return users.filter(u => true)
+    return users.filter(_ => true)
 })
 export const getPageSize = (state: AppRootStateType) => {
     return state.usersPage.pageSize

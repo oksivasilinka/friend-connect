@@ -1,6 +1,6 @@
 import React from "react";
-import {FormDataType, ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {MyPostsContainer} from "./MyPosts/MyPosts.container";
+import {ProfileFormData, ProfileInfo} from "./profileInfo";
+import {MyPostsContainer} from "./myPosts/MyPosts.container";
 import {ProfileResponseType} from "api/profileApi";
 
 type PropsType = {
@@ -9,7 +9,7 @@ type PropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
-    saveProfile: (formData: FormDataType) => void
+    saveProfile: (formData: ProfileFormData) => void
 }
 
 export const Profile: React.FC<PropsType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {

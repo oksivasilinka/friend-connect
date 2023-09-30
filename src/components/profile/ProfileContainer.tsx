@@ -6,7 +6,7 @@ import {AppRootStateType} from "redux/store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {WithAuthRedirect} from "hoc/WithAuthRedirect";
-import {FormDataType,} from "Components/Profile/ProfileInfo/ProfileInfo";
+import {ProfileFormData,} from "components/profile/profileInfo/ProfileInfo";
 import {ProfileResponseType} from "api/profileApi";
 
 type MapStateToPropsType = {
@@ -20,7 +20,7 @@ type MapDispatchToPropsType = {
     getStatus: (id: number | null) => void
     updateStatus: (status: string) => void
     savePhoto: (file: File) => void
-    saveProfile: (formData: FormDataType) => void
+    saveProfile: (formData: ProfileFormData) => void
 }
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType;
 type PathParamsType = {

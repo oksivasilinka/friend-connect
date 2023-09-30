@@ -1,13 +1,13 @@
-import s from "Components/Profile/ProfileInfo/ProfileInfo.module.css"
+import s from "components/profile/profileInfo/ProfileInfo.module.css"
 import React from "react"
-import { Input, Textarea } from "Components/common/formsControls/FormControls"
-import { createField } from "Components/login/Login"
+import { Input, Textarea } from "components/common/formsControls/FormControls"
+import { createField } from "components/login/Login"
 import { InjectedFormProps, reduxForm } from "redux-form"
-import { FormDataType } from "Components/Profile/ProfileInfo/ProfileInfo"
+import { ProfileFormData } from "components/profile/profileInfo"
 import { ProfileResponseType } from "api/profileApi"
 
 
-const ProfileDataForm: React.FC<InjectedFormProps<FormDataType,ProfileOwnProps > & ProfileOwnProps> = ({ handleSubmit, error, profile }) => {
+const ProfileDataForm: React.FC<InjectedFormProps<ProfileFormData,ProfileOwnProps > & ProfileOwnProps> = ({ handleSubmit, error, profile }) => {
 
 
     return (
@@ -39,9 +39,9 @@ const ProfileDataForm: React.FC<InjectedFormProps<FormDataType,ProfileOwnProps >
         </form>
     )
 }
-type ProfileFormPropertiesType = Extract<keyof FormDataType, string>
+type ProfileFormPropertiesType = Extract<keyof ProfileFormData, string>
 type ProfileOwnProps = {
     profile: ProfileResponseType | null
 }
 
-export const ProfileReduxDataForm = reduxForm<FormDataType, ProfileOwnProps>({ form: "edit-profile" })(ProfileDataForm)
+export const ProfileReduxDataForm = reduxForm<ProfileFormData, ProfileOwnProps>({ form: "edit-profile" })(ProfileDataForm)

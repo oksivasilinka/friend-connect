@@ -1,5 +1,5 @@
 import React from "react";
-import {Friends} from "./Friends/Friends";
+import {Friends} from "./friends/Friends";
 import s from "./Sidebar.module.css";
 
 export const Sidebar = () => {

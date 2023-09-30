@@ -1,10 +1,9 @@
 import React, { ChangeEvent, useState } from 'react'
-import s from 'Components/Profile/ProfileInfo/ProfileInfo.module.css'
-import { Preloader } from 'Components/common/preloader/preloader'
-import { ProfileStatus } from 'Components/Profile/ProfileInfo/ProfileStatus'
+import s from 'components/profile/profileInfo/ProfileInfo.module.css'
 import userPhoto from 'assets/img/user.png'
-import { ProfileReduxDataForm } from 'Components/Profile/ProfileInfo/ProfileDataForm'
 import { ProfileResponseType } from 'api/profileApi'
+import { ProfileData, ProfileReduxDataForm, ProfileStatus } from 'components/profile/profileInfo'
+import { Preloader } from 'components/common/preloader'
 
 export type ProfileInfo = {
     profile: ProfileResponseType | null
@@ -12,10 +11,10 @@ export type ProfileInfo = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
-    saveProfile: (formData: FormDataType) => any
+    saveProfile: (formData: ProfileFormData) => any
 }
 
-export type FormDataType = {
+export type ProfileFormData = {
     fullName: string
     aboutMe: string
     lookingForAJob: boolean
@@ -39,7 +38,7 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({
             savePhoto(e.currentTarget.files[0])
         }
     }
-    const onSubmit = (formData: FormDataType) => {
+    const onSubmit = (formData: ProfileFormData) => {
         saveProfile(formData).then(() => {
             setEditMode(false)
         })
@@ -67,45 +66,3 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({
     )
 }
 
-type ContactProps = {
-    contactTitle: string
-    contactValue: string | null
-}
-
-type ProfileDataProps = {
-    profile: ProfileResponseType
-    isOwner: boolean
-    goToEditMode: () => void
-}
-
-
-export const ProfileData = ({ profile, isOwner, goToEditMode }: ProfileDataProps) => {
-    return (
-
-        <div className={s.infoBlock}>
-            {isOwner && <div>
-                <button onClick={goToEditMode}>Edit Profile</button>
-            </div>}
-            <h4>Full name: </h4> {profile.fullName}
-            <h4>Обо мне: </h4> {profile.aboutMe}
-            <h4>Поиск работы: </h4> {profile.lookingForAJob ? 'Ищу работу' : 'Не ищу работу'}
-            <h4>Описание: </h4> {profile.lookingForAJobDescription}
-            <div>
-                <h4> Контакты: </h4>
-                {profile.contacts && Object.entries(profile.contacts).map(([key, value]) => {
-                    return <Contact key={key} contactTitle={key} contactValue={value} />
-                })}
-            </div>
-        </div>
-    )
-}
-
-
-export const Contact: React.FC<ContactProps> = ({ contactTitle, contactValue }) => {
-    return (
-        <div>
-            <b>{contactTitle}</b>: {contactValue}
-        </div>
-    )
-
-}
