@@ -1,4 +1,4 @@
-import s from 'components/profile/profileInfo/ProfileInfo.module.css'
+import s from './ProfileInfo.module.css'
 import React from 'react'
 import { ProfileResponseType } from 'api/profileApi'
 

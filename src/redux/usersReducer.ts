@@ -11,7 +11,11 @@ export let initialState = {
     totalCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: [] as number[]
+    followingInProgress: [] as number[],
+    filter: {
+        term: '',
+        friend: undefined as boolean | undefined
+    }
 }
 
 export const usersReducer = (state = initialState, action: ActionTypes): InitialStateType => {
@@ -40,6 +44,8 @@ export const usersReducer = (state = initialState, action: ActionTypes): Initial
                     ? [...state.followingInProgress, action.id]
                     : state.followingInProgress.filter(id => id !== action.id)
             }
+        case 'SET_FILTER':
+            return { ...state, filter: action.payload }
         default:
             return state || initialState
     }
@@ -50,6 +56,7 @@ export const usersActions = {
     unFollowAC: (id: number) => ({ type: 'UNFOLLOW', id }) as const,
     setUsers: (users: UserResponseType[]) => ({ type: 'SET_USERS', users }) as const,
     setCurrentPage: (currentPage: number) => ({ type: 'SET_CURRENT_PAGE', currentPage }) as const,
+    setFilter: (filter: FilterForm) => ({ type: 'SET_FILTER', payload:  filter  }) as const,
     setTotalUsersCount: (totalCount: number) => ({ type: 'SET_TOTAL_COUNT', count: totalCount }) as const,
     toggleIsFetching: (isFetching: boolean) => ({ type: 'TOGGLE_IS_FETCHING', isFetching }) as const,
     toggleIsFollowingProgress: (isFetching: boolean, id: number) => ({
@@ -60,10 +67,11 @@ export const usersActions = {
 }
 
 
-export const getUsersTC = (currentPage: number, pageSize: number): ThunkType => async (dispatch) => {
+export const getUsersTC = (currentPage: number, pageSize: number, filter: FilterForm): ThunkType => async (dispatch) => {
     dispatch(usersActions.toggleIsFetching(true))
     dispatch(usersActions.setCurrentPage(currentPage))
-    const usersData = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(usersActions.setFilter(filter))
+    const usersData = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
     dispatch(usersActions.toggleIsFetching(false))
     dispatch(usersActions.setUsers(usersData.items))
     dispatch(usersActions.setTotalUsersCount(usersData.totalCount))
@@ -89,6 +97,7 @@ const followUnfollowFlow = async (dispatch: Dispatch, id: number, apiMethod: Api
 
 export type ActionTypes = InferActionsType<typeof usersActions>
 export type InitialStateType = typeof initialState
+export type FilterForm = typeof initialState.filter
 type ApiMethod = (id: number) => Promise<AxiosResponse>
 type ActionCreator = (id: number) => Action
 type ThunkType = BaseThunkType<ActionTypes>

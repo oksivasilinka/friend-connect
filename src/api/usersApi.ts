@@ -3,8 +3,9 @@ import { PhotosType } from 'api/profileApi'
 
 
 export const usersAPI = {
-    getUsers: async (currentPage: number, pageSize: number) => {
-        const res = await instance.get<UsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
+    getUsers: async (currentPage: number, pageSize: number, term='' , friend: undefined | boolean = undefined) => {
+        const res = await instance
+            .get<UsersResponseType>(`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend=== null ? '' : `&friend=${friend}`))
         return res.data
     },
     followUser: (userId: number) => {

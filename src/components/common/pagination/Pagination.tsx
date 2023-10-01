@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import s from "./Pagination.module.css"
+import React, { useState } from 'react'
+import s from './Pagination.module.css'
 
 type UsersPropsType = {
     pageSize: number
