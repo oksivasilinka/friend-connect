@@ -1,29 +1,16 @@
-import React from "react";
-import {ProfileFormData, ProfileInfo} from "./profileInfo";
-import {MyPostsContainer} from "./myPosts/MyPosts.container";
-import {ProfileResponseType} from "api/profileApi";
+import React, { FC } from 'react'
+import { ProfileInfo } from './profileInfo'
+import { MyPosts } from 'components/profile/myPosts/MyPosts'
 
 type PropsType = {
-    profile: ProfileResponseType | null
-    status: string
-    updateStatus: (status: string) => void
     isOwner: boolean
-    savePhoto: (file: File) => void
-    saveProfile: (formData: ProfileFormData) => void
 }
 
-export const Profile: React.FC<PropsType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
+export const Profile: FC<PropsType> = ({ isOwner }) => {
     return (
         <div>
-            <ProfileInfo
-                profile={profile}
-                status={status}
-                updateStatus={updateStatus}
-                isOwner={isOwner}
-                savePhoto={savePhoto}
-                saveProfile={saveProfile}
-            />
-            <MyPostsContainer/>
+            <ProfileInfo isOwner={isOwner} />
+            <MyPosts />
         </div>
     )
 }

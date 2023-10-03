@@ -2,7 +2,7 @@ import {AppRootStateType} from "redux/store";
 import {createSelector} from "reselect";
 import { UserResponseType } from 'api/usersApi'
 
-const getUsersSelector = (state: AppRootStateType) => {
+export const getUsersSelector = (state: AppRootStateType) => {
     return state.usersPage.users
 }
 export const getUsers = createSelector(getUsersSelector, (users: UserResponseType[]) => {

@@ -1,24 +1,26 @@
-import React from 'react'
+import React, { FC } from 'react'
 import s from './Dialogs.module.css'
 import { DialogItem } from './dialogItem/DialogItem'
 import { Message } from './message/Message'
-import { DialogsPageType } from './DialogsContainer'
 import { AddMessageFormRedux } from 'components/dialogs/AddNewMessageForm'
+import { useDispatch, useSelector } from 'react-redux'
+import { dialogPageSelector } from 'components/dialogs/dialogsSelectors'
+import { dialogsActions } from 'redux/dialogsReducer'
 
-type DialogsProps = {
-    addNewMessage: (text: string) => void
-    dialogsPage: DialogsPageType
-}
+
 export type AddMessageFormData = { newMessageBody: string }
 
 
-export const Dialogs = React.memo<DialogsProps>(({ dialogsPage, addNewMessage }) => {
+export const DialogsPage: FC = React.memo(() => {
+
+    const dialogsPage = useSelector(dialogPageSelector)
+    const dispatch = useDispatch()
 
     const dialogsElements = dialogsPage.dialogs.map((d) => <DialogItem key={d.id} name={d.name} id={d.id} />)
-    const messagesElements = dialogsPage.messages.map((m) => <Message key={m.id} message={m.message} id={m.id} />)
+    const messagesElements = dialogsPage.messages.map((m) => <Message key={m.id} message={m.message} />)
 
     const addNewMessageHandler = (value: AddMessageFormData) => {
-        addNewMessage(value.newMessageBody)
+        dispatch(dialogsActions.addNewMessage(value.newMessageBody))
         value.newMessageBody = ''
     }
 

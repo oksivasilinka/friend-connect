@@ -1,47 +1,38 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 import s from 'components/profile/profileInfo/ProfileInfo.module.css'
 import userPhoto from 'assets/img/user.png'
-import { ProfileResponseType } from 'api/profileApi'
 import { ProfileData, ProfileReduxDataForm, ProfileStatus } from 'components/profile/profileInfo'
 import { Preloader } from 'components/common/preloader'
+import { useDispatch, useSelector } from 'react-redux'
+import { profileSelector } from 'components/profile/profileSelector'
+import { savePhoto, saveProfile } from 'redux/profileReducer'
+import { ProfileResponseType } from 'api/profileApi'
 
 export type ProfileInfo = {
-    profile: ProfileResponseType | null
-    status: string
-    updateStatus: (status: string) => void
     isOwner: boolean
-    savePhoto: (file: File) => void
-    saveProfile: (formData: ProfileFormData) => any
 }
 
-export type ProfileFormData = {
-    fullName: string
-    aboutMe: string
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-}
+export const ProfileInfo: FC<ProfileInfo> = ({ isOwner }) => {
 
-export const ProfileInfo: React.FC<ProfileInfo> = ({
-                                                       profile,
-                                                       status,
-                                                       updateStatus,
-                                                       isOwner,
-                                                       savePhoto,
-                                                       saveProfile
-                                                   }) => {
     const [editMode, setEditMode] = useState(false)
+    const profile = useSelector(profileSelector)
+    const dispatch = useDispatch()
+
 
     if (!profile) return <Preloader />
 
     const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget && e.currentTarget.files && e.currentTarget.files.length) {
-            savePhoto(e.currentTarget.files[0])
+            dispatch(savePhoto(e.currentTarget.files[0]))
         }
     }
-    const onSubmit = (formData: ProfileFormData) => {
-        saveProfile(formData).then(() => {
+    const onSubmit = async (formData: ProfileResponseType) => {
+        try {
+            dispatch(saveProfile(formData))
             setEditMode(false)
-        })
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     return (
@@ -55,7 +46,7 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({
 
                     {isOwner && <input className={s.input} type={'file'} onChange={onMainPhotoSelected} />}
                 </div>
-                <ProfileStatus status={status} updateStatus={updateStatus} />
+                <ProfileStatus />
             </div>
 
             {editMode ? <ProfileReduxDataForm initialValues={profile} onSubmit={onSubmit} profile={profile} /> :

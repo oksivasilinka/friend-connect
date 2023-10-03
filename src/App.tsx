@@ -7,17 +7,15 @@ import { Music } from 'components/music/Music'
 import { Settings } from 'components/settings/Settings'
 import { Sidebar } from 'components/sidebar/Sidebar'
 import { HeaderContainer } from 'components/header/HeaderContainer'
-import UsersContainer from './components/users/UsersContainer'
-import Login from './components/login/Login'
+import { UsersPage } from 'components/users/UsersPage'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { AppRootStateType } from 'redux/store'
 import { Preloader } from 'components/common/preloader'
 import { initializeApp } from 'redux/appReducer'
-
-
-const DialogsContainer = React.lazy(() => import('./components/dialogs/DialogsContainer'))
-const ProfileContainer = React.lazy(() => import('./components/profile/ProfileContainer'))
+import { Login } from 'components/login/Login'
+import { DialogsPage } from 'components/dialogs/DialogsPage'
+import { ProfilePage } from 'components/profile/ProfileContainer'
 
 type PropsType = {
     initializeApp: () => void
@@ -50,12 +48,12 @@ class App extends React.Component<PropsType> {
                 <div className='App-content'>
                     <Suspense fallback={<Preloader />}>
                         <Route exact path='/' render={() => <Redirect to={'/profile'} />} />
-                        <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
-                        <Route path='/dialogs' render={() => <DialogsContainer />} />
+                        <Route path='/profile/:userId?' render={() => <ProfilePage />} />
+                        <Route path='/dialogs' render={() => <DialogsPage />} />
                         <Route path='/news' render={() => <News />} />
                         <Route path='/music' render={() => <Music />} />
                         <Route path='/settings' render={() => <Settings />} />
-                        <Route path='/users' render={() => <UsersContainer />} />
+                        <Route path='/users' render={() => <UsersPage pageTitle={'Users'}/>} />
                         <Route path='/login' render={() => <Login />} />
                     </Suspense>
                 </div>

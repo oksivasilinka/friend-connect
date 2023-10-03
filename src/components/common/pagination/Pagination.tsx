@@ -1,21 +1,26 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import s from './Pagination.module.css'
+import { FilterForm, getUsersTC } from 'redux/usersReducer'
+import { useDispatch } from 'react-redux'
 
-type UsersPropsType = {
+type Props = {
     pageSize: number
     totalCount: number
     currentPage: number
-    onPageChanged: (page: number) => void
     portionSize?: number
+    filter: FilterForm
 }
 
-export const Pagination: React.FC<UsersPropsType> = ({
-                                                         pageSize,
-                                                         totalCount,
-                                                         currentPage,
-                                                         onPageChanged,
-                                                         portionSize = 10
-                                                     }) => {
+export const Pagination: FC<Props> = ({
+                                          pageSize,
+                                          totalCount,
+                                          currentPage,
+                                          portionSize = 10,
+                                          filter
+                                      }) => {
+
+    const dispatch = useDispatch()
+
     const pagesCount: number = Math.ceil(totalCount / pageSize)
     const pages: number[] = []
     for (let i = 1; i <= pagesCount; i++) {
@@ -26,6 +31,10 @@ export const Pagination: React.FC<UsersPropsType> = ({
     const [portionNumber, setPortionNumber] = useState(1)
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     const rightPortionPageNumber = portionNumber * portionSize
+
+    const onPageChanged = (page: number) => {
+        dispatch(getUsersTC(page, pageSize, filter))
+    }
 
     return (
         <div className={s.paginationBlock}>

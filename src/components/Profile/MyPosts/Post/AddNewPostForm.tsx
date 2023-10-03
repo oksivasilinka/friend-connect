@@ -1,17 +1,17 @@
 import { InjectedFormProps, reduxForm } from 'redux-form'
-import { createField } from 'components/login/Login'
 import { maxLengthCreator, requiredField } from 'utils/validators/validators'
 import { Textarea } from 'components/common/formsControls/FormControls'
-import React from 'react'
+import React, { FC } from 'react'
 import { AddPostFormData } from 'components/profile/myPosts/MyPosts'
+import { createField } from 'utils/createField/createField'
 
 type AddPostFormProperties = Extract<keyof AddPostFormData, string>
 
 const maxLength100 = maxLengthCreator(100)
 
-export const AddNewPostForm = (props: InjectedFormProps<AddPostFormData>) => {
+export const AddNewPostForm: FC<InjectedFormProps<AddPostFormData>> = ({ handleSubmit }) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             {createField<AddPostFormProperties>('Type text', 'newPostText', [requiredField, maxLength100], Textarea)}
             <div>
                 <button>Add post</button>

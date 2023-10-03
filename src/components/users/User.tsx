@@ -1,36 +1,48 @@
-import s from "./Users.module.css";
-import userPhoto from "../../assets/img/user.png";
-import React from "react";
-import {NavLink} from "react-router-dom";
+import s from './Users.module.css'
+import userPhoto from '../../assets/img/user.png'
+import React, { FC } from 'react'
+import { NavLink } from 'react-router-dom'
 import { UserResponseType } from 'api/usersApi'
+import { useDispatch, useSelector } from 'react-redux'
+import { follow, unFollow } from 'redux/usersReducer'
+import { getFollowingInProgress } from 'components/users/usersSelectors'
 
 type UserPropsType = {
     user: UserResponseType
-    follow: (id: number) => void
-    unFollow: (id: number) => void
-    followingInProgress: number[]
 }
 
-export const User: React.FC<UserPropsType> = ({user, follow, unFollow, followingInProgress}) => {
+export const User: FC<UserPropsType> = ({ user }) => {
+
+    const followingInProgress = useSelector(getFollowingInProgress)
+    const dispatch = useDispatch()
+
+    const followHandler = (id: number) => {
+        dispatch(follow(id))
+    }
+
+    const unfollowHandler = (id: number) => {
+        dispatch(unFollow(id))
+    }
+
     return (
         <div>
             <div>
                 <NavLink to={'/profile/' + user.id}>
                     <img className={s.photo}
                          src={user.photos.small != null ? user.photos.small : userPhoto}
-                         alt={'avatar'}/>
+                         alt={'avatar'} />
                 </NavLink>
                 <div>
                     {user.followed
                         ? <button
                             disabled={followingInProgress.some(id => id === user.id)}
-                            onClick={() => follow(user.id)}>
+                            onClick={() => followHandler(user.id)}>
                             UNFOLLOW
                         </button>
 
                         : <button
                             disabled={followingInProgress.some(id => id === user.id)}
-                            onClick={() => unFollow(user.id)}>
+                            onClick={() => unfollowHandler(user.id)}>
                             FOLLOW
                         </button>
                     }

@@ -1,9 +1,12 @@
-import React from "react";
+import React, { FC } from 'react'
 import s from './../Dialogs.module.css';
-import {MessagesType} from "redux/dialogsReducer";
 
-export const Message = (props: MessagesType) => {
+type Props = {
+    message: string
+}
+
+export const Message: FC<Props> = ({message}) => {
     return <div className={s.dialog}>
-        {props.message}
+        {message}
     </div>
 }

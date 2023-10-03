@@ -1,17 +1,23 @@
 import s from 'components/profile/profileInfo/ProfileInfo.module.css'
 import React from 'react'
 import { Input, Textarea } from 'components/common/formsControls/FormControls'
-import { createField } from 'components/login/Login'
 import { InjectedFormProps, reduxForm } from 'redux-form'
-import { ProfileFormData } from 'components/profile/profileInfo'
 import { ProfileResponseType } from 'api/profileApi'
+import { createField } from 'utils/createField/createField'
+
+type ProfileFormData = {
+    fullName: string
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+}
 
 type ProfileFormPropertiesType = Extract<keyof ProfileFormData, string>
 type ProfileOwnProps = {
     profile: ProfileResponseType | null
 }
 
-const ProfileDataForm: React.FC<InjectedFormProps<ProfileFormData, ProfileOwnProps> & ProfileOwnProps> = ({
+const ProfileDataForm: React.FC<InjectedFormProps<ProfileResponseType, ProfileOwnProps> & ProfileOwnProps> = ({
                                                                                                               handleSubmit,
                                                                                                               error,
                                                                                                               profile
@@ -46,4 +52,4 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileFormData, ProfileOwnPro
     )
 }
 
-export const ProfileReduxDataForm = reduxForm<ProfileFormData, ProfileOwnProps>({ form: 'edit-profile' })(ProfileDataForm)
+export const ProfileReduxDataForm = reduxForm<ProfileResponseType, ProfileOwnProps>({ form: 'edit-profile' })(ProfileDataForm)
