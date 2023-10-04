@@ -4,26 +4,50 @@ import { User } from './User'
 import { getUsersTC } from 'redux/usersReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-    getCurrentPage,
-    getPageSize,
-    getTotalUsersCount, getUsersFilter,
-    getUsersSelector
+    currentPageSelector,
+    pageSizeSelector,
+    totalUsersCount, usersFilterSelector,
+    usersSelector
 } from 'components/users/usersSelectors'
 import { UsersSearchForm } from 'components/users/UsersSearchForm'
-
+import { useHistory, useLocation } from 'react-router-dom'
 
 export const Users: FC = ({}) => {
 
-    const users = useSelector(getUsersSelector)
-    const totalCount = useSelector(getTotalUsersCount)
-    const currentPage = useSelector(getCurrentPage)
-    const pageSize = useSelector(getPageSize)
-    const filter = useSelector(getUsersFilter)
+    const users = useSelector(usersSelector)
+    const totalCount = useSelector(totalUsersCount)
+    const currentPage = useSelector(currentPageSelector)
+    const pageSize = useSelector(pageSizeSelector)
+    const filter = useSelector(usersFilterSelector)
     const dispatch = useDispatch()
+    const history = useHistory()
+    const location = useLocation()
 
     useEffect(() => {
-        dispatch(getUsersTC(currentPage, pageSize, filter))
+        const searchParams = new URLSearchParams(location.search)
+        const page = searchParams.get('page')
+        const term = searchParams.get('term')
+        const friend = searchParams.get('friend')
+
+        let actualPage = currentPage
+        if (page) actualPage = Number(page)
+
+        let actualFilter = filter
+        if (term) {
+            actualFilter = { ...actualFilter, term: term }
+        }
+        if (friend) {
+            actualFilter = { ...actualFilter, friend: friend === 'null' ? null : friend === 'true' }
+        }
+        dispatch(getUsersTC(actualPage, pageSize, actualFilter))
     }, [])
+
+    useEffect(() => {
+        history.push({
+            pathname: '/users',
+            search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+        })
+    }, [filter, currentPage])
 
 
     return (

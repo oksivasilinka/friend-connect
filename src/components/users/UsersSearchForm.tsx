@@ -1,7 +1,8 @@
 import { FilterForm, getUsersTC } from 'redux/usersReducer'
 import React, { FC } from 'react'
 import { Field, Form, Formik } from 'formik'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { usersFilterSelector } from 'components/users/usersSelectors'
 
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
 
 export const UsersSearchForm: FC<Props> = React.memo(({ pageSize}) => {
 
+    const filter = useSelector(usersFilterSelector)
     const dispatch = useDispatch()
     const onFilterChanged = (filter: FilterForm) => {
         dispatch(getUsersTC(1, pageSize, filter))
@@ -24,7 +26,7 @@ export const UsersSearchForm: FC<Props> = React.memo(({ pageSize}) => {
     return (
         <div>
             <Formik
-                initialValues={{ term: '', friend: undefined }}
+                initialValues={{ term: filter.term, friend: filter.friend }}
                 // validate={usersSearchFormValidate}
                 onSubmit={submit}
             >

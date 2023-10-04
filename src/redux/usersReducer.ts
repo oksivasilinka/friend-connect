@@ -13,8 +13,8 @@ export let initialState = {
     isFetching: false,
     followingInProgress: [] as number[],
     filter: {
-        term: '',
-        friend: undefined as boolean | undefined
+        term: '' as string | null,
+        friend: null as boolean | null
     }
 }
 
