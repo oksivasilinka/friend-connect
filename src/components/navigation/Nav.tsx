@@ -1,28 +1,44 @@
-import React from "react";
-import s from './Nav.module.css'
-import {NavLink} from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Menu } from 'antd'
+import {
+    UserOutlined,
+    CommentOutlined, TeamOutlined, SettingOutlined, CustomerServiceOutlined, ReadOutlined
+} from '@ant-design/icons'
+
 
 export const Nav = () => {
     return (
-        <nav className={s.nav}>
-            <div className={s.item}>
-                <NavLink to="/profile" activeClassName={s.active}>Profile</NavLink>
-            </div>
-            <div className={`${s.item} $ {s.active}`}>
-                <NavLink to="/dialogs" activeClassName={s.active}>Message</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to="/news" activeClassName={s.active}>News</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to="/music" activeClassName={s.active}>Music</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to="/settings" activeClassName={s.active}>Settings</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to="/users" activeClassName={s.active}>Users</NavLink>
-            </div>
-        </nav>
+        <Menu
+            theme='dark'
+            mode='inline'
+            defaultSelectedKeys={['1']}
+
+        >
+            <Menu.Item key='1' icon={<UserOutlined rev={undefined} />}>
+                <Link to='/profile'> Profile </Link>
+            </Menu.Item>
+
+            <Menu.Item key='2' icon={<CommentOutlined  rev={undefined} />}>
+                <Link to='/dialogs'> Messages </Link>
+            </Menu.Item>
+
+            <Menu.Item key='3' icon={<ReadOutlined rev={undefined} />}>
+                <Link to='/news'> News </Link>
+            </Menu.Item>
+
+            <Menu.Item key='4' icon={<CustomerServiceOutlined rev={undefined} />}>
+                <Link to='/music'> Music</Link>
+            </Menu.Item>
+
+            <Menu.Item key='5' icon={<SettingOutlined rev={undefined}/>}>
+                <Link to='/settings'>Settings</Link>
+            </Menu.Item>
+
+            <Menu.Item key='6' icon={<TeamOutlined rev={undefined} />}>
+                <Link to='/users'>Users</Link>
+            </Menu.Item>
+
+        </Menu>
     )
 }
