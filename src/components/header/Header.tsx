@@ -40,7 +40,7 @@ export const AppHeader: FC<Props> = ({ collapsed, setCollapsed }) => {
         <div>
             <Header style={{ padding: 0, background: colorBgContainer }}>
                 <Row>
-                    <Col span={18}>
+                    <Col span={20}>
                         <Button
                             type='text'
                             icon={collapsed ? <MenuUnfoldOutlined rev={undefined} /> :
@@ -55,7 +55,7 @@ export const AppHeader: FC<Props> = ({ collapsed, setCollapsed }) => {
                     </Col>
 
                     {isAuth ? <>
-                            <Col span={2}>
+                            <Col span={1}>
                                 {login}
                             </Col>
 
@@ -66,14 +66,14 @@ export const AppHeader: FC<Props> = ({ collapsed, setCollapsed }) => {
                                 />
                             </Col>
 
-                            <Col span={3}>
+                            <Col span={2}>
                                 <Button className={s.button} onClick={logoutHandler}>Log Out</Button>
                             </Col>
 
 
                         </>
                         :
-                        <Col span={3}><Button><Link to={'/login'}>Login</Link></Button></Col>
+                        <Col span={2}><Button><Link to={'/login'}>Login</Link></Button></Col>
                     }
 
                 </Row>

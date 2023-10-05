@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import { Pagination } from '../common/pagination/Pagination'
+import { PaginationPage } from 'components/common/pagination/PaginationPage'
 import { User } from './User'
 import { getUsersTC } from 'redux/usersReducer'
 import { useDispatch, useSelector } from 'react-redux'
@@ -53,13 +53,14 @@ export const Users: FC = ({}) => {
     return (
         <div>
             <UsersSearchForm pageSize={pageSize} />
-            <Pagination pageSize={pageSize}
-                        currentPage={currentPage}
-                        totalCount={totalCount}
-                        filter={filter}
+            <PaginationPage currentPage={currentPage}
+                            totalCount={totalCount}
+                            filter={filter}
             />
+            <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+                {users.map(user => <User key={user.id} user={user} />)}
+            </div>
 
-            {users.map(user => <User key={user.id} user={user} />)}
         </div>
     )
 }
