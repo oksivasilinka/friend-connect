@@ -11,13 +11,16 @@ import { AppRootStateType } from 'redux/store'
 import { Preloader } from 'components/common/preloader'
 import { initializeApp } from 'redux/appReducer'
 import { Login } from 'components/login/Login'
-import { DialogsPage } from 'components/dialogs/DialogsPage'
-import { ProfilePage } from 'components/profile/ProfileContainer'
 import { Layout, theme } from 'antd'
 import { AppHeader } from 'components/header/Header'
 
 
 const { Sider, Content } = Layout
+
+const DialogsPage = React.lazy(()=> import('./components/dialogs/DialogsPage'))
+const ProfilePage = React.lazy(()=> import('components/profile/ProfilePage'))
+const ChatPage = React.lazy(()=> import('./components/Chat/ChatPage'))
+
 const App: FC = () => {
     const [collapsed, setCollapsed] = useState(false)
     const {
@@ -57,6 +60,7 @@ const App: FC = () => {
                         <Route path='/settings' render={() => <Settings />} />
                         <Route path='/users' render={() => <UsersPage pageTitle={'Users'} />} />
                         <Route path='/login' render={() => <Login />} />
+                        <Route path='/chat' render={() => <ChatPage />} />
                     </Suspense>
                 </Content>
             </Layout>

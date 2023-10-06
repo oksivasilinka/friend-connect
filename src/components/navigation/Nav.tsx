@@ -38,6 +38,9 @@ export const Nav = () => {
             <Menu.Item key='6' icon={<TeamOutlined rev={undefined} />}>
                 <Link to='/users'>Users</Link>
             </Menu.Item>
+            <Menu.Item key='7' icon={<CommentOutlined rev={undefined} />}>
+                <Link to='/chat'>Chat</Link>
+            </Menu.Item>
 
         </Menu>
     )

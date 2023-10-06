@@ -9,7 +9,7 @@ type PathParams = {
     userId?: string | undefined
 }
 
-export const ProfilePage: FC = () => {
+const ProfilePage: FC = () => {
 
     const authorizedUserId = useSelector(authorizedUserIdSelector)
     const history = useHistory()
@@ -36,3 +36,5 @@ export const ProfilePage: FC = () => {
         <Profile isOwner={!userId} />
     )
 }
+
+export default ProfilePage

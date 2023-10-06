@@ -11,7 +11,7 @@ import { dialogsActions } from 'redux/dialogsReducer'
 export type AddMessageFormData = { newMessageBody: string }
 
 
-export const DialogsPage: FC = React.memo(() => {
+const DialogsPage: FC = React.memo(() => {
 
     const dialogsPage = useSelector(dialogPageSelector)
     const dispatch = useDispatch()
@@ -34,3 +34,5 @@ export const DialogsPage: FC = React.memo(() => {
         </div>
     )
 })
+
+export default DialogsPage
