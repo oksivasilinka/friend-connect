@@ -1,5 +1,6 @@
 import { Avatar, Card, Col, Row, Typography } from 'antd'
-import { ChatMessage } from 'components/Chat/Chat'
+import { ChatMessage } from 'components/ChatPage/Chat/Chat'
+import s from './Message.module.css'
 
 type Props = {
     message: ChatMessage
@@ -10,7 +11,7 @@ const { Title } = Typography
 export const Message = ({ message }: Props) => {
 
     return (
-        <Card style={{ marginBottom: '10px' }}>
+        <Card className={s.messageCard}>
             <Row>
                 <Col span={4}>
                     <Avatar size={'large'} src={message.photo} />

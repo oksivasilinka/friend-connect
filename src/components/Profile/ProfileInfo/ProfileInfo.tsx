@@ -49,8 +49,9 @@ export const ProfileInfo = ({ isOwner }: Props) => {
                 <ProfileStatus />
             </div>
 
-            {editMode ? <ProfileReduxDataForm initialValues={profile} onSubmit={onSubmit} profile={profile} /> :
-                <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => {
+            {editMode
+                ? <ProfileReduxDataForm initialValues={profile} onSubmit={onSubmit} profile={profile} />
+                : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => {
                     setEditMode(true)
                 }} />}
         </div>

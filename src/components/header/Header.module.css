@@ -1,36 +1,14 @@
-.header {
-    grid-area: h;
-    background-color: darkslategray;
+.headerBlock {
+    background-color: white;
+    padding: 0;
 }
 
-.header img {
-    margin-top: 5px;
-    margin-left: 10px;
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
+.iconMenu {
+    font-size: 16px;
+    width: 64px;
+    height: 64px;
 }
 
-.loginBlock {
-    float: right;
-    padding: 15px;
+.avatar {
+    background-color: #87d068;
 }
-
-.loginBlock a{
-    color: white;
-    text-decoration: none;
-}
-
-.login {
-    color: white;
-}
-
-.button {
-    width: 80px;
-    height: 30px;
-    background-color: lavender;
-    border: none;
-    color: darkslategray;
-    margin-left: 10px;
-}
-

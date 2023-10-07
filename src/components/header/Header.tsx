@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppRootStateType } from 'redux/store'
 import { logOut } from 'redux/authReducer'
-import { Avatar, Button, Col, Row, theme } from 'antd'
+import { Avatar, Button, Col, Row } from 'antd'
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons'
 import { Header } from 'antd/es/layout/layout'
 
@@ -13,13 +13,7 @@ type Props = {
     setCollapsed: (collapsed: boolean) => void
 }
 
-
 export const AppHeader = ({ collapsed, setCollapsed }: Props) => {
-
-    const {
-        token: { colorBgContainer }
-    } = theme.useToken()
-
 
     const isAuth = useSelector((state: AppRootStateType) => state.auth.isAuth)
     const login = useSelector((state: AppRootStateType) => state.auth.login)
@@ -30,54 +24,54 @@ export const AppHeader = ({ collapsed, setCollapsed }: Props) => {
         dispatch(logOut())
         history.push('/login')
     }
-    {
-        if (!isAuth) {
-            history.push('/login')
-        }
+
+    const collapsedMenuHandler = () => {
+        setCollapsed(!collapsed)
+    }
+
+    if (!isAuth) {
+        history.push('/login')
     }
 
     return (
-        <div>
-            <Header style={{ padding: 0, background: colorBgContainer }}>
-                <Row>
-                    <Col span={20}>
-                        <Button
-                            type='text'
-                            icon={collapsed ? <MenuUnfoldOutlined rev={undefined} /> :
-                                <MenuFoldOutlined rev={undefined} />}
-                            onClick={() => setCollapsed(!collapsed)}
-                            style={{
-                                fontSize: '16px',
-                                width: 64,
-                                height: 64
-                            }}
-                        />
+        <Header className={s.headerBlock}>
+            <Row>
+                <Col span={19}>
+                    <Button
+                        type='text'
+                        icon={collapsed
+                            ? <MenuUnfoldOutlined rev={undefined} />
+                            : <MenuFoldOutlined rev={undefined} />}
+                        onClick={collapsedMenuHandler}
+                        className={s.iconMenu} />
+                </Col>
+
+                {isAuth
+                    ? <>
+                        <Col span={2}>
+                            {login}
+                        </Col>
+
+                        <Col span={1}>
+                            <Avatar alt={login || ''}
+                                    className={s.avatar}
+                                    icon={<UserOutlined rev={undefined} />}
+                            />
+                        </Col>
+
+                        <Col span={2}>
+                            <Button onClick={logoutHandler}>Log Out</Button>
+                        </Col>
+                    </>
+
+                    : <Col span={2}>
+                        <Button>
+                            <Link to={'/login'}>Login</Link>
+                        </Button>
                     </Col>
+                }
 
-                    {isAuth ? <>
-                            <Col span={1}>
-                                {login}
-                            </Col>
-
-                            <Col span={1}>
-                                <Avatar alt={login || ''}
-                                        style={{ backgroundColor: '#87d068' }}
-                                        icon={<UserOutlined rev={undefined} />}
-                                />
-                            </Col>
-
-                            <Col span={2}>
-                                <Button className={s.button} onClick={logoutHandler}>Log Out</Button>
-                            </Col>
-
-
-                        </>
-                        :
-                        <Col span={2}><Button><Link to={'/login'}>Login</Link></Button></Col>
-                    }
-
-                </Row>
-            </Header>
-        </div>
+            </Row>
+        </Header>
     )
 }

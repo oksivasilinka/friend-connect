@@ -1,10 +1,10 @@
-import { Chat } from 'components/Chat/Chat'
+import { Chat } from 'components/ChatPage/Chat/Chat'
 
 const ChatPage = () => {
     return (
-        <div>
+        <>
             <Chat />
-        </div>
+        </>
     )
 }
 
