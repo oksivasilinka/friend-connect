@@ -18,6 +18,7 @@ The social network is a platform where users can create their profiles, connect 
 
 
 **Technologies**
+
 The project is developed using the following technologies:
 * TypeScript: A programming language that adds static typing to JavaScript, making code development and maintenance easier.
 * React: A popular library for building user interfaces that allows creating scalable and reusable components.
