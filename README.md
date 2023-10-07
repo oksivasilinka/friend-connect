@@ -1,8 +1,10 @@
 **Social Network**
+
 This is a web application project of a social network, developed using TypeScript, React, Redux, REST API, Axios, Formik, and CSS modules.
 
 
 **Description**
+
 The social network is a platform where users can create their profiles, connect with friends, exchange messages, and share content. This web application provides a user-friendly interface for users to easily interact with each other and share their thoughts, photos, and videos.
 
 
@@ -27,6 +29,7 @@ The project is developed using the following technologies:
 
 
 **Installation and Running**
+
 Clone the project repository to your computer.
 Navigate to the project's root folder.
 Install dependencies by running the command `yarn install`.
