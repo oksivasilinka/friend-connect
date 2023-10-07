@@ -1,13 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from "react"
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateStatus } from 'redux/profileReducer'
 import { statusSelector } from 'components/profile/profileSelector'
 
-type ProfileStatusPropsType = {
 
-}
-
-export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({  }) => {
+export const ProfileStatus = () => {
     const status = useSelector(statusSelector)
     const [editMode, setEditMode] = useState(true)
     const [userStatus, setUserStatus] = useState(status)
@@ -32,7 +29,7 @@ export const ProfileStatus: React.FC<ProfileStatusPropsType> = ({  }) => {
                 <div>
                     <h4>Статус: </h4>
                     <span onDoubleClick={onDoubleClickHandler}>
-                        {userStatus || "no status"}
+                        {userStatus || 'no status'}
                     </span>
                 </div>
             }
