@@ -1,19 +1,16 @@
 import s from './ProfileInfo.module.css'
 import React from 'react'
 import { ProfileResponseType } from 'api/profileApi'
+import { Contact } from 'components/profile/profileInfo/Contact'
 
-type ContactProps = {
-    contactTitle: string
-    contactValue: string | null
-}
 
-type ProfileDataProps = {
+type Props = {
     profile: ProfileResponseType
     isOwner: boolean
     goToEditMode: () => void
 }
 
-export const ProfileData = ({ profile, isOwner, goToEditMode }: ProfileDataProps) => {
+export const ProfileData = ({ profile, isOwner, goToEditMode }: Props) => {
     return (
 
         <div className={s.infoBlock}>
@@ -34,12 +31,3 @@ export const ProfileData = ({ profile, isOwner, goToEditMode }: ProfileDataProps
     )
 }
 
-
-export const Contact: React.FC<ContactProps> = ({ contactTitle, contactValue }) => {
-    return (
-        <div>
-            <b>{contactTitle}</b>: {contactValue}
-        </div>
-    )
-
-}

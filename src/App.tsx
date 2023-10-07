@@ -1,4 +1,4 @@
-import React, { FC, Suspense, useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import './App.css'
 import { Nav } from 'components/navigation/Nav'
 import { Redirect, Route } from 'react-router-dom'
@@ -17,11 +17,11 @@ import { AppHeader } from 'components/header/Header'
 
 const { Sider, Content } = Layout
 
-const DialogsPage = React.lazy(()=> import('./components/dialogs/DialogsPage'))
-const ProfilePage = React.lazy(()=> import('components/profile/ProfilePage'))
-const ChatPage = React.lazy(()=> import('./components/Chat/ChatPage'))
+const DialogsPage = React.lazy(() => import('./components/dialogs/DialogsPage'))
+const ProfilePage = React.lazy(() => import('components/profile/ProfilePage'))
+const ChatPage = React.lazy(() => import('./components/Chat/ChatPage'))
 
-const App: FC = () => {
+const App = () => {
     const [collapsed, setCollapsed] = useState(false)
     const {
         token: { colorBgContainer }

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import s from './Header.module.css'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,7 +14,7 @@ type Props = {
 }
 
 
-export const AppHeader: FC<Props> = ({ collapsed, setCollapsed }) => {
+export const AppHeader = ({ collapsed, setCollapsed }: Props) => {
 
     const {
         token: { colorBgContainer }

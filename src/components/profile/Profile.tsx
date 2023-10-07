@@ -1,12 +1,12 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { ProfileInfo } from './profileInfo'
 import { MyPosts } from 'components/profile/myPosts/MyPosts'
 
-type PropsType = {
+type Props = {
     isOwner: boolean
 }
 
-export const Profile: FC<PropsType> = ({ isOwner }) => {
+export const Profile = ({ isOwner }: Props) => {
     return (
         <div>
             <ProfileInfo isOwner={isOwner} />

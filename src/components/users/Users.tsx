@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { PaginationPage } from 'components/common/pagination/PaginationPage'
 import { User } from './User'
 import { getUsersTC } from 'redux/usersReducer'
@@ -6,13 +6,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
     currentPageSelector,
     pageSizeSelector,
-    totalUsersCount, usersFilterSelector,
+    totalUsersCount,
+    usersFilterSelector,
     usersSelector
 } from 'components/users/usersSelectors'
 import { UsersSearchForm } from 'components/users/UsersSearchForm'
 import { useHistory, useLocation } from 'react-router-dom'
 
-export const Users: FC = ({}) => {
+export const Users = () => {
 
     const users = useSelector(usersSelector)
     const totalCount = useSelector(totalUsersCount)

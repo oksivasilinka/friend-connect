@@ -1,13 +1,13 @@
-import React, { FC } from 'react'
+import React from 'react'
 import s from './MyPosts.module.css'
-import { Post, AddNewPostFormRedux } from './post'
+import { AddNewPostFormRedux, Post } from './post'
 import { profileActions } from 'redux/profileReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { myPostsSelectors } from 'components/profile/myPosts/myPostsSelectors'
 
 export type AddPostFormData = { newPostText: string }
 
-export const MyPosts: FC = React.memo(() => {
+export const MyPosts = React.memo(() => {
 
     const posts = useSelector(myPostsSelectors)
     const dispatch = useDispatch()

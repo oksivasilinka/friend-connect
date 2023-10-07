@@ -1,10 +1,9 @@
-import { FC } from 'react'
 import { Chat } from 'components/Chat/Chat'
 
-const ChatPage:FC = () => {
+const ChatPage = () => {
     return (
         <div>
-            <Chat/>
+            <Chat />
         </div>
     )
 }

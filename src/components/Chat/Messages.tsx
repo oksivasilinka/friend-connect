@@ -1,9 +1,9 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ws } from 'components/Chat/AddMessageChat'
 import { ChatMessage } from 'components/Chat/Chat'
 import { Message } from 'components/Chat/Message'
 
-export const Messages: FC = () => {
+export const Messages = () => {
     const [messages, setMessages] = useState<ChatMessage[]>([])
     useEffect(() => {
         ws.addEventListener('message', (e) => {
@@ -14,7 +14,7 @@ export const Messages: FC = () => {
 
     return (
         <div style={{ height: '1200px', overflowY: 'auto' }}>
-            {messages?.map((message: any, index) => <Message key={index} message={message}/>)}
+            {messages?.map((message: any, index) => <Message key={index} message={message} />)}
         </div>
     )
 

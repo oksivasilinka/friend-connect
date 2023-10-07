@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Profile } from './Profile'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProfile, getStatus } from 'redux/profileReducer'
@@ -9,7 +9,7 @@ type PathParams = {
     userId?: string | undefined
 }
 
-const ProfilePage: FC = () => {
+const ProfilePage = () => {
 
     const authorizedUserId = useSelector(authorizedUserIdSelector)
     const history = useHistory()

@@ -17,11 +17,9 @@ type ProfileOwnProps = {
     profile: ProfileResponseType | null
 }
 
-const ProfileDataForm: React.FC<InjectedFormProps<ProfileResponseType, ProfileOwnProps> & ProfileOwnProps> = ({
-                                                                                                              handleSubmit,
-                                                                                                              error,
-                                                                                                              profile
-                                                                                                          }) => {
+type Props = InjectedFormProps<ProfileResponseType, ProfileOwnProps> & ProfileOwnProps
+
+const ProfileDataForm = ({ handleSubmit, error, profile }: Props) => {
     return (
         <form className={s.infoBlock} onSubmit={handleSubmit}>
             <div>

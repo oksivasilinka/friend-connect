@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import s from 'components/profile/profileInfo/ProfileInfo.module.css'
 import userPhoto from 'assets/img/user.png'
 import { ProfileData, ProfileReduxDataForm, ProfileStatus } from 'components/profile/profileInfo'
@@ -8,11 +8,11 @@ import { profileSelector } from 'components/profile/profileSelector'
 import { savePhoto, saveProfile } from 'redux/profileReducer'
 import { ProfileResponseType } from 'api/profileApi'
 
-export type ProfileInfo = {
+type Props = {
     isOwner: boolean
 }
 
-export const ProfileInfo: FC<ProfileInfo> = ({ isOwner }) => {
+export const ProfileInfo = ({ isOwner }: Props) => {
 
     const [editMode, setEditMode] = useState(false)
     const profile = useSelector(profileSelector)

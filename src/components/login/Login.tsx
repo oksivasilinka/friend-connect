@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { reduxForm } from 'redux-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
@@ -17,7 +17,7 @@ export type LoginOwnProps = {
     captchaUrl: string | null
 }
 
-export const Login: FC = () => {
+export const Login = () => {
     const captchaUrl = useSelector(captchaUrlSelector)
     const isAuth = useSelector(isAuthSelector)
     const dispatch = useDispatch()

@@ -1,17 +1,17 @@
 import userPhoto from '../../assets/img/user.png'
-import React, { FC } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { UserResponseType } from 'api/usersApi'
 import { useDispatch, useSelector } from 'react-redux'
 import { follow, unFollow } from 'redux/usersReducer'
 import { getFollowingInProgress } from 'components/users/usersSelectors'
-import { Button, Card,  Image, Typography } from 'antd'
+import { Button, Card, Image, Typography } from 'antd'
 
-type UserPropsType = {
+type Props = {
     user: UserResponseType
 }
 const { Title, Text } = Typography
-export const User: FC<UserPropsType> = ({ user }) => {
+export const User = ({ user }: Props) => {
 
     const followingInProgress = useSelector(getFollowingInProgress)
     const dispatch = useDispatch()
@@ -26,44 +26,44 @@ export const User: FC<UserPropsType> = ({ user }) => {
 
     return (
 
-            <Card hoverable style={{ width: 400}}>
+        <Card hoverable style={{ width: 400 }}>
 
-                    <NavLink to={'/profile/' + user.id}>
-                        <Image
-                            width={'150px'}
-                            src={user.photos.small != null ? user.photos.small : userPhoto}
-                            alt={'avatar'} preview={false}
-                            style={{ borderRadius: '100%', marginBottom: '10px' }} />
-                    </NavLink>
-                    <div>
-                        <Title level={3}>{user.name}</Title>
-                        <Title level={5}>{user.status}</Title>
-                    </div>
+            <NavLink to={'/profile/' + user.id}>
+                <Image
+                    width={'150px'}
+                    src={user.photos.small != null ? user.photos.small : userPhoto}
+                    alt={'avatar'} preview={false}
+                    style={{ borderRadius: '100%', marginBottom: '10px' }} />
+            </NavLink>
+            <div>
+                <Title level={3}>{user.name}</Title>
+                <Title level={5}>{user.status}</Title>
+            </div>
 
-                    <div>
-                        <Text strong>{'u.location.country'}</Text>
-                    </div>
-                    <div>
-                        <Text strong>{'u.location.city'}</Text>
-                    </div>
+            <div>
+                <Text strong>{'u.location.country'}</Text>
+            </div>
+            <div>
+                <Text strong>{'u.location.city'}</Text>
+            </div>
 
-                    <div>
-                        {user.followed
-                            ? <Button type='dashed'
-                                      disabled={followingInProgress.some(id => id === user.id)}
-                                      onClick={() => followHandler(user.id)}>
-                                UNFOLLOW
-                            </Button>
+            <div>
+                {user.followed
+                    ? <Button type='dashed'
+                              disabled={followingInProgress.some(id => id === user.id)}
+                              onClick={() => followHandler(user.id)}>
+                        UNFOLLOW
+                    </Button>
 
-                            : <Button type='primary'
-                                      disabled={followingInProgress.some(id => id === user.id)}
-                                      onClick={() => unfollowHandler(user.id)}>
-                                FOLLOW
-                            </Button>
-                        }
-                    </div>
+                    : <Button type='primary'
+                              disabled={followingInProgress.some(id => id === user.id)}
+                              onClick={() => unfollowHandler(user.id)}>
+                        FOLLOW
+                    </Button>
+                }
+            </div>
 
-            </Card>
+        </Card>
 
 
     )

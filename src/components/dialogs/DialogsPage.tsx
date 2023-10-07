@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import s from './Dialogs.module.css'
 import { DialogItem } from './dialogItem/DialogItem'
 import { Message } from './message/Message'
@@ -11,7 +11,7 @@ import { dialogsActions } from 'redux/dialogsReducer'
 export type AddMessageFormData = { newMessageBody: string }
 
 
-const DialogsPage: FC = React.memo(() => {
+const DialogsPage = React.memo(() => {
 
     const dialogsPage = useSelector(dialogPageSelector)
     const dispatch = useDispatch()

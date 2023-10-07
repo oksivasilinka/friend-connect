@@ -1,11 +1,11 @@
 import { FieldValidatorType } from 'utils/validators/validators'
-import React from 'react'
+import React, { FC } from 'react'
 import { Field, WrappedFieldProps } from 'redux-form'
 
 export function createField<FormKeysType extends string>(placeholder: string | undefined,
                                                          name: FormKeysType,
                                                          validators: FieldValidatorType[],
-                                                         component: React.FC<WrappedFieldProps>,
+                                                         component: FC<WrappedFieldProps>,
                                                          props = {},
                                                          textInput = '') {
     return (

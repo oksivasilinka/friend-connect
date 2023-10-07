@@ -1,5 +1,5 @@
 import { FilterForm, getUsersTC } from 'redux/usersReducer'
-import React, { FC } from 'react'
+import React from 'react'
 import { Field, Form, Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { usersFilterSelector } from 'components/users/usersSelectors'
@@ -9,7 +9,7 @@ type Props = {
     pageSize: number
 }
 
-export const UsersSearchForm: FC<Props> = React.memo(({ pageSize}) => {
+export const UsersSearchForm = React.memo(({ pageSize }: Props) => {
 
     const filter = useSelector(usersFilterSelector)
     const dispatch = useDispatch()

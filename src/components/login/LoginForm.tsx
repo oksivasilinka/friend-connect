@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { InjectedFormProps } from 'redux-form'
 import { requiredField } from 'utils/validators/validators'
 import { Input } from 'components/common/formsControls/FormControls'
@@ -7,13 +7,9 @@ import { LoginFormData, LoginOwnProps } from 'components/login/Login'
 import { createField } from 'utils/createField/createField'
 
 type LoginFormProperties = Extract<keyof LoginFormData, string>
+type Props = InjectedFormProps<LoginFormData, LoginOwnProps> & LoginOwnProps
 
-
-export const LoginForm: FC<InjectedFormProps<LoginFormData, LoginOwnProps> & LoginOwnProps> = ({
-                                                                                                   handleSubmit,
-                                                                                                   error,
-                                                                                                   captchaUrl
-                                                                                               }) => {
+export const LoginForm = ({ handleSubmit, error, captchaUrl }: Props) => {
     return (
         <form onSubmit={handleSubmit}>
             {createField<LoginFormProperties>('Email', 'email', [requiredField], Input)}

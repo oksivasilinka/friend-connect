@@ -1,5 +1,4 @@
-import { FC } from 'react'
-import {Typography } from 'antd'
+import { Typography } from 'antd'
 import { Messages } from 'components/Chat/Messages'
 import { AddMessageChat } from 'components/Chat/AddMessageChat'
 
@@ -14,7 +13,7 @@ export type ChatMessage = {
 
 }
 
-export const Chat: FC = () => {
+export const Chat = () => {
 
     return (
         <div>

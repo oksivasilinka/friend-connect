@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { FilterForm, getUsersTC } from 'redux/usersReducer'
 import { useDispatch } from 'react-redux'
 import { Pagination } from 'antd'
@@ -9,11 +9,7 @@ type Props = {
     filter: FilterForm
 }
 
-export const PaginationPage: FC<Props> = ({
-                                              totalCount,
-                                              currentPage,
-                                              filter
-                                          }) => {
+export const PaginationPage = ({ totalCount, currentPage, filter }: Props) => {
 
     const dispatch = useDispatch()
 
