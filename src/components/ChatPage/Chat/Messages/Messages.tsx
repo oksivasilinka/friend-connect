@@ -1,18 +1,26 @@
 import { useEffect, useState } from 'react'
-import { ws } from 'components/ChatPage/Chat/Messages/AddMessageChat'
 import { ChatMessage } from 'components/ChatPage/Chat/Chat'
 import { Message } from 'components/ChatPage/Chat/Messages/Message/Message'
 import s from './Messages.module.css'
 
-export const Messages = () => {
+type Props = {
+    wsChanel: WebSocket | null
+}
+
+export const Messages = ({wsChanel}: Props) => {
 
     const [messages, setMessages] = useState<ChatMessage[]>([])
 
     useEffect(() => {
-        ws.addEventListener('message', (e) => {
+        const messageHandler =  (e: MessageEvent) => {
             setMessages((prevState) => [...prevState, ...JSON.parse(e.data)])
-        })
-    }, [])
+        }
+        wsChanel?.addEventListener('message', messageHandler)
+
+        return ()=> {
+            wsChanel?.addEventListener('message', messageHandler )
+        }
+    }, [wsChanel])
 
     return (
         <div className={s.messagesBlock}>

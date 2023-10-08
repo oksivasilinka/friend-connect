@@ -1,22 +1,38 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TextArea from 'antd/es/input/TextArea'
 import { Button } from 'antd'
 
-export const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+type Props = {
+    wsChanel: WebSocket | null
+}
 
-export const AddMessageChat = () => {
+
+export const AddMessageChat = ({wsChanel}: Props) => {
     const [message, setMessage] = useState('')
+    const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
+
+    useEffect(() => {
+        const openHandler = () => {
+            setReadyStatus('ready')
+        }
+
+        wsChanel?.addEventListener('open', openHandler)
+        return () => {
+            wsChanel?.removeEventListener('open', openHandler)
+        }
+    }, [wsChanel])
 
     const sendMessageHandler = () => {
         if (!message) return
-        ws.send(message)
+        wsChanel?.send(message)
         setMessage('')
     }
 
     return (
         <div>
             <TextArea onChange={(e) => setMessage(e.currentTarget.value)} value={message} />
-            <Button type={'primary'} onClick={sendMessageHandler}>Send message</Button>
+            <Button disabled={wsChanel !== null && readyStatus !== 'ready'} type={'primary'} onClick={sendMessageHandler}>Send
+                message</Button>
         </div>
     )
 }
