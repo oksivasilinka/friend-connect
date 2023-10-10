@@ -1,14 +1,15 @@
 import { Avatar, Card, Col, Row, Typography } from 'antd'
 import s from './Message.module.css'
-import { ChatMessage } from 'api/chat.api'
+import { ChatMessageApi } from 'api/chat.api'
+import React from 'react'
 
 type Props = {
-    message: ChatMessage
+    message: ChatMessageApi
 }
 
 const { Title } = Typography
 
-export const Message = ({ message }: Props) => {
+export const Message = React.memo(({ message }: Props) => {
 
     return (
         <Card className={s.messageCard}>
@@ -23,4 +24,4 @@ export const Message = ({ message }: Props) => {
             </Row>
         </Card>
     )
-}
+})

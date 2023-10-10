@@ -1,57 +1,89 @@
-let subscribers = [] as Subscriber[]
+import { Status } from 'redux/chat.reducer'
 
-
-let ws: WebSocket | null = null
-
-const closeHandler = () => {
-    setTimeout(createWsChanel, 3000)
+const subscribers = {
+    'messages-received': [] as MessagesReceivedSubscriber[],
+    'status-changed': [] as StatusChangedSubscriber[]
 }
 
 
-const createWsChanel = () => {
-    ws?.removeEventListener('close', closeHandler)
-    ws?.close()
+let ws: WebSocket | null = null
+type EventsNames = 'messages-received' | 'status-changed'
 
+const closeHandler = () => {
+    notifySubscriberAboutStatus('pending')
+    setTimeout(createWsChanel, 3000)
+}
+
+const notifySubscriberAboutStatus = (status: Status) => {
+    subscribers['status-changed'].forEach(s => s(status))
+}
+
+const createWsChanel = () => {
+    cleanUp()
+    ws?.close()
     ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+    notifySubscriberAboutStatus('pending')
     ws.addEventListener('close', closeHandler)
     ws.addEventListener('message', messageHandler)
+    ws.addEventListener('open', openHandler)
+    ws.addEventListener('error', errorHandler)
 
 }
 
 const messageHandler = (e: MessageEvent) => {
     const newMessage = JSON.parse(e.data)
-    subscribers.forEach(s => s(newMessage))
+    subscribers['messages-received'].forEach(s => s(newMessage))
+}
+
+const openHandler = () => {
+    notifySubscriberAboutStatus('ready')
+}
+
+const errorHandler = () => {
+    notifySubscriberAboutStatus('error')
+}
+
+const cleanUp = () => {
+    ws?.removeEventListener('close', closeHandler)
+    ws?.removeEventListener('message', messageHandler)
+    ws?.addEventListener('open', openHandler)
+    ws?.addEventListener('error', errorHandler)
 }
 
 export const chatApi = {
     start() {
         createWsChanel()
     },
-    subscribe(callback: (messages: ChatMessage[]) => void) {
-        subscribers.push(callback)
+    subscribe(eventName: EventsNames, callback: MessagesReceivedSubscriber | StatusChangedSubscriber) {
+        // @ts-ignore
+        subscribers[eventName].push(callback)
         return () => {
-            subscribers = subscribers.filter(s => s !== callback)
+            // @ts-ignore
+            subscribers[eventName] = subscribers[eventName].filter(s => s !== callback)
         }
     },
 
-    unsubscribe(callback: (messages: ChatMessage[]) => void) {
-        subscribers = subscribers.filter(s => s !== callback)
+    unsubscribe(eventName: EventsNames, callback: MessagesReceivedSubscriber | StatusChangedSubscriber) {
+        // @ts-ignore
+        subscribers[eventName] = subscribers[eventName].filter(s => s !== callback)
     },
     sendMessage(message: string) {
         ws?.send(message)
     },
+
     stop() {
-        subscribers = []
-        ws?.removeEventListener('close', closeHandler)
-        ws?.removeEventListener('message', messageHandler)
+        subscribers['messages-received'] = []
+        subscribers['status-changed'] = []
+        cleanUp()
         ws?.close()
     }
 
 }
 
-type Subscriber = (messages: ChatMessage[]) => void
+type MessagesReceivedSubscriber = (messages: ChatMessageApi[]) => void
+type StatusChangedSubscriber = (status: Status) => void
 
-export type ChatMessage = {
+export type ChatMessageApi = {
     message: string
     photo: string
     userId: number
