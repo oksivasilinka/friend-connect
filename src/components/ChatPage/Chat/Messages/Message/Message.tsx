@@ -1,6 +1,6 @@
 import { Avatar, Card, Col, Row, Typography } from 'antd'
-import { ChatMessage } from 'components/ChatPage/Chat/Chat'
 import s from './Message.module.css'
+import { ChatMessage } from 'api/chat.api'
 
 type Props = {
     message: ChatMessage

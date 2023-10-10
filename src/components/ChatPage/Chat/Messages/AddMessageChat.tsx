@@ -1,37 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import TextArea from 'antd/es/input/TextArea'
 import { Button } from 'antd'
+import { useDispatch } from 'react-redux'
+import { sendMessage } from 'redux/chat.reducer'
 
-type Props = {
-    wsChanel: WebSocket | null
-}
+export const AddMessageChat = () => {
 
-
-export const AddMessageChat = ({wsChanel}: Props) => {
+    const dispatch = useDispatch()
     const [message, setMessage] = useState('')
-    const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
 
-    useEffect(() => {
-        const openHandler = () => {
-            setReadyStatus('ready')
-        }
-
-        wsChanel?.addEventListener('open', openHandler)
-        return () => {
-            wsChanel?.removeEventListener('open', openHandler)
-        }
-    }, [wsChanel])
 
     const sendMessageHandler = () => {
-        if (!message) return
-        wsChanel?.send(message)
-        setMessage('')
+        if (message) {
+            dispatch(sendMessage(message))
+            setMessage('')
+        }
     }
 
     return (
         <div>
             <TextArea onChange={(e) => setMessage(e.currentTarget.value)} value={message} />
-            <Button disabled={wsChanel !== null && readyStatus !== 'ready'} type={'primary'} onClick={sendMessageHandler}>Send
+            <Button
+                type={'primary'} onClick={sendMessageHandler}>Send
                 message</Button>
         </div>
     )
