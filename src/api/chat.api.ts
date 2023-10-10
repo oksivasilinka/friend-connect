@@ -1,4 +1,4 @@
-import { Status } from 'redux/chat.reducer'
+import { ChatMessageApi, Status } from 'redux/chat.reducer'
 
 const subscribers = {
     'messages-received': [] as MessagesReceivedSubscriber[],
@@ -83,10 +83,3 @@ export const chatApi = {
 type MessagesReceivedSubscriber = (messages: ChatMessageApi[]) => void
 type StatusChangedSubscriber = (status: Status) => void
 
-export type ChatMessageApi = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
-
-}

@@ -1,20 +1,20 @@
 import { BaseThunkType, InferActionsType } from './store'
 import { FormAction } from 'redux-form'
-import { chatApi, ChatMessageApi } from 'api/chat.api'
+import { chatApi } from 'api/chat.api'
 import { Dispatch } from 'redux'
 import { v1 } from 'uuid'
 
 let initialState = {
-    messages: [] as ChatMessage[]  ,
+    messages: [] as ChatMessage[],
     status: 'pending' as Status
 }
-export type ChatMessage = ChatMessageApi & {id: string}
-export type Status = 'pending' | 'ready' | 'error'
 
 export const chatReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
         case 'SET_MESSAGES' :
-            return { ...state, messages: [...state.messages, ...action.payload.messages.map(m=>({...m, id: v1()}))].filter((_, index, array) => index >= array.length - 100) }
+            return { ...state, messages: [...state.messages, ...action.payload.messages
+                    .map(m => ({ ...m, id: v1() }))]
+                    .filter((_, index, array) => index >= array.length - 100) }
         case 'CHANGE_STATUS' :
             return { ...state, status: action.payload.status }
         default:
@@ -27,7 +27,6 @@ export const chatActions = {
     changeStatus: (status: Status) => ({ type: 'CHANGE_STATUS', payload: { status } }) as const
 }
 
-
 let _newMessageHandler: ((messages: ChatMessageApi[]) => void) | null = null
 
 const newMessageHandlerCreator = (dispatch: Dispatch) => {
@@ -36,7 +35,6 @@ const newMessageHandlerCreator = (dispatch: Dispatch) => {
             dispatch(chatActions.setMessages(messages))
         }
     }
-
     return _newMessageHandler
 }
 
@@ -48,7 +46,6 @@ const statusChangedHandlerCreator = (dispatch: Dispatch) => {
             dispatch(chatActions.changeStatus(status))
         }
     }
-
     return _statusChangedHandler
 }
 
@@ -68,8 +65,15 @@ export const sendMessage = (message: string): ThunkType => async () => {
     chatApi.sendMessage(message)
 }
 
-
 type InitialStateType = typeof initialState
 export type ActionTypes = InferActionsType<typeof chatActions>
 type ThunkType = BaseThunkType<ActionTypes | FormAction>
+export type ChatMessageApi = {
+    message: string
+    photo: string
+    userId: number
+    userName: string
 
+}
+export type ChatMessage = ChatMessageApi & { id: string }
+export type Status = 'pending' | 'ready' | 'error'

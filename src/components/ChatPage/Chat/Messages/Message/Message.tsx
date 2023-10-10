@@ -1,7 +1,7 @@
 import { Avatar, Card, Col, Row, Typography } from 'antd'
 import s from './Message.module.css'
-import { ChatMessageApi } from 'api/chat.api'
 import React from 'react'
+import { ChatMessageApi } from 'redux/chat.reducer'
 
 type Props = {
     message: ChatMessageApi
