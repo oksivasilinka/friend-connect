@@ -1,8 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { Users } from './Users'
-import { Preloader } from 'components/common/preloader'
-import { getIsFetching } from 'components/users/usersSelectors'
 import { Typography } from 'antd'
 
 type Props = {
@@ -12,11 +9,9 @@ type Props = {
 const { Title } = Typography
 
 export const UsersPage = ({ pageTitle }: Props) => {
-    const isFetching = useSelector(getIsFetching)
 
     return <>
         <Title level={2}>{pageTitle}</Title>
-        {isFetching ? <Preloader /> : null}
         <Users />
     </>
 }

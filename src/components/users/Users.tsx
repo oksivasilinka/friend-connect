@@ -4,7 +4,7 @@ import { User } from './User'
 import { getUsersTC } from 'redux/usersReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-    currentPageSelector,
+    currentPageSelector, getIsFetching,
     pageSizeSelector,
     totalUsersCount,
     usersFilterSelector,
@@ -12,6 +12,9 @@ import {
 } from 'components/users/usersSelectors'
 import { UsersSearchForm } from 'components/users/UsersSearchForm'
 import { useHistory, useLocation } from 'react-router-dom'
+import { Col, Row } from 'antd'
+import s from './Users.module.css'
+import { Preloader } from 'components/common/preloader'
 
 export const Users = () => {
 
@@ -23,6 +26,7 @@ export const Users = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const location = useLocation()
+    const isFetching = useSelector(getIsFetching)
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search)
@@ -50,19 +54,28 @@ export const Users = () => {
         })
     }, [filter, currentPage])
 
-
     return (
-        <div>
-            <UsersSearchForm pageSize={pageSize} />
-            <PaginationPage currentPage={currentPage}
-                            totalCount={totalCount}
-                            filter={filter}
-            />
+        <>
+            <Row className={s.filterBlock}>
+                <Col span={14}>
+                    <UsersSearchForm pageSize={pageSize} />
+                </Col>
+
+                <Col span={10}>
+                    <PaginationPage currentPage={currentPage}
+                                    totalCount={totalCount}
+                                    filter={filter}
+                    />
+                </Col>
+            </Row>
+
+            {isFetching ? <Preloader /> : null}
+
             <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
                 {users.map(user => <User key={user.id} user={user} />)}
             </div>
 
-        </div>
+        </>
     )
 }
 

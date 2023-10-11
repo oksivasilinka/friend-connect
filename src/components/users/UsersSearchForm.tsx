@@ -1,47 +1,63 @@
 import { FilterForm, getUsersTC } from 'redux/usersReducer'
 import React from 'react'
-import { Field, Form, Formik } from 'formik'
+import { useFormik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { usersFilterSelector } from 'components/users/usersSelectors'
+import { Button, Form, Input, Select } from 'antd'
+import s from './UsersSearchForm.module.css'
 
 
 type Props = {
     pageSize: number
 }
 
-export const UsersSearchForm = React.memo(({ pageSize }: Props) => {
+export const UsersSearchForm = ({ pageSize }: Props) => {
 
     const filter = useSelector(usersFilterSelector)
     const dispatch = useDispatch()
+
     const onFilterChanged = (filter: FilterForm) => {
         dispatch(getUsersTC(1, pageSize, filter))
     }
 
-    const submit = (values: FilterForm, { setSubmitting }: {
-        setSubmitting: (isSubmitting: boolean) => void
-    }) => {
-        onFilterChanged(values)
-        setSubmitting(false)
-    }
+    const formik = useFormik({
+        initialValues: {
+            term: '',
+            friend: null
+        },
+
+        onSubmit: (values: FilterForm) => {
+            onFilterChanged(values)
+        }
+    })
+
     return (
-        <div>
-            <Formik
-                initialValues={{ term: filter.term, friend: filter.friend }}
-                // validate={usersSearchFormValidate}
-                onSubmit={submit}
+
+        <Form onFinish={formik.handleSubmit} initialValues={{ term: filter.term, friend: filter.friend }} className={s.FormBlock}>
+
+            <Input
+                className={s.input}
+                id='firstName'
+                name='term'
+                type='text'
+                onChange={formik.handleChange}
+
+            />
+
+            <Select
+                onChange={(value) => formik.setFieldValue('friend', value)}
+              className={s.select}
+                defaultValue={'null'}
             >
-                {({ isSubmitting }) => (
-                    <Form>
-                        <Field type='text' name='term' />
-                        <Field name='friend' as='select'>
-                            <option value='undefined'>All</option>
-                            <option value='true'>Only followed</option>
-                            <option value='false'>Only unfollowed</option>
-                        </Field>
-                        <button type='submit' disabled={isSubmitting}> Find</button>
-                    </Form>
-                )}
-            </Formik>
-        </div>
+                <option value='null'>All</option>
+                <option value='true'>Only followed</option>
+                <option value='false'>Only unfollowed</option>
+            </Select>
+
+            <Button type='primary' htmlType='submit'>Find</Button>
+
+        </Form>
+
+
     )
-})
+}
