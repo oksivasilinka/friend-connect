@@ -1,8 +1,10 @@
 import { ResultCode } from 'api/profileApi'
 import { BaseThunkType, InferActionsType } from './store'
-import { FormAction, stopSubmit } from 'redux-form'
+import { FormAction } from 'redux-form'
 import { authAPI, ResultCodeForCaptcha } from 'api/authApi'
 import { securityAPI } from 'api/securityApi'
+import { appActions } from 'redux/appReducer'
+import axios from 'axios'
 
 let initialState = {
     id: null as number | null,
@@ -44,21 +46,39 @@ export const getAuthMe = (): ThunkType => async (dispatch) => {
 
 export const login = (email: string, password: string, rememberMe: boolean = true, captcha: string | null): ThunkType =>
     async (dispatch) => {
-        const loginData = await authAPI.login(email, password, rememberMe, captcha)
-        if (loginData.resultCode === ResultCode.SUCCESS) {
-            await dispatch(getAuthMe())
-        } else if (loginData.resultCode === ResultCodeForCaptcha.CAPTCHA) {
-            await dispatch(getCaptchaUrlTC())
-        } else if (loginData.resultCode === ResultCode.ERROR) {
-            const message = loginData.messages.length > 0 ? loginData.messages[0] : 'Some error'
-            dispatch(stopSubmit('login', { _error: message }))
+        try {
+            const data = await authAPI.login(email, password, rememberMe, captcha)
+            if (data.resultCode === ResultCode.SUCCESS) {
+                await dispatch(getAuthMe())
+                dispatch(appActions.setError(null))
+            } else if (data.resultCode === ResultCodeForCaptcha.CAPTCHA) {
+                await dispatch(getCaptchaUrlTC())
+            } else if (data.resultCode === ResultCode.ERROR) {
+                if (data.messages.length) {
+                    dispatch(appActions.setError(data.messages[0]))
+                    console.log(data.messages[0])
+                } else {
+                    dispatch(appActions.setError('Some error occurred'))
+                }
+            }
+        } catch (e: any) {
+            let errorMessage = "Some error occurred";
+
+            if (axios.isAxiosError(e)) {
+                errorMessage = e.response?.data?.message || e?.message || errorMessage;
+            } else if (e instanceof Error) {
+                errorMessage = `Native error: ${e.message}`;
+            } else {
+                errorMessage = JSON.stringify(e);
+            }
+            dispatch(appActions.setError(errorMessage));
         }
     }
 
 export const getCaptchaUrlTC = (): ThunkType => async (dispatch) => {
     const captchaData = await securityAPI.getCaptchaUrl()
     await dispatch(getAuthMe())
-    const captchaUrl = captchaData.url
+    let captchaUrl = captchaData.url
     dispatch(authActions.getCaptchaUrlSuccess(captchaUrl))
 }
 

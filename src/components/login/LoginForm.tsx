@@ -1,33 +1,73 @@
 import React from 'react'
-import { InjectedFormProps } from 'redux-form'
-import { requiredField } from 'utils/validators/validators'
-import { Input } from 'components/common/formsControls/FormControls'
-import s from 'components/common/formsControls/FormControls.module.css'
-import { LoginFormData, LoginOwnProps } from 'components/login/Login'
-import { createField } from 'utils/createField/createField'
+import { Redirect } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { isAuthSelector } from 'components/login/loginSelectors'
+import { Button, Checkbox, Col, Form, Input, Row, Typography } from 'antd'
+import { AppRootStateType } from 'redux/store'
+import { useLogin } from 'components/login/useLogin'
+import s from './LoginForm.module.css'
 
-type LoginFormProperties = Extract<keyof LoginFormData, string>
-type Props = InjectedFormProps<LoginFormData, LoginOwnProps> & LoginOwnProps
+const { Title, Text } = Typography
 
-export const LoginForm = ({ handleSubmit, error, captchaUrl }: Props) => {
+export const LoginForm = () => {
+
+    const error = useSelector((state: AppRootStateType) => state.app.error)
+    const captchaUrl = useSelector((state: AppRootStateType) => state.auth.captchaUrl)
+    const { formik } = useLogin()
+    const isAuth = useSelector(isAuthSelector)
+
+    if (isAuth) {
+        return <Redirect to={'/'} />
+    }
+
     return (
-        <form onSubmit={handleSubmit}>
-            {createField<LoginFormProperties>('Email', 'email', [requiredField], Input)}
-            {createField<LoginFormProperties>('Password', 'password', [requiredField], Input, {
-                type: 'password'
-            })}
-            {createField<LoginFormProperties>(undefined, 'rememberMe', [], Input, {
-                type: 'checkbox'
-            }, 'remember me')}
+        <Form onFinish={formik.handleSubmit}>
+            <Title level={4}>Email</Title>
+            <Input placeholder={'Enter your email'} style={{ maxWidth: 500 }} {...formik.getFieldProps('email')} />
+            <Row>
+                {formik.touched.email && formik.errors.email && (
+                    <Text type='danger'>{formik.errors.email}</Text>
+                )}
+            </Row>
 
-            {captchaUrl && <img src={captchaUrl} alt='Captcha' />}
-            {captchaUrl && createField<LoginFormProperties>('Captcha', 'captcha', [requiredField], Input)}
-            {error && <div className={s.formSummaryError}>{error}</div>}
+            <Title level={4}>Password</Title>
+            <Input placeholder={'Enter your password'} style={{ maxWidth: 500 }}
+                   type='password'
+                   {...formik.getFieldProps('password')}
+            />
 
-            <div>
-                <button>login</button>
-            </div>
-        </form>
+            <Row>
+                {formik.touched.password && formik.errors.password && (
+                    <Text type='danger'>{formik.errors.password}</Text>
+                )}
+            </Row>
+
+            <Row className={s.rememberMeBlock}>
+                <Checkbox className={s.checkbox}
+                          checked={formik.values.rememberMe}
+                          {...formik.getFieldProps('rememberMe')} />
+                <Title className={s.titleCheckbox} level={5}>Remember me</Title>
+                {/*</Checkbox>*/}
+            </Row>
+
+            <Row>
+                {error ? (
+                    <Text type='danger'>{error}</Text>
+                ) : null}
+            </Row>
+
+            {captchaUrl && <>
+                <img className={s.captchaImage} src={captchaUrl} alt='Captcha' />
+                <Col>
+                    <Input placeholder={'Enter captcha'} className={s.captchaInput}
+                           {...formik.getFieldProps('captcha')}
+                    />
+                </Col>
+            </>}
+
+            <Button className={s.buttonLogin} type='primary' htmlType='submit'> Login </Button>
+
+        </Form>
     )
 }
 
