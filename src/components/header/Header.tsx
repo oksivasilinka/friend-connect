@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import s from './Header.module.css'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,6 +20,12 @@ export const AppHeader = ({ collapsed, setCollapsed }: Props) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
+    useEffect(() => {
+        if (!isAuth) {
+            history.push('/login')
+        }
+    }, [isAuth, history])
+
     const logoutHandler = () => {
         dispatch(logOut())
         history.push('/login')
@@ -27,10 +33,6 @@ export const AppHeader = ({ collapsed, setCollapsed }: Props) => {
 
     const collapsedMenuHandler = () => {
         setCollapsed(!collapsed)
-    }
-
-    if (!isAuth) {
-        history.push('/login')
     }
 
     return (
