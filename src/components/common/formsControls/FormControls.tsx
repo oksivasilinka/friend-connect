@@ -1,4 +1,4 @@
-import React, { ElementType, FC } from 'react'
+import React, { FC } from 'react'
 import s from './FormControls.module.css'
 import { WrappedFieldProps } from 'redux-form'
 

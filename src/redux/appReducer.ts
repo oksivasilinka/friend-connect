@@ -1,5 +1,5 @@
 import { getAuthMe } from './authReducer'
-import { AppThunk, BaseThunkType, InferActionsType } from './store'
+import { AppThunk, InferActionsType } from './store'
 
 let initialState = {
     initialized: false,
