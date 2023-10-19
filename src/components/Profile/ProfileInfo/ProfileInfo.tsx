@@ -3,10 +3,11 @@ import s from 'components/profile/profileInfo/ProfileInfo.module.css'
 import userPhoto from 'assets/img/user.png'
 import { ProfileData, ProfileReduxDataForm, ProfileStatus } from 'components/profile/profileInfo'
 import { Preloader } from 'components/common/preloader'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { profileSelector } from 'components/profile/profileSelector'
 import { savePhoto, saveProfile } from 'redux/profileReducer'
 import { ProfileResponseType } from 'api/profileApi'
+import { useAppDispatch } from 'redux/store'
 
 type Props = {
     isOwner: boolean
@@ -16,7 +17,7 @@ export const ProfileInfo = ({ isOwner }: Props) => {
 
     const [editMode, setEditMode] = useState(false)
     const profile = useSelector(profileSelector)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
 
     if (!profile) return <Preloader />

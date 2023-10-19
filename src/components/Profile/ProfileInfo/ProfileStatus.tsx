@@ -1,14 +1,15 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { updateStatus } from 'redux/profileReducer'
 import { statusSelector } from 'components/profile/profileSelector'
+import { useAppDispatch } from 'redux/store'
 
 
 export const ProfileStatus = () => {
     const status = useSelector(statusSelector)
     const [editMode, setEditMode] = useState(true)
     const [userStatus, setUserStatus] = useState(status)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         setUserStatus(status)
