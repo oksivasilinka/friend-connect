@@ -1,9 +1,9 @@
 import { useFormik } from 'formik'
 import { login } from 'redux/authReducer'
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from 'redux/store'
 
 export const useLogin = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const formik = useFormik({
         initialValues: {
             email: '',

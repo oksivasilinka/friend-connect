@@ -1,7 +1,7 @@
 import React from 'react'
 import { FilterForm, getUsersTC } from 'redux/usersReducer'
-import { useDispatch } from 'react-redux'
 import { Pagination } from 'antd'
+import { useAppDispatch } from 'redux/store'
 
 type Props = {
     totalCount: number
@@ -11,7 +11,7 @@ type Props = {
 
 export const PaginationPage = ({ totalCount, currentPage, filter }: Props) => {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const onPageChanged = (page: number, pageSize: number) => {
         dispatch(getUsersTC(page, pageSize, filter))

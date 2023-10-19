@@ -1,5 +1,4 @@
-import { BaseThunkType, InferActionsType } from './store'
-import { FormAction } from 'redux-form'
+import { AppThunk, InferActionsType } from './store'
 import { chatApi } from 'api/chat.api'
 import { Dispatch } from 'redux'
 import { v1 } from 'uuid'
@@ -49,25 +48,24 @@ const statusChangedHandlerCreator = (dispatch: Dispatch) => {
     return _statusChangedHandler
 }
 
-export const startMessagesListening = (): ThunkType => async (dispatch) => {
+export const startMessagesListening = (): AppThunk => async (dispatch) => {
     chatApi.start()
     chatApi.subscribe('messages-received', newMessageHandlerCreator(dispatch))
     chatApi.subscribe('status-changed', statusChangedHandlerCreator(dispatch))
 }
 
-export const stopMessagesListening = (): ThunkType => async (dispatch) => {
+export const stopMessagesListening = (): AppThunk => async (dispatch) => {
     chatApi.unsubscribe('messages-received', newMessageHandlerCreator(dispatch))
     chatApi.unsubscribe('status-changed', statusChangedHandlerCreator(dispatch))
     chatApi.stop()
 }
 
-export const sendMessage = (message: string): ThunkType => async () => {
+export const sendMessage = (message: string): AppThunk => async () => {
     chatApi.sendMessage(message)
 }
 
 type InitialStateType = typeof initialState
 export type ActionTypes = InferActionsType<typeof chatActions>
-type ThunkType = BaseThunkType<ActionTypes | FormAction>
 export type ChatMessageApi = {
     message: string
     photo: string

@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import TextArea from 'antd/es/input/TextArea'
 import { Button } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { sendMessage } from 'redux/chat.reducer'
-import { AppRootStateType } from 'redux/store'
+import { AppRootStateType, useAppDispatch } from 'redux/store'
 
 export const AddMessageChat = () => {
 
     const status = useSelector((state: AppRootStateType) => state.chat.status)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const [message, setMessage] = useState('')
 
 

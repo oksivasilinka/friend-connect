@@ -1,6 +1,5 @@
 import { ResultCode } from 'api/profileApi'
-import { BaseThunkType, InferActionsType } from './store'
-import { FormAction } from 'redux-form'
+import { AppThunk, InferActionsType } from './store'
 import { authAPI, ResultCodeForCaptcha } from 'api/authApi'
 import { securityAPI } from 'api/securityApi'
 import { appActions } from 'redux/appReducer'
@@ -36,7 +35,7 @@ export const authActions = {
     }) as const
 }
 
-export const getAuthMe = (): ThunkType => async (dispatch) => {
+export const getAuthMe = (): AppThunk => async (dispatch) => {
     const meData = await authAPI.me()
     if (meData.resultCode === ResultCode.SUCCESS) {
         const { id, login, email } = meData.data
@@ -44,7 +43,7 @@ export const getAuthMe = (): ThunkType => async (dispatch) => {
     }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean = true, captcha: string | null): ThunkType =>
+export const login = (email: string, password: string, rememberMe: boolean = true, captcha: string | null): AppThunk =>
     async (dispatch) => {
         try {
             const data = await authAPI.login(email, password, rememberMe, captcha)
@@ -75,14 +74,14 @@ export const login = (email: string, password: string, rememberMe: boolean = tru
         }
     }
 
-export const getCaptchaUrlTC = (): ThunkType => async (dispatch) => {
+export const getCaptchaUrlTC = (): AppThunk => async (dispatch) => {
     const captchaData = await securityAPI.getCaptchaUrl()
     await dispatch(getAuthMe())
     let captchaUrl = captchaData.url
     dispatch(authActions.getCaptchaUrlSuccess(captchaUrl))
 }
 
-export const logOut = (): ThunkType => async (dispatch) => {
+export const logOut = (): AppThunk => async (dispatch) => {
     let logoutData = await authAPI.logout()
     if (logoutData.resultCode === ResultCode.SUCCESS) {
         dispatch(authActions.logOutUser({
@@ -97,5 +96,4 @@ export const logOut = (): ThunkType => async (dispatch) => {
 
 type InitialStateType = typeof initialState
 export type ActionTypes = InferActionsType<typeof authActions>
-type ThunkType = BaseThunkType<ActionTypes | FormAction>
 

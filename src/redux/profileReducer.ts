@@ -1,5 +1,5 @@
 import { PhotosType, profileAPI, ProfileResponseType, ResultCode } from 'api/profileApi'
-import { AppRootStateType, BaseThunkType, InferActionsType } from 'redux/store'
+import { AppRootStateType, AppThunk, BaseThunkType, InferActionsType } from 'redux/store'
 import { FormAction, stopSubmit } from 'redux-form'
 
 let initialState = {
@@ -40,7 +40,11 @@ export const profileActions = {
 
 export const getProfile = (id: number): ThunkType => async (dispatch) => {
     let data = await profileAPI.getUserProfile(id)
-    dispatch(profileActions.setUserProfile(data))
+    try {
+        dispatch(profileActions.setUserProfile(data))
+    } finally {
+
+    }
 }
 
 export const getStatus = (userId: number): ThunkType => async (dispatch) => {
@@ -64,7 +68,7 @@ export const savePhoto = (file: File): ThunkType => async (dispatch) => {
     }
 }
 
-export const saveProfile = (profile: ProfileResponseType): ThunkType =>
+export const saveProfile = (profile: ProfileResponseType): AppThunk =>
     async (dispatch, getState: () => AppRootStateType) => {
         const userId = getState().auth.id
         if (!!userId) {

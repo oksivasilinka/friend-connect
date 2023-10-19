@@ -1,10 +1,11 @@
 import { FilterForm, getUsersTC } from 'redux/usersReducer'
 import React from 'react'
 import { useFormik } from 'formik'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { usersFilterSelector } from 'components/users/usersSelectors'
 import { Button, Form, Input, Select } from 'antd'
 import s from './UsersSearchForm.module.css'
+import { useAppDispatch } from 'redux/store'
 
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
 export const UsersSearchForm = ({ pageSize }: Props) => {
 
     const filter = useSelector(usersFilterSelector)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const onFilterChanged = (filter: FilterForm) => {
         dispatch(getUsersTC(1, pageSize, filter))

@@ -2,19 +2,21 @@ import React, { useEffect } from 'react'
 import { PaginationPage } from 'components/common/pagination/PaginationPage'
 import { User } from './User'
 import { getUsersTC } from 'redux/usersReducer'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {
-    currentPageSelector, getIsFetching,
+    currentPageSelector,
+    getIsFetching,
     pageSizeSelector,
     totalUsersCount,
     usersFilterSelector,
     usersSelector
 } from 'components/users/usersSelectors'
 import { UsersSearchForm } from 'components/users/UsersSearchForm'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Col, Row } from 'antd'
 import s from './Users.module.css'
 import { Preloader } from 'components/common/preloader'
+import { useAppDispatch } from 'redux/store'
 
 export const Users = () => {
 
@@ -23,8 +25,8 @@ export const Users = () => {
     const currentPage = useSelector(currentPageSelector)
     const pageSize = useSelector(pageSizeSelector)
     const filter = useSelector(usersFilterSelector)
-    const dispatch = useDispatch()
-    const history = useHistory()
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const location = useLocation()
     const isFetching = useSelector(getIsFetching)
 
@@ -48,7 +50,7 @@ export const Users = () => {
     }, [])
 
     useEffect(() => {
-        history.push({
+        navigate({
             pathname: '/users',
             search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
         })

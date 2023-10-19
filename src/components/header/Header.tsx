@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import s from './Header.module.css'
-import { Link, useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppRootStateType } from 'redux/store'
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { AppRootStateType, useAppDispatch } from 'redux/store'
 import { logOut } from 'redux/authReducer'
 import { Avatar, Button, Col, Row } from 'antd'
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons'
@@ -17,18 +17,18 @@ export const AppHeader = ({ collapsed, setCollapsed }: Props) => {
 
     const isAuth = useSelector((state: AppRootStateType) => state.auth.isAuth)
     const login = useSelector((state: AppRootStateType) => state.auth.login)
-    const dispatch = useDispatch()
-    const history = useHistory()
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (!isAuth) {
-            history.push('/login')
+            navigate('/login')
         }
-    }, [isAuth, history])
+    }, [isAuth, navigate])
 
     const logoutHandler = () => {
         dispatch(logOut())
-        history.push('/login')
+        navigate('/login')
     }
 
     const collapsedMenuHandler = () => {

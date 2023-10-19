@@ -3,7 +3,7 @@ import { Action, Dispatch } from 'redux'
 import { updateObjectArray } from 'utils/object-helpers'
 import { UserResponseType, usersAPI } from 'api/usersApi'
 import { AxiosResponse } from 'axios'
-import { BaseThunkType, InferActionsType } from 'redux/store'
+import { AppThunk, InferActionsType } from 'redux/store'
 
 export let initialState = {
     users: [] as UserResponseType[],
@@ -67,7 +67,7 @@ export const usersActions = {
 }
 
 
-export const getUsersTC = (currentPage: number, pageSize: number, filter: FilterForm): ThunkType => async (dispatch) => {
+export const getUsersTC = (currentPage: number, pageSize: number, filter: FilterForm): AppThunk => async (dispatch) => {
     dispatch(usersActions.toggleIsFetching(true))
     dispatch(usersActions.setCurrentPage(currentPage))
     dispatch(usersActions.setFilter(filter))
@@ -77,11 +77,11 @@ export const getUsersTC = (currentPage: number, pageSize: number, filter: Filter
     dispatch(usersActions.setTotalUsersCount(usersData.totalCount))
 }
 
-export const follow = (id: number): ThunkType => async (dispatch) => {
+export const follow = (id: number): AppThunk => async (dispatch) => {
     await followUnfollowFlow(dispatch, id, usersAPI.unFollowUser.bind(usersAPI), usersActions.followAC)
 }
 
-export const unFollow = (id: number): ThunkType => async (dispatch) => {
+export const unFollow = (id: number): AppThunk => async (dispatch) => {
     await followUnfollowFlow(dispatch, id, usersAPI.followUser.bind(usersAPI), usersActions.unFollowAC)
 }
 
@@ -100,4 +100,3 @@ export type InitialStateType = typeof initialState
 export type FilterForm = typeof initialState.filter
 type ApiMethod = (id: number) => Promise<AxiosResponse>
 type ActionCreator = (id: number) => Action
-type ThunkType = BaseThunkType<ActionTypes>

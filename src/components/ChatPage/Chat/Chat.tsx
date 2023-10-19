@@ -2,15 +2,15 @@ import { Typography } from 'antd'
 import { Messages } from 'components/ChatPage/Chat/Messages/Messages'
 import { AddMessageChat } from 'components/ChatPage/Chat/Messages/AddMessageChat'
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { startMessagesListening, stopMessagesListening } from 'redux/chat.reducer'
-import { AppRootStateType } from 'redux/store'
+import { AppRootStateType, useAppDispatch } from 'redux/store'
 
 const { Title } = Typography
 
 export const Chat = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const status = useSelector((state: AppRootStateType) => state.chat.status)
 
     useEffect(() => {

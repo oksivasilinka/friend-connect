@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { isAuthSelector } from 'components/login/loginSelectors'
 import { LoginForm } from 'components/login/LoginForm'
 import { Typography } from 'antd'
@@ -12,7 +12,7 @@ export const Login = () => {
     const isAuth = useSelector(isAuthSelector)
 
     if (isAuth) {
-        return <Redirect to={'/profile'} />
+        return <Navigate to={'/profile'} />
     }
     return (
         <div>

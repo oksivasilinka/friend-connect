@@ -2,10 +2,11 @@ import userPhoto from '../../assets/img/user.png'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { UserResponseType } from 'api/usersApi'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { follow, unFollow } from 'redux/usersReducer'
 import { getFollowingInProgress } from 'components/users/usersSelectors'
 import { Button, Card, Image, Typography } from 'antd'
+import { useAppDispatch } from 'redux/store'
 
 type Props = {
     user: UserResponseType
@@ -14,7 +15,7 @@ const { Title, Text } = Typography
 export const User = ({ user }: Props) => {
 
     const followingInProgress = useSelector(getFollowingInProgress)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const followHandler = (id: number) => {
         dispatch(follow(id))
