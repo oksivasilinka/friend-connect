@@ -1,10 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Menu } from 'antd'
-import {
-    UserOutlined,
-    CommentOutlined, TeamOutlined, SettingOutlined, CustomerServiceOutlined, ReadOutlined
-} from '@ant-design/icons'
+import { CommentOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons'
 import logo from './../../assets/img/logo.svg'
 import s from './Nav.module.css'
 
