@@ -5,6 +5,8 @@ import {
     UserOutlined,
     CommentOutlined, TeamOutlined, SettingOutlined, CustomerServiceOutlined, ReadOutlined
 } from '@ant-design/icons'
+import logo from './../../assets/img/logo.svg'
+import s from './Nav.module.css'
 
 
 export const Nav = () => {
@@ -15,6 +17,7 @@ export const Nav = () => {
             defaultSelectedKeys={['1']}
 
         >
+            <img className={s.logo} src={logo} alt={'logo'}/>
             <Menu.Item key='1' icon={<UserOutlined rev={undefined} />}>
                 <Link to='/profile'> Profile </Link>
             </Menu.Item>

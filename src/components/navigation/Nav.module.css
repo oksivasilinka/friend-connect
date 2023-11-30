@@ -1,15 +1,4 @@
-.nav {
-    grid-area: n;
-    background-color: mediumpurple;
-    padding: 20px;
-
-}
-
-.item a {
-    color: white;
-    text-decoration: none;
-}
-
-.item a.active {
-    color: lightpink;
+.logo {
+    width: 120px;
+    padding: 10px 10px 30px;
 }
