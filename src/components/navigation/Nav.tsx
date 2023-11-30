@@ -17,31 +17,19 @@ export const Nav = () => {
             defaultSelectedKeys={['1']}
 
         >
-            <img className={s.logo} src={logo} alt={'logo'}/>
+            <img className={s.logo} src={logo} alt={'logo'} />
             <Menu.Item key='1' icon={<UserOutlined rev={undefined} />}>
                 <Link to='/profile'> Profile </Link>
             </Menu.Item>
 
-            <Menu.Item key='2' icon={<CommentOutlined  rev={undefined} />}>
+            <Menu.Item key='2' icon={<CommentOutlined rev={undefined} />}>
                 <Link to='/dialogs'> Messages </Link>
             </Menu.Item>
 
-            <Menu.Item key='3' icon={<ReadOutlined rev={undefined} />}>
-                <Link to='/news'> News </Link>
-            </Menu.Item>
-
-            <Menu.Item key='4' icon={<CustomerServiceOutlined rev={undefined} />}>
-                <Link to='/music'> Music</Link>
-            </Menu.Item>
-
-            <Menu.Item key='5' icon={<SettingOutlined rev={undefined}/>}>
-                <Link to='/settings'>Settings</Link>
-            </Menu.Item>
-
-            <Menu.Item key='6' icon={<TeamOutlined rev={undefined} />}>
+            <Menu.Item key='3' icon={<TeamOutlined rev={undefined} />}>
                 <Link to='/users'>Users</Link>
             </Menu.Item>
-            <Menu.Item key='7' icon={<CommentOutlined rev={undefined} />}>
+            <Menu.Item key='4' icon={<CommentOutlined rev={undefined} />}>
                 <Link to='/chat'>Chat</Link>
             </Menu.Item>
 

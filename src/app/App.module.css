@@ -1,6 +1,6 @@
 .content {
     margin: 24px 16px;
     padding: 24px;
-    min-height: 280px;
+    min-height: 100vh;
     background-color: white;
 }

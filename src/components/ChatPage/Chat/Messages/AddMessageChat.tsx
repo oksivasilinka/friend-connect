@@ -4,6 +4,7 @@ import { Button } from 'antd'
 import { useSelector } from 'react-redux'
 import { sendMessage } from 'redux/chat.reducer'
 import { AppRootStateType, useAppDispatch } from 'redux/store'
+import s from './AddMessageChat.module.css'
 
 export const AddMessageChat = () => {
 
@@ -22,7 +23,7 @@ export const AddMessageChat = () => {
 
     return (
         <div>
-            <TextArea onChange={(e) => setMessage(e.currentTarget.value)} value={message} />
+            <TextArea className={s.textarea} onChange={(e) => setMessage(e.currentTarget.value)} value={message} />
             <Button
                 disabled={status !== 'ready'}
                 type={'primary'} onClick={sendMessageHandler}>Send

@@ -1,28 +1,11 @@
-img {
-    width: 100%;
-}
-.descriptionBlock {
-    padding: 10px;
-    display: flex;
-    align-items: start;
-    gap: 50px;
-}
-
-.infoBlock {
-    display: flex;
-    flex-direction: column;
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
 }
 
 .mainPhoto {
     max-width: 200px;
     padding: 10px;
-}
-.imageBlock {
-    display: flex;
-    flex-direction: column;
+    display: block;
 }
 
-.error {
-    color: red;
-    border: 1px solid red;
-}
