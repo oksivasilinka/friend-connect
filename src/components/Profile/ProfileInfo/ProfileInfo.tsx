@@ -8,7 +8,6 @@ import { profileSelector } from 'components/profile/profileSelector'
 import { savePhoto, saveProfile } from 'redux/profileReducer'
 import { ProfileResponseType } from 'api/profileApi'
 import { useAppDispatch } from 'redux/store'
-import { Card } from 'antd'
 
 type Props = {
     isOwner: boolean

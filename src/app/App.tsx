@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Nav } from 'components/navigation/Nav'
 import { useSelector } from 'react-redux'
 import { AppRootStateType, useAppDispatch } from 'redux/store'
@@ -13,7 +13,6 @@ const { Content } = Layout
 
 const App = () => {
 
-    const [collapsed, setCollapsed] = useState(false)
     const initialized = useSelector((state: AppRootStateType) => state.app.initialized)
     const dispatch = useAppDispatch()
 
@@ -28,13 +27,13 @@ const App = () => {
     return (
         <div className={s.container}>
 
-            <div className={s.menu} >
+            <div className={s.menu}>
                 <Nav />
             </div>
 
 
             <>
-                <AppHeader collapsed={collapsed} setCollapsed={setCollapsed}  />
+                <AppHeader />
                 <Content className={s.content}>
                     <RoutesPages />
                 </Content>

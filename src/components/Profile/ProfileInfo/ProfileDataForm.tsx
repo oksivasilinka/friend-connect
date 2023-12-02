@@ -4,7 +4,6 @@ import { Input, Textarea } from 'components/common/formsControls/FormControls'
 import { InjectedFormProps, reduxForm } from 'redux-form'
 import { ProfileResponseType } from 'api/profileApi'
 import { createField } from 'utils/createField/createField'
-import { Button } from 'antd'
 
 type ProfileFormData = {
     fullName: string
