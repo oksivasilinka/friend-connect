@@ -34,7 +34,7 @@ const App = () => {
 
 
             <>
-                <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} />
+                <AppHeader collapsed={collapsed} setCollapsed={setCollapsed}  />
                 <Content className={s.content}>
                     <RoutesPages />
                 </Content>

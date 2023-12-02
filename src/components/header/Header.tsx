@@ -4,11 +4,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { AppRootStateType, useAppDispatch } from 'redux/store'
 import { logOut } from 'redux/authReducer'
-import { Avatar, Button, Col, Row } from 'antd'
-import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons'
+import { Button } from 'antd'
 import { Header } from 'antd/es/layout/layout'
 import { profileSelector } from 'components/profile/profileSelector'
 import userPhoto from 'assets/img/user.png'
+import logo from 'assets/img/logo.svg'
 
 type Props = {
     collapsed: boolean
@@ -40,7 +40,7 @@ export const AppHeader = ({ collapsed, setCollapsed }: Props) => {
 
     return (
         <Header className={s.headerBlock}>
-
+            <img className={s.logo} src={logo} alt={'logo'} />
             {isAuth && (
                 <div className={s.loginInfo}>
                     <span>{login}</span>

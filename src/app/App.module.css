@@ -8,9 +8,8 @@
 }
 
 .menu {
-    grid-row-start: 1;
+    grid-row-start: 2;
     min-height: 100vh;
-    background-color: darkslategrey;
 }
 
 .content {
