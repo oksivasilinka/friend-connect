@@ -1,6 +1,17 @@
 .headerBlock {
-    background-color: white;
-    padding: 0;
+    background-color: #d5e3f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 0 10px;
+}
+
+.loginInfo {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+
 }
 
 .iconMenu {
@@ -10,5 +21,7 @@
 }
 
 .avatar {
-    background-color: #87d068;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
 }

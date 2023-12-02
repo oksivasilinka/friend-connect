@@ -1,7 +1,8 @@
 .wrapper {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+   display: grid;
+    grid-template-columns: 1fr 1fr;
 }
+
 
 .mainPhoto {
     max-width: 200px;

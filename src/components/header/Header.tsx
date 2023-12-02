@@ -7,6 +7,8 @@ import { logOut } from 'redux/authReducer'
 import { Avatar, Button, Col, Row } from 'antd'
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons'
 import { Header } from 'antd/es/layout/layout'
+import { profileSelector } from 'components/profile/profileSelector'
+import userPhoto from 'assets/img/user.png'
 
 type Props = {
     collapsed: boolean
@@ -17,6 +19,7 @@ export const AppHeader = ({ collapsed, setCollapsed }: Props) => {
 
     const isAuth = useSelector((state: AppRootStateType) => state.auth.isAuth)
     const login = useSelector((state: AppRootStateType) => state.auth.login)
+    const profile = useSelector(profileSelector)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
@@ -37,43 +40,26 @@ export const AppHeader = ({ collapsed, setCollapsed }: Props) => {
 
     return (
         <Header className={s.headerBlock}>
-            <Row>
-                <Col span={19}>
-                    <Button
-                        type='text'
-                        icon={collapsed
-                            ? <MenuUnfoldOutlined rev={undefined} />
-                            : <MenuFoldOutlined rev={undefined} />}
-                        onClick={collapsedMenuHandler}
-                        className={s.iconMenu} />
-                </Col>
 
-                {isAuth
-                    ? <>
-                        <Col span={2}>
-                            {login}
-                        </Col>
+            {isAuth && (
+                <div className={s.loginInfo}>
+                    <span>{login}</span>
+                    <img alt={login || ''}
+                         className={s.avatar}
+                         src={profile?.photos.large || userPhoto}
+                    />
+                    <Button type={'link'} onClick={logoutHandler}>Log Out</Button>
+                </div>
+            )}
+            {!isAuth && (
+                <div>
+                    <Button>
+                        <Link to={'/login'}>Login</Link>
+                    </Button>
+                </div>
+            )}
 
-                        <Col span={1}>
-                            <Avatar alt={login || ''}
-                                    className={s.avatar}
-                                    icon={<UserOutlined rev={undefined} />}
-                            />
-                        </Col>
 
-                        <Col span={2}>
-                            <Button onClick={logoutHandler}>Log Out</Button>
-                        </Col>
-                    </>
-
-                    : <Col span={2}>
-                        <Button>
-                            <Link to={'/login'}>Login</Link>
-                        </Button>
-                    </Col>
-                }
-
-            </Row>
         </Header>
     )
 }

@@ -58,18 +58,13 @@ export const Users = () => {
 
     return (
         <>
-            <Row className={s.filterBlock}>
-                <Col span={14}>
-                    <UsersSearchForm pageSize={pageSize} />
-                </Col>
+            <UsersSearchForm pageSize={pageSize} />
 
-                <Col span={10}>
-                    <PaginationPage currentPage={currentPage}
-                                    totalCount={totalCount}
-                                    filter={filter}
-                    />
-                </Col>
-            </Row>
+
+            <PaginationPage currentPage={currentPage}
+                            totalCount={totalCount}
+                            filter={filter}
+            />
 
             {isFetching ? <Preloader /> : null}
 

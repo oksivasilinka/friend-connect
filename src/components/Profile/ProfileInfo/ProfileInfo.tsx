@@ -8,7 +8,7 @@ import { profileSelector } from 'components/profile/profileSelector'
 import { savePhoto, saveProfile } from 'redux/profileReducer'
 import { ProfileResponseType } from 'api/profileApi'
 import { useAppDispatch } from 'redux/store'
-import { Button, Card, Col, Row } from 'antd'
+import { Card } from 'antd'
 
 type Props = {
     isOwner: boolean
@@ -38,25 +38,27 @@ export const ProfileInfo = ({ isOwner }: Props) => {
     }
 
     return (
-        <Card className={s.wrapper}>
-            <div>
-                <img
-                    src={profile.photos.large || userPhoto}
-                    className={s.mainPhoto}
-                    alt='logo-main' />
-                {isOwner && (<>
+
+        <div >
+            <img
+                src={profile.photos.large || userPhoto}
+                className={s.mainPhoto}
+                alt='logo-main' />
+            {isOwner && (
+                <>
                     <input type={'file'} onChange={onMainPhotoSelected} />
                     < ProfileStatus goToEditMode={() => {
                         setEditMode(true)
                     }} />
-                </>)
-                }</div>
+                </>
+            )
+            }
 
-            <div>
-                {editMode
-                    ? <ProfileReduxDataForm initialValues={profile} onSubmit={onSubmit} profile={profile} />
-                    : <ProfileData profile={profile} />}</div>
-        </Card>
+            {editMode
+                ? <ProfileReduxDataForm initialValues={profile} onSubmit={onSubmit} profile={profile} />
+                : <ProfileData profile={profile} />
+            }
+        </div>
     )
 }
 
