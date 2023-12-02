@@ -9,7 +9,7 @@ import { AppHeader } from 'components/header/Header'
 import { RoutesPages } from 'app/Routes/Routes'
 import s from './App.module.css'
 
-const { Sider, Content } = Layout
+const { Content } = Layout
 
 const App = () => {
 

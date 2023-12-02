@@ -10,12 +10,8 @@ import { profileSelector } from 'components/profile/profileSelector'
 import userPhoto from 'assets/img/user.png'
 import logo from 'assets/img/logo.svg'
 
-type Props = {
-    collapsed: boolean
-    setCollapsed: (collapsed: boolean) => void
-}
 
-export const AppHeader = ({ collapsed, setCollapsed }: Props) => {
+export const AppHeader = () => {
 
     const isAuth = useSelector((state: AppRootStateType) => state.auth.isAuth)
     const login = useSelector((state: AppRootStateType) => state.auth.login)
@@ -34,9 +30,6 @@ export const AppHeader = ({ collapsed, setCollapsed }: Props) => {
         navigate('/login')
     }
 
-    const collapsedMenuHandler = () => {
-        setCollapsed(!collapsed)
-    }
 
     return (
         <Header className={s.headerBlock}>

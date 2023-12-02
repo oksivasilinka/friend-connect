@@ -13,8 +13,6 @@ import {
 } from 'components/users/usersSelectors'
 import { UsersSearchForm } from 'components/users/UsersSearchForm'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Col, Row } from 'antd'
-import s from './Users.module.css'
 import { Preloader } from 'components/common/preloader'
 import { useAppDispatch } from 'redux/store'
 
