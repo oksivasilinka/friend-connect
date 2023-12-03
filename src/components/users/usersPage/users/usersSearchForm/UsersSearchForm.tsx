@@ -34,20 +34,21 @@ export const UsersSearchForm = ({ pageSize }: Props) => {
 
     return (
 
-        <Form onFinish={formik.handleSubmit} initialValues={{ term: filter.term, friend: filter.friend }} className={s.FormBlock}>
+        <Form onFinish={formik.handleSubmit} initialValues={{ term: filter.term, friend: filter.friend }}
+              className={s.formBlock}>
 
             <Input
                 className={s.input}
                 id='firstName'
                 name='term'
                 type='text'
-                onChange={formik.handleChange}
+                onChange={formik.handleChange} placeholder={'Type name'}
 
             />
 
             <Select
                 onChange={(value) => formik.setFieldValue('friend', value)}
-              className={s.select}
+                className={s.select}
                 defaultValue={'null'}
             >
                 <option value='null'>All</option>

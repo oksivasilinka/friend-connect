@@ -1,5 +1,5 @@
 import React from 'react'
-import { Users } from './Users'
+import { Users } from 'components/users/usersPage/users/Users'
 import { Typography } from 'antd'
 
 type Props = {

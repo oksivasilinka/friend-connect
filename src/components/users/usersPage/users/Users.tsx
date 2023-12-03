@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { PaginationPage } from 'components/common/pagination/PaginationPage'
-import { User } from './User'
+import { User } from 'components/users/usersPage/users/user/User'
 import { getUsersTC } from 'redux/usersReducer'
 import { useSelector } from 'react-redux'
 import {
@@ -11,7 +11,7 @@ import {
     usersFilterSelector,
     usersSelector
 } from 'components/users/usersSelectors'
-import { UsersSearchForm } from 'components/users/UsersSearchForm'
+import { UsersSearchForm } from 'components/users/usersPage/users/usersSearchForm/UsersSearchForm'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Preloader } from 'components/common/preloader'
 import { useAppDispatch } from 'redux/store'
@@ -69,7 +69,10 @@ export const Users = () => {
             <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
                 {users.map(user => <User key={user.id} user={user} />)}
             </div>
-
+            <PaginationPage currentPage={currentPage}
+                            totalCount={totalCount}
+                            filter={filter}
+            />
         </>
     )
 }

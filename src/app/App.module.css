@@ -13,8 +13,7 @@
 }
 
 .content {
-    margin: 24px 16px;
-    padding: 24px;
+    padding: 0 20px;
     min-height: 100vh;
     background-color: white;
     grid-row-start: 2;

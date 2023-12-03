@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { UsersPage } from 'components/users/UsersPage'
+import { UsersPage } from 'components/users/usersPage/UsersPage'
 import { Login } from 'components/login/Login'
 import React from 'react'
 import ProfilePage from 'components/profile/ProfilePage'

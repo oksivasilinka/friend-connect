@@ -1,17 +1,18 @@
-import userPhoto from '../../assets/img/user.png'
+import userPhoto from 'assets/img/user.png'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { UserResponseType } from 'api/usersApi'
 import { useSelector } from 'react-redux'
 import { follow, unFollow } from 'redux/usersReducer'
 import { getFollowingInProgress } from 'components/users/usersSelectors'
-import { Button, Card, Image, Typography } from 'antd'
+import { Button, Typography } from 'antd'
 import { useAppDispatch } from 'redux/store'
+import s from './user.module.css'
 
 type Props = {
     user: UserResponseType
 }
-const { Title, Text } = Typography
+const { Text } = Typography
 export const User = ({ user }: Props) => {
 
     const followingInProgress = useSelector(getFollowingInProgress)
@@ -26,29 +27,23 @@ export const User = ({ user }: Props) => {
     }
 
     return (
-
-        <Card hoverable style={{ width: 400 }}>
-
+        <div className={s.card}>
             <NavLink to={'/profile/' + user.id}>
-                <Image
-                    width={'150px'}
+                <img
                     src={user.photos.small != null ? user.photos.small : userPhoto}
-                    alt={'avatar'} preview={false}
-                    style={{ borderRadius: '100%', marginBottom: '10px' }} />
+                    alt={'avatar'} className={s.img} />
+                <span className={s.name}>{user.name}</span>
             </NavLink>
-            <div>
-                <Title level={3}>{user.name}</Title>
-                <Title level={5}>{user.status}</Title>
-            </div>
 
-            <div>
-                <Text strong>{'u.location.country'}</Text>
-            </div>
-            <div>
-                <Text strong>{'u.location.city'}</Text>
-            </div>
+            <span className={s.status}>{user.status}</span>
 
-            <div>
+
+            <Text className={s.country} strong>{'u.location.country'}</Text>
+
+            <Text className={s.city} strong>{'u.location.city'}</Text>
+
+
+            <div className={s.button}>
                 {user.followed
                     ? <Button type='dashed'
                               disabled={followingInProgress.some(id => id === user.id)}
@@ -63,8 +58,7 @@ export const User = ({ user }: Props) => {
                     </Button>
                 }
             </div>
-
-        </Card>
+        </div>
 
 
     )

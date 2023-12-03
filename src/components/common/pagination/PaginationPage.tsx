@@ -18,7 +18,7 @@ export const PaginationPage = ({ totalCount, currentPage, filter }: Props) => {
     }
 
     return (
-        <Pagination defaultCurrent={1} total={totalCount}
+        <Pagination defaultCurrent={1} total={totalCount} style={{display: 'flex', justifyContent: 'center', padding: '20px 0' }}
                     onChange={(page, pageSize) => onPageChanged(page, pageSize)}
                     current={currentPage}
                     pageSizeOptions={[10, 20, 50]} />
