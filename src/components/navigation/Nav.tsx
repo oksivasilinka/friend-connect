@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { MenuProps } from 'antd'
-import { Button, Menu } from 'antd'
+import { Menu } from 'antd'
+import s from './Nav.module.css'
 
 import {
     ContainerOutlined,
@@ -30,33 +31,36 @@ function getItem(
     } as MenuItem
 }
 
-const items: MenuItem[] = [
-    getItem(<Link to='/profile'> Profile </Link>, '1', <PieChartOutlined />),
-    getItem(<Link to='/dialogs'> Messages </Link>, '2', <DesktopOutlined />),
-    getItem(<Link to='/users'>Users</Link>, '3', <ContainerOutlined />),
-    getItem(<Link to='/chat'>Chat</Link>, 'sub1', <MailOutlined />)
-]
 
 export const Nav = () => {
+
+
     const [collapsed, setCollapsed] = useState(false)
 
     const toggleCollapsed = () => {
         setCollapsed(!collapsed)
     }
+    const items: MenuItem[] = [
 
+        getItem(<Link to='/profile'> Profile </Link>, '1', <PieChartOutlined />),
+        getItem(<Link to='/dialogs'> Messages </Link>, '2', <DesktopOutlined />),
+        getItem(<Link to='/users'>Users</Link>, '3', <ContainerOutlined />),
+        getItem(<Link to='/chat'>Chat</Link>, 'sub1', <MailOutlined />),
+        getItem(<button className={s.buttonMenu} onClick={toggleCollapsed}>
+            {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </button>, 'button01')
+
+    ]
     return (
         <>
             <Menu
                 defaultSelectedKeys={['3']}
                 defaultOpenKeys={['sub1']}
-                theme='dark' style={{ height: '100vh' }}
+                theme='dark' className={s.menu}
                 inlineCollapsed={collapsed}
                 items={items}
             />
 
-            <Button type='primary' onClick={toggleCollapsed} style={{ marginBottom: 16, zIndex: 99 }}>
-                {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            </Button>
 
         </>
     )

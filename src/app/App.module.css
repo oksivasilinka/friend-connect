@@ -9,12 +9,11 @@
 
 .menu {
     grid-row-start: 2;
-    min-height: 100vh;
+    min-height: calc(100vh - 64px);
 }
 
 .content {
     padding: 0 20px;
-    min-height: 100vh;
     background-color: white;
     grid-row-start: 2;
     grid-column-start: 2;
