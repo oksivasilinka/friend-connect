@@ -23,11 +23,13 @@ export const AddMessageChat = () => {
 
     return (
         <div>
-            <TextArea className={s.textarea} onChange={(e) => setMessage(e.currentTarget.value)} value={message} />
+            <TextArea className={s.textarea} placeholder={'Type message'}
+                      onChange={(e) => setMessage(e.currentTarget.value)} value={message} />
             <Button
                 disabled={status !== 'ready'}
-                type={'primary'} onClick={sendMessageHandler}>Send
-                message</Button>
+                type={'primary'} onClick={sendMessageHandler}>
+                Send message
+            </Button>
         </div>
     )
 }

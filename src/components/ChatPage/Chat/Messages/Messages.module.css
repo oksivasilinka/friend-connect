@@ -1,5 +1,4 @@
 .messagesBlock {
-    max-height: 1000px;
+    max-height: 70vh;
     overflow-y: auto;
-    padding-bottom: 50px;
 }
