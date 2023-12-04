@@ -1,6 +1,5 @@
 import { Action, AnyAction, applyMiddleware, combineReducers, legacy_createStore } from 'redux'
 import { profileReducer } from './profileReducer'
-import { dialogsReducer } from './dialogsReducer'
 import { sidebarReducer } from './sidebarReducer'
 import { usersReducer } from './usersReducer'
 import { authReducer } from './authReducer'
@@ -13,7 +12,6 @@ import { useDispatch } from 'react-redux'
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
-    dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,

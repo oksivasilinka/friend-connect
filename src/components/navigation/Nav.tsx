@@ -6,7 +6,6 @@ import s from './Nav.module.css'
 
 import {
     ContainerOutlined,
-    DesktopOutlined,
     MailOutlined,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -43,7 +42,6 @@ export const Nav = () => {
     const items: MenuItem[] = [
 
         getItem(<Link to='/profile'> Profile </Link>, '1', <PieChartOutlined />),
-        getItem(<Link to='/dialogs'> Messages </Link>, '2', <DesktopOutlined />),
         getItem(<Link to='/users'>Users</Link>, '3', <ContainerOutlined />),
         getItem(<Link to='/chat'>Chat</Link>, 'sub1', <MailOutlined />),
         getItem(<button className={s.buttonMenu} onClick={toggleCollapsed}>
@@ -56,12 +54,11 @@ export const Nav = () => {
             <Menu
                 defaultSelectedKeys={['3']}
                 defaultOpenKeys={['sub1']}
-                theme='dark' className={s.menu}
+                className={s.menu}
                 inlineCollapsed={collapsed}
                 items={items}
+                mode={'inline'}
             />
-
-
         </>
     )
 }

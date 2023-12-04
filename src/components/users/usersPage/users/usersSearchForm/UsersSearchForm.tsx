@@ -51,9 +51,9 @@ export const UsersSearchForm = ({ pageSize }: Props) => {
                 className={s.select}
                 defaultValue={'null'}
             >
-                <option value='null'>All</option>
-                <option value='true'>Only followed</option>
-                <option value='false'>Only unfollowed</option>
+                <Select.Option value='null'>All</Select.Option>
+                <Select.Option value='true'>Only followed</Select.Option>
+                <Select.Option value='false'>Only unfollowed</Select.Option>
             </Select>
 
             <Button type='primary' htmlType='submit'>Find</Button>

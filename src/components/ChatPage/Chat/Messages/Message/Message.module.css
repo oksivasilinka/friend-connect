@@ -1,3 +1,23 @@
 .messageCard {
-    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 100px auto;
+    grid-auto-rows: 40px;
+    padding: 10px;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.name {
+    font-size: 16px;
+    font-weight: 600;
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+
+.message {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    padding: 0 30px;
+    box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.2);
+    height: 100%;
 }

@@ -35,6 +35,7 @@ const App = () => {
             <>
                 <AppHeader />
                 <Content className={s.content}>
+
                     <RoutesPages />
                 </Content>
             </>

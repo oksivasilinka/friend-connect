@@ -1,4 +1,3 @@
-import { Typography } from 'antd'
 import { Messages } from 'components/ChatPage/Chat/Messages/Messages'
 import { AddMessageChat } from 'components/ChatPage/Chat/Messages/AddMessageChat'
 import { useEffect } from 'react'
@@ -6,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { startMessagesListening, stopMessagesListening } from 'redux/chat.reducer'
 import { AppRootStateType, useAppDispatch } from 'redux/store'
 
-const { Title } = Typography
 
 export const Chat = () => {
 
@@ -23,9 +21,8 @@ export const Chat = () => {
     return (
         <>
 
-            <Title level={2}>Messages</Title>
 
-            {status === 'error' && <div style={{color: 'red'}}>Some error occurred</div>}
+            {status === 'error' && <div style={{ color: 'red' }}>Some error occurred</div>}
 
             <Messages />
             <AddMessageChat />

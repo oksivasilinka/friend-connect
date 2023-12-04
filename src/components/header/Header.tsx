@@ -5,11 +5,9 @@ import { useSelector } from 'react-redux'
 import { AppRootStateType, useAppDispatch } from 'redux/store'
 import { logOut } from 'redux/authReducer'
 import { Button } from 'antd'
-import { Header } from 'antd/es/layout/layout'
 import { profileSelector } from 'components/profile/profileSelector'
 import userPhoto from 'assets/img/user.png'
 import logo from 'assets/img/logo.svg'
-
 
 export const AppHeader = () => {
 
@@ -32,7 +30,7 @@ export const AppHeader = () => {
 
 
     return (
-        <Header className={s.headerBlock}>
+        <header className={s.headerBlock}>
             <img className={s.logo} src={logo} alt={'logo'} />
             {isAuth && (
                 <div className={s.loginInfo}>
@@ -41,18 +39,16 @@ export const AppHeader = () => {
                          className={s.avatar}
                          src={profile?.photos.large || userPhoto}
                     />
-                    <Button type={'link'} onClick={logoutHandler}>Log Out</Button>
+                    <button className={s.button} onClick={logoutHandler}>Log Out</button>
                 </div>
             )}
             {!isAuth && (
-                <div>
-                    <Button>
-                        <Link to={'/login'}>Login</Link>
-                    </Button>
-                </div>
+                    <button className={s.button}>
+                        <a href={'/login'}>Login</a>
+                    </button>
             )}
 
 
-        </Header>
+        </header>
     )
 }

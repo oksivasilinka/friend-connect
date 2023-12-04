@@ -73,8 +73,8 @@ export const getUsersTC = (currentPage: number, pageSize: number, filter: Filter
     dispatch(usersActions.setFilter(filter))
     const usersData = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
     dispatch(usersActions.toggleIsFetching(false))
-    dispatch(usersActions.setUsers(usersData.items))
-    dispatch(usersActions.setTotalUsersCount(usersData.totalCount))
+    dispatch(usersActions.setUsers(usersData.data.items))
+    dispatch(usersActions.setTotalUsersCount(usersData.data.totalCount))
 }
 
 export const follow = (id: number): AppThunk => async (dispatch) => {
