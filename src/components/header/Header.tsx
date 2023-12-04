@@ -9,7 +9,6 @@ import userPhoto from 'assets/img/user.png'
 import logo from 'assets/img/logo.svg'
 
 export const AppHeader = () => {
-
     const isAuth = useSelector((state: AppRootStateType) => state.auth.isAuth)
     const login = useSelector((state: AppRootStateType) => state.auth.login)
     const profile = useSelector(profileSelector)
