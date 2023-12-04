@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { isAuthSelector } from 'components/login/model'
-import { LoginForm } from 'components/login/LoginForm/LoginForm'
-import { Title } from 'components/common/title/Title'
+import { LoginForm } from 'components/login/LoginForm'
+import { Title } from 'components/common'
 
 export const Login = () => {
 

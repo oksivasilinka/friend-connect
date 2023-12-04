@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { captchaUrlSelector, errorSelector, isAuthSelector, useLogin } from 'components/login/model'
-import { Subtitle } from 'components/common/subtitle/Subtitle'
+import { Subtitle } from 'components/common'
 import s from './LoginForm.module.css'
 
 export const LoginForm = () => {
