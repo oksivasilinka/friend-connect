@@ -63,7 +63,7 @@ export const Profile = ({ isOwner }: Props) => {
             <div>
                 <div className={s.nameWrapper}>
                     <Typography variant={'h3'} as={'h3'}>{user?.fullName || login || ''}</Typography>
-                    {profile.lookingForAJob && <span className={s.smallText}>in looking of work</span>}
+                    {profile.lookingForAJob && <Typography variant={'caption1'} className={s.smallText}>in looking of work</Typography>}
                 </div>
                 < ProfileStatus />
                 {editMode && <ProfileReduxDataForm initialValues={profile} onSubmit={onSubmit} profile={profile} />}
@@ -73,7 +73,7 @@ export const Profile = ({ isOwner }: Props) => {
                 {!editMode && isOwner && (
                     <Button title={'Edit profilePage'} className={s.buttonEdit} callback={changeEditModeHandler}>
                         <Icon id={'edit'} width={'18'} height={'18'} />
-                        <span>Edit Profile</span>
+                        <Typography variant={'body2'}>Edit Profile</Typography>
                     </Button>
                 )}
             </div>

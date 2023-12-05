@@ -17,11 +17,11 @@ const ProfilePage = () => {
     const { userId } = useParams<PathParams>()
     const dispatch = useAppDispatch()
 
-    const refreshProfile = () => {
+    const refreshProfile = async () => {
         let id = userId ? Number(userId) : authorizedUserId
         if (id) {
-            dispatch(getProfile(id))
-            dispatch(getStatus(id))
+            await dispatch(getProfile(id))
+            await dispatch(getStatus(id))
         }
     }
 
@@ -30,10 +30,10 @@ const ProfilePage = () => {
     }, [userId])
 
     return (
-       <>
-           <Typography variant={'h2'} as={'h2'}>Profile</Typography>
-           <Profile isOwner={!userId} />
-       </>
+        <>
+            <Typography variant={'h2'} as={'h2'}>Profile</Typography>
+            <Profile isOwner={!userId} />
+        </>
     )
 }
 

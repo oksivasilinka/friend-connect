@@ -70,9 +70,6 @@
 }
 
 .smallText {
-    color: var(--main-color-400);
-    font-weight: 600;
-    line-height: 1;
     box-shadow: var(--main-shadow-100);
     border-radius: 5px;
     height: 25px;

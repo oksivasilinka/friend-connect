@@ -2,7 +2,7 @@ import { Input, Textarea } from 'components/common/formsControls/FormControls'
 import { InjectedFormProps, reduxForm } from 'redux-form'
 import { ProfileResponseType } from 'api/profileApi'
 import { createField } from 'utils/createField/createField'
-import { Button, Icon } from 'components/common'
+import { Button, Icon, Typography } from 'components/common'
 import s from './ProfileDataForm.module.css'
 
 type ProfileFormData = {
@@ -30,22 +30,22 @@ const ProfileDataForm = ({ handleSubmit, error, profile }: Props) => {
                 {error && <div> {error} </div>}
             </div>
 
-            <span className={s.subtitle}>Full name: </span>
+            <Typography variant={'subtitle2'}> Full name: </Typography>
             {createField<ProfileFormPropertiesType>('Full name...', 'fullName', [], Input)}
-            <span className={s.subtitle}>About me: </span>
+            <Typography variant={'subtitle2'}> About me: </Typography>
             {createField<ProfileFormPropertiesType>('About me...', 'aboutMe', [], Textarea)}
             <div style={{ display: 'flex', gap: 10 }}>
-                <span className={s.subtitle}>Looking for a job:</span>
+                <Typography variant={'subtitle2'}> Looking for a job: </Typography>
                 <div
                     style={{ width: '30px' }}>{createField<ProfileFormPropertiesType>('', 'lookingForAJob', [], Input, { type: 'checkbox' })}</div>
             </div>
-            <span className={s.subtitle}>My skills:</span>
+            <Typography variant={'subtitle2'}> My skills: </Typography>
             {createField<ProfileFormPropertiesType>('My skills...', 'lookingForAJobDescription', [], Textarea)}
             <div>
                 {profile?.contacts && Object.keys(profile.contacts).map((key) => {
                     return (
                         <div key={key}>
-                            <span className={s.subtitle}>{key}: </span>
+                            <Typography variant={'subtitle2'}>{key}: </Typography>
                             {createField(`${key}`, 'contacts.' + key, [], Input)}
                         </div>
                     )

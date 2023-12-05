@@ -1,6 +1,7 @@
 import { ProfileResponseType } from 'api/profileApi'
 import { Contact } from 'components/profilePage/profile/profileData/contact/Contact'
 import s from './ProfileData.module.css'
+import { Typography } from 'components/common'
 
 
 type Props = {
@@ -12,17 +13,18 @@ export const ProfileData = ({ profile }: Props) => {
         <div className={s.wrapper}>
 
             <div className={s.item}>
-                <span className={s.subtitle}>About me:{' '} </span>
-                <span className={s.text}>{profile.aboutMe}</span>
+                <Typography variant={'subtitle2'}>About me:{' '} </Typography>
+                <Typography variant={'subtitle3'}>{profile.aboutMe}</Typography>
             </div>
             <div className={s.item}>
-                <span className={s.subtitle}>My Skills:{' '} </span>
-                <span className={s.text}>{profile.lookingForAJobDescription}</span>
+                <Typography variant={'subtitle2'}>My Skills:{' '} </Typography>
+                <Typography variant={'subtitle3'}>{profile.lookingForAJobDescription}</Typography>
             </div>
 
 
             <div className={`${s.item} ${s.contacts}`}>
-                <span className={s.subtitle}> Contacts: </span>
+                <Typography variant={'subtitle2'}> Contacts: </Typography>
+
                 {profile.contacts && Object.entries(profile.contacts).map(([key, value]) => {
                     return <Contact key={key} contactTitle={key} contactValue={value} />
                 })}
