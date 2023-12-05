@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { PaginationPage } from 'components/common/pagination/PaginationPage'
 import { User } from 'components/users/usersPage/users/user/User'
 import { getUsersTC } from 'redux/usersReducer'
@@ -10,7 +10,7 @@ import {
     totalUsersCount,
     usersFilterSelector,
     usersSelector
-} from 'components/users/usersSelectors'
+} from 'components/users/model/usersSelectors'
 import { UsersSearchForm } from 'components/users/usersPage/users/usersSearchForm/UsersSearchForm'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Preloader } from 'components/common/preloader'
