@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Nav } from 'components/navigation/Nav'
 import { useSelector } from 'react-redux'
 import { AppRootStateType, useAppDispatch } from 'redux/store'
@@ -27,15 +27,13 @@ const App = () => {
     return (
         <div className={s.container}>
 
-            <div className={s.menu}>
-                <Nav />
-            </div>
-
+            <nav className={s.menu}>
+                <Nav/>
+            </nav>
 
             <>
                 <AppHeader />
                 <Content className={s.content}>
-
                     <RoutesPages />
                 </Content>
             </>
