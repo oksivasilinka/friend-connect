@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { AppRootStateType, useAppDispatch } from 'redux/store'
 import { logOut } from 'redux/authReducer'
-import { profileSelector } from 'components/profile/profileSelector'
+import { profileSelector } from 'components/profilePage/model/profileSelector'
 import userPhoto from 'assets/img/user.png'
 import logo from 'assets/img/logo.svg'
 

@@ -19,7 +19,7 @@
 }
 
 .content {
-    padding: 0 20px;
+    padding: 20px;
     grid-row-start: 2;
     grid-column-start: 2;
     box-shadow: var(--main-shadow-100);

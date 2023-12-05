@@ -5,5 +5,5 @@ type Props = {
 }
 
 export const Subtitle = ({ title }: Props) => {
-    return <h3 className={s.title}>{title}</h3>
+    return <h3 className={s.subtitle}>{title}</h3>
 }

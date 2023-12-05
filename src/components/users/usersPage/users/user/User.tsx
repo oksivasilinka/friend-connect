@@ -28,7 +28,7 @@ export const User = ({ user }: Props) => {
 
     return (
         <div className={s.card}>
-            <NavLink to={'/profile/' + user.id}>
+            <NavLink to={'/profilePage/' + user.id}>
                 <img
                     src={user.photos.small != null ? user.photos.small : userPhoto}
                     alt={'avatar'} className={s.img} />

@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
-import { Profile } from './Profile'
+import { useEffect } from 'react'
+import { Profile } from 'components/profilePage/profile/Profile'
 import { useSelector } from 'react-redux'
 import { getProfile, getStatus } from 'redux/profileReducer'
 import { useParams } from 'react-router-dom'
-import { authorizedUserIdSelector } from 'components/profile/profileSelector'
+import { authorizedUserIdSelector } from 'components/profilePage/model/profileSelector'
 import { useAppDispatch } from 'redux/store'
+import { Title } from 'components/common'
 
 type PathParams = {
     userId?: string | undefined
@@ -29,7 +30,10 @@ const ProfilePage = () => {
     }, [userId])
 
     return (
-        <Profile isOwner={!userId} />
+       <>
+           <Title title={'Profile'}/>
+           <Profile isOwner={!userId} />
+       </>
     )
 }
 

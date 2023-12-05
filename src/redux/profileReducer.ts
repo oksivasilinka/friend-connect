@@ -64,7 +64,7 @@ export const saveProfile = (profile: ProfileResponseType): AppThunk =>
                 await dispatch(getProfile(userId))
                 return Promise.resolve()
             } else {
-                dispatch(stopSubmit('edit-profile', { _error: data.messages[0] }))
+                dispatch(stopSubmit('edit-profilePage', { _error: data.messages[0] }))
                 return Promise.reject(data.messages[0])
             }
         }

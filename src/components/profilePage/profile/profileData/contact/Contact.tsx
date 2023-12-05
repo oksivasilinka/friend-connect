@@ -1,5 +1,4 @@
-import React from 'react'
-import s from 'components/profile/profileInfo/profileData/contact/Contact.module.css'
+import s from './Contact.module.css'
 
 type Props = {
     contactTitle: string
@@ -11,7 +10,7 @@ export const Contact = ({ contactTitle, contactValue }: Props) => {
     return (
         <div className={s.contact}>
             <span className={s.subtitle}>{`${contactTitle}: `}</span>
-            <a href={'#'}>{contactValue}</a>
+            <a className={s.text} href={'#'}>{contactValue}</a>
         </div>
     )
 
