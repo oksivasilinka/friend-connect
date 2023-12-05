@@ -1,10 +1,9 @@
-import s from './ProfileDataForm.module.css'
-
 import { Input, Textarea } from 'components/common/formsControls/FormControls'
 import { InjectedFormProps, reduxForm } from 'redux-form'
 import { ProfileResponseType } from 'api/profileApi'
 import { createField } from 'utils/createField/createField'
-import { Icon } from 'components/common/icon'
+import { Button, Icon } from 'components/common'
+import s from './ProfileDataForm.module.css'
 
 type ProfileFormData = {
     fullName: string
@@ -22,12 +21,12 @@ type Props = InjectedFormProps<ProfileResponseType, ProfileOwnProps> & ProfileOw
 
 const ProfileDataForm = ({ handleSubmit, error, profile }: Props) => {
     return (
-        <form className={s.form}  onSubmit={handleSubmit}>
+        <form className={s.form} onSubmit={handleSubmit}>
             <div>
-                <button title={'Edit profilePage'} className={s.button}>
-                    <Icon id={'save'} width={'20'} height={'20'} viewBox={'0 0 25 25'} />
+                <Button title={'Edit profilePage'} className={s.button}>
+                    <Icon id={'save'} width={'18'} height={'18'} />
                     <span>Save Profile</span>
-                </button>
+                </Button>
                 {error && <div> {error} </div>}
             </div>
 
@@ -35,9 +34,10 @@ const ProfileDataForm = ({ handleSubmit, error, profile }: Props) => {
             {createField<ProfileFormPropertiesType>('Full name...', 'fullName', [], Input)}
             <span className={s.subtitle}>About me: </span>
             {createField<ProfileFormPropertiesType>('About me...', 'aboutMe', [], Textarea)}
-            <div style={{display: 'flex', gap: 10}}>
+            <div style={{ display: 'flex', gap: 10 }}>
                 <span className={s.subtitle}>Looking for a job:</span>
-                <div style={{width: '30px'}}>{createField<ProfileFormPropertiesType>('', 'lookingForAJob', [], Input, { type: 'checkbox' })}</div>
+                <div
+                    style={{ width: '30px' }}>{createField<ProfileFormPropertiesType>('', 'lookingForAJob', [], Input, { type: 'checkbox' })}</div>
             </div>
             <span className={s.subtitle}>My skills:</span>
             {createField<ProfileFormPropertiesType>('My skills...', 'lookingForAJobDescription', [], Textarea)}

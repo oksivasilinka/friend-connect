@@ -1,14 +1,13 @@
-import React, { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { ProfileData, ProfileReduxDataForm, ProfileStatus } from 'components/profilePage/profile/index'
 import { useSelector } from 'react-redux'
-import { profileSelector } from 'components/profilePage/model/profileSelector'
-import { AppRootStateType, useAppDispatch } from 'redux/store'
+import { loginSelector, profileSelector } from 'components/profilePage/model/profileSelector'
+import { useAppDispatch } from 'redux/store'
 import { Preloader } from 'components/common/preloader'
 import { savePhoto, saveProfile } from 'redux/profileReducer'
 import { ProfileResponseType } from 'api/profileApi'
 import userPhoto from 'assets/img/user.png'
-import { Icon } from 'components/common/icon'
-import { Subtitle } from 'components/common'
+import { Button, Icon, Subtitle } from 'components/common'
 import s from './Profile.module.css'
 
 type Props = {
@@ -20,12 +19,12 @@ export const Profile = ({ isOwner }: Props) => {
     const [editMode, setEditMode] = useState(false)
     const profile = useSelector(profileSelector)
     const user = useSelector(profileSelector)
-    const login = useSelector((state: AppRootStateType) => state.auth.login)
+    const login = useSelector(loginSelector)
     const dispatch = useAppDispatch()
 
-    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+    const onMainPhotoSelected = async (e: ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget && e.currentTarget.files && e.currentTarget.files.length) {
-            dispatch(savePhoto(e.currentTarget.files[0]))
+            await dispatch(savePhoto(e.currentTarget.files[0]))
         }
     }
 
@@ -66,18 +65,18 @@ export const Profile = ({ isOwner }: Props) => {
                     <Subtitle title={user?.fullName || login || ''} />
                     {profile.lookingForAJob && <span className={s.smallText}>in looking of work</span>}
                 </div>
-                <div> {isOwner && < ProfileStatus />}
-                    {editMode
-                        ? <ProfileReduxDataForm initialValues={profile} onSubmit={onSubmit} profile={profile} />
-                        : <ProfileData profile={profile} />
-                    }
-                </div>
+                < ProfileStatus />
+                {editMode && <ProfileReduxDataForm initialValues={profile} onSubmit={onSubmit} profile={profile} />}
+                {!editMode && <ProfileData profile={profile} />}
 
+
+                {!editMode && isOwner && (
+                    <Button title={'Edit profilePage'} className={s.buttonEdit} callback={changeEditModeHandler}>
+                        <Icon id={'edit'} width={'18'} height={'18'} />
+                        <span>Edit Profile</span>
+                    </Button>
+                )}
             </div>
-            {!editMode && <button title={'Edit profilePage'} className={s.buttonEdit} onClick={changeEditModeHandler}>
-                <Icon id={'edit'} width={'20'} height={'20'} viewBox={'0 0 25 25'} />
-                <span>Edit Profile</span>
-            </button>}
 
         </div>
     )

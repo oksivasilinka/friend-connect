@@ -12,10 +12,6 @@ export const ProfileData = ({ profile }: Props) => {
         <div className={s.wrapper}>
 
             <div className={s.item}>
-                <span className={s.subtitle}>Full name:{' '} </span>
-                <span className={s.text}>{profile.fullName}</span>
-            </div>
-            <div className={s.item}>
                 <span className={s.subtitle}>About me:{' '} </span>
                 <span className={s.text}>{profile.aboutMe}</span>
             </div>
