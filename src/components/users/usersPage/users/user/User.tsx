@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { follow, unFollow } from 'redux/usersReducer'
 import { getFollowingInProgress } from 'components/users/model/usersSelectors'
 import { useAppDispatch } from 'redux/store'
-import { Button, Subtitle } from 'components/common'
+import { Button, Typography } from 'components/common'
 
 import s from './user.module.css'
 
@@ -32,7 +32,7 @@ export const User = ({ user }: Props) => {
                 <img
                     src={user.photos.small != null ? user.photos.small : userPhoto}
                     alt={'avatar'} className={s.img} />
-                <Subtitle className={s.name} title={user.name} />
+                <Typography variant={'subtitle1'}>{user.name}</Typography>
             </NavLink>
 
             <span className={s.status}>{user.status}</span>
@@ -40,13 +40,13 @@ export const User = ({ user }: Props) => {
             <div>
                 {user.followed
                     ? <Button
-                              // disabled={followingInProgress.some(id => id === user.id)}
-                              callback={() => followHandler(user.id)}>
+                        // disabled={followingInProgress.some(id => id === user.id)}
+                        callback={() => followHandler(user.id)}>
                         UNFOLLOW
                     </Button>
 
                     : <Button className={s.buttonFollow}
-                              // disabled={followingInProgress.some(id => id === user.id)}
+                        // disabled={followingInProgress.some(id => id === user.id)}
                               callback={() => unfollowHandler(user.id)}>
                         FOLLOW
                     </Button>

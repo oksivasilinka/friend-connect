@@ -7,7 +7,7 @@ import { Preloader } from 'components/common/preloader'
 import { savePhoto, saveProfile } from 'redux/profileReducer'
 import { ProfileResponseType } from 'api/profileApi'
 import userPhoto from 'assets/img/user.png'
-import { Button, Icon, Subtitle } from 'components/common'
+import { Button, Icon, Typography } from 'components/common'
 import s from './Profile.module.css'
 
 type Props = {
@@ -62,7 +62,7 @@ export const Profile = ({ isOwner }: Props) => {
 
             <div>
                 <div className={s.nameWrapper}>
-                    <Subtitle title={user?.fullName || login || ''} />
+                    <Typography variant={'h3'} as={'h3'}>{user?.fullName || login || ''}</Typography>
                     {profile.lookingForAJob && <span className={s.smallText}>in looking of work</span>}
                 </div>
                 < ProfileStatus />

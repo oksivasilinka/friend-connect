@@ -5,7 +5,7 @@ import { getProfile, getStatus } from 'redux/profileReducer'
 import { useParams } from 'react-router-dom'
 import { authorizedUserIdSelector } from 'components/profilePage/model/profileSelector'
 import { useAppDispatch } from 'redux/store'
-import { Title } from 'components/common'
+import { Typography } from 'components/common'
 
 type PathParams = {
     userId?: string | undefined
@@ -31,7 +31,7 @@ const ProfilePage = () => {
 
     return (
        <>
-           <Title title={'Profile'}/>
+           <Typography variant={'h2'} as={'h2'}>Profile</Typography>
            <Profile isOwner={!userId} />
        </>
     )

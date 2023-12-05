@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { isAuthSelector } from 'components/login/model'
 import { LoginForm } from 'components/login/LoginForm'
-import { Title } from 'components/common'
+import { Typography } from 'components/common'
 
 export const Login = () => {
 
@@ -13,7 +13,7 @@ export const Login = () => {
     }
     return (
         <>
-            <Title title={'Login'} />
+            <Typography variant={'h2'} as={'h2'}>Login</Typography>
             <LoginForm />
         </>
     )

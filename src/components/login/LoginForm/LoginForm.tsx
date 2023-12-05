@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { captchaUrlSelector, errorSelector, isAuthSelector, useLogin } from 'components/login/model'
-import { Subtitle } from 'components/common'
+import { Typography } from 'components/common'
 import s from './LoginForm.module.css'
 
 export const LoginForm = () => {
@@ -18,14 +18,13 @@ export const LoginForm = () => {
 
     return (
         <form onSubmit={handleSubmit} className={s.form}>
-            <Subtitle title={'Email'} />
+            <Typography variant={'h4'} as={'h4'}>Email</Typography>
             <input placeholder={'Enter your email'} className={s.input} {...getFieldProps('email')} />
             {touched.email && errors.email && (
                 <span className={s.error}>{errors.email}</span>
             )}
 
-
-            <Subtitle title={'Password'} />
+            <Typography variant={'h4'} as={'h4'}>Password</Typography>
             <input placeholder={'Enter your password'} className={s.input}
                    type='password'
                    {...getFieldProps('password')}
