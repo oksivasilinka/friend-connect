@@ -1,11 +1,11 @@
 import { FilterForm, getUsersTC } from 'redux/usersReducer'
-import React from 'react'
 import { useFormik } from 'formik'
 import { useSelector } from 'react-redux'
 import { usersFilterSelector } from 'components/users/model/usersSelectors'
-import { Button, Form, Input, Select } from 'antd'
-import s from './UsersSearchForm.module.css'
+import { Form, Input, Select } from 'antd'
 import { useAppDispatch } from 'redux/store'
+import s from './UsersSearchForm.module.css'
+import { Button } from 'components/common'
 
 
 type Props = {
@@ -56,7 +56,7 @@ export const UsersSearchForm = ({ pageSize }: Props) => {
                 <Select.Option value='false'>Only unfollowed</Select.Option>
             </Select>
 
-            <Button type='primary' htmlType='submit'>Find</Button>
+            <Button children={'Find'}/>
 
         </Form>
 
