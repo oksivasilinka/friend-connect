@@ -7,7 +7,7 @@
     grid-column-end: 3;
     border-radius: 5px;
     background-color: var(--main-color-300);
-    box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.3);
+    box-shadow: var(--main-shadow-100)
 }
 
 .logo {
@@ -19,6 +19,9 @@
     justify-content: flex-end;
     align-items: center;
     gap: 10px;
+}
+.login {
+    color: var(--font-color-100);
 }
 
 .avatar {
