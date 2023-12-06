@@ -1,9 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { UsersPage } from 'components/users/usersPage/UsersPage'
-import { Login } from 'components/login/Login'
-import React from 'react'
-import ProfilePage from 'components/profilePage/ProfilePage'
-import ChatPage from 'components/ChatPage/ChatPage'
+import { UsersPage } from 'pages/usersPage'
+import { Login } from 'pages/loginPage'
+import ProfilePage from 'pages/profilePage/ProfilePage'
+import ChatPage from 'pages/chatPage/ChatPage'
 
 
 export const RoutesPages = () => {

@@ -3,11 +3,11 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'redux/store'
 import { logOut } from 'redux/authReducer'
-import { loginSelector, profileSelector } from 'components/profilePage/model/profileSelector'
+import { loginSelector, profileSelector } from 'pages/profilePage'
 import userPhoto from 'assets/img/user.png'
 import logo from 'assets/img/logo.svg'
 import { Button, Typography } from 'components/common'
-import { isAuthSelector } from 'components/login/model'
+import { isAuthSelector } from 'pages/loginPage/model'
 import s from './Header.module.css'
 
 export const AppHeader = () => {
@@ -42,14 +42,14 @@ export const AppHeader = () => {
                          src={profile?.photos.large || userPhoto}
                     />
                     <Button callback={logoutHandler}>
-                        <Typography variant={'subtitle3'}>Log Out</Typography>
+                        <Typography variant={'body2'}>LOGOUT</Typography>
                     </Button>
                 </div>
             )}
             {!isAuth && (
                 <Button className={s.button}>
                     <NavLink to={'/login'}  className={s.link}>
-                        <Typography variant={'subtitle3'}>Login</Typography>
+                        <Typography variant={'body2'}>LOGIN</Typography>
                     </NavLink>
                 </Button>
             )}
