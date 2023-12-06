@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
 import { Icon } from 'components/common/icon'
 import s from './Nav.module.css'
 import { Typography } from 'components/common'
+import { NavLink } from 'react-router-dom'
 
 const menuItems = [
     { id: 'profile', title: 'Profile' },
@@ -14,10 +14,11 @@ export const Nav = () => {
     return (
         <>
             {menuItems.map(item => (
-                <Link key={item.id} className={s.link} to={`/${item.id}`}>
+                <NavLink key={item.id} to={`/${item.id}`}
+                         className={({isActive}) =>`${isActive ? `${s.link} ${s.active}` : s.link}`}>
                     <Icon id={item.id} />
-                    <Typography variant={'subtitle3'}>{item.title}</Typography>
-                </Link>
+                    <Typography className={s.linkText} variant={'subtitle3'} as={'a'}>{item.title}</Typography>
+                </NavLink>
             ))}
         </>
     )

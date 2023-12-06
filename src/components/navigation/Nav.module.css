@@ -9,10 +9,48 @@
     gap: 10px;
     align-items: center;
     text-decoration: none;
+
     &:hover {
         background-color: var(--font-color-100);
+        box-shadow: var(--main-shadow-200)
+
     }
+
     &:visited {
         color: var(--main-color-500);
     }
+
+    &:active {
+        background-color: var(--main-color-300);
+    }
+
+    &:active a, &:active svg {
+        color: var(--font-color-100);
+    }
+}
+
+
+.active {
+    background-color: var(--main-color-300);
+
+    &:hover {
+        background-color: var(--font-color-100);
+    }
+}
+
+.active a, .active svg {
+    color: var(--font-color-100);
+
+    &:hover {
+        color: var(--main-color-400);
+    }
+}
+
+.active:hover a, .active:hover svg {
+    color: var(--main-color-400);
+
+}
+
+.linkText {
+    text-decoration: none;
 }
