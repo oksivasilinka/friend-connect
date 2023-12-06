@@ -4,29 +4,36 @@
     max-width: 500px;
 }
 
+.inputWrapper {
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
 .input {
     border-radius: 5px;
     padding: 8px 16px;
     border: 1px solid var(--main-color-300);
     box-shadow: var(--main-shadow-100);
+    margin: 5px 0;
+}
+
+input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--main-color-400);
 }
 
 .buttonLogin {
     background-color: var(--main-color-400);
-    color: var(--font-color-100);
-    border: none;
     padding: 10px 16px;
-    border-radius: 5px;
-    box-shadow: var(--main-shadow-100)
 }
 
 .rememberMeBlock {
-    position: relative;
     display: flex;
-    width: 150px;
     align-items: center;
     gap: 10px;
-    padding: 20px 0;
+    padding-bottom: 20px;
 }
 
 .error {
@@ -44,4 +51,8 @@
 
 .captcha {
     margin-bottom: 20px;
+}
+
+.textButton {
+    color: var(--font-color-100);
 }
