@@ -15,6 +15,7 @@ import { UsersSearchForm } from 'components/users/usersPage/users/usersSearchFor
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Preloader } from 'components/common/preloader'
 import { useAppDispatch } from 'redux/store'
+import s from './Users.module.css'
 
 export const Users = () => {
 
@@ -66,7 +67,7 @@ export const Users = () => {
 
             {isFetching ? <Preloader /> : null}
 
-            <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+            <div className={s.userWrapper}>
                 {users.map(user => <User key={user.id} user={user} />)}
             </div>
             <PaginationPage currentPage={currentPage}

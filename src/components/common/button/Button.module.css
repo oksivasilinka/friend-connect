@@ -9,4 +9,14 @@
     background-color: var(--main-color-100);
     padding: 5px 8px;
     box-shadow: var(--main-shadow-100);
+    &:hover {
+        box-shadow: var(--main-shadow-200);
+        cursor: pointer;
+    }
+    &:disabled {
+        background-color: #a1a8a9;
+        color: #696d6e;
+        pointer-events: none;
+        cursor: default;
+    }
   }

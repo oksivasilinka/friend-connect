@@ -6,7 +6,6 @@ import { follow, unFollow } from 'redux/usersReducer'
 import { getFollowingInProgress } from 'components/users/model/usersSelectors'
 import { useAppDispatch } from 'redux/store'
 import { Button, Typography } from 'components/common'
-
 import s from './user.module.css'
 
 type Props = {
@@ -28,32 +27,30 @@ export const User = ({ user }: Props) => {
 
     return (
         <div className={s.card}>
-            <NavLink to={'/profile/' + user.id}>
+            <NavLink to={'/profile/' + user.id} className={s.link}>
                 <img
                     src={user.photos.small != null ? user.photos.small : userPhoto}
                     alt={'avatar'} className={s.img} />
-                <Typography variant={'subtitle1'}>{user.name}</Typography>
+                <Typography variant={'subtitle1'} className={s.text}>{user.name}</Typography>
             </NavLink>
 
-            <span className={s.status}>{user.status}</span>
+            <Typography variant={'caption1'} className={s.text}>{user.status}</Typography>
 
-            <div>
-                {user.followed
-                    ? <Button
-                        // disabled={followingInProgress.some(id => id === user.id)}
-                        callback={() => followHandler(user.id)}>
-                        UNFOLLOW
-                    </Button>
+            {user.followed && (
+                <Button
+                    disabled={followingInProgress.some(id => id === user.id)}
+                    callback={() => followHandler(user.id)}>
+                    <Typography variant={'body1'}>UNFOLLOW</Typography>
+                </Button>
+            )}
 
-                    : <Button className={s.buttonFollow}
-                        // disabled={followingInProgress.some(id => id === user.id)}
-                              callback={() => unfollowHandler(user.id)}>
-                        FOLLOW
-                    </Button>
-                }
-            </div>
+            {!user.followed && (
+                <Button className={s.buttonFollow}
+                        disabled={followingInProgress.some(id => id === user.id)}
+                        callback={() => unfollowHandler(user.id)}>
+                    <Typography className={s.textButton} variant={'body1'}>FOLLOW</Typography>
+                </Button>
+            )}
         </div>
-
-
     )
 }

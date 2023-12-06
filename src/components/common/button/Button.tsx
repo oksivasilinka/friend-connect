@@ -6,11 +6,12 @@ type Props = {
     callback?: any
     className?: string
     title?: string
+    disabled?: boolean
 }
 
-export const Button = ({ children, callback, className, title }: Props) => {
+export const Button = ({ children, callback, className, title, disabled = false }: Props) => {
     return (
-        <button title={title} className={`${s.button} ${className}`} onClick={callback}>
+        <button title={title} className={`${s.button} ${className}`} onClick={callback} disabled={disabled}>
             {children}
         </button>
     )
