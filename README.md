@@ -1,20 +1,18 @@
-**Social Network**
+**Friend Connect**
 
-This is a web application project of a social network, developed using TypeScript, React, Redux, REST API, Axios, Formik, and CSS modules.
+This is a web application project of a social network, developed using TypeScript, React, Redux, REST API, Axios, Formik, WebSocket and CSS modules.
 
 
 **Description**
 
-The social network is a platform where users can create their profiles, connect with friends, exchange messages, and share content. This web application provides a user-friendly interface for users to easily interact with each other and share their thoughts, photos, and videos.
+The Friend Connect is a platform where users can create their profiles, connect with friends, exchange messages, and share content. This web application provides a user-friendly interface for users to easily interact with each other and share their thoughts, photos, and videos.
 
 
 **Key Features**
-* User registration and authentication: Users can create accounts and log in using their credentials.
 * User profiles: Users can create and customize their profiles, upload profile pictures, and update personal information.
 * Friends: Users can add other users as friends and view profiles of their friends.
 * News feed: Users can view news and updates from their friends in their feed.
-* Messaging: Users can exchange private messages with other users.
-* Posts: Users can create posts, share photos and videos, and leave comments on other users' posts.
+* Chat: Users can exchange messages with other users.
 
 
 **Technologies**
