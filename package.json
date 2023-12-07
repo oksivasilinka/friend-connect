@@ -2,7 +2,7 @@
   "name": "samurai-way",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://oksivasilinka.github.io/friend-connect/",
+  "homepage": "https://oksivasilinka.github.io/friendConnect/",
   "dependencies": {
     "@fontsource/source-sans-pro": "^5.0.8",
     "@testing-library/jest-dom": "6.1.4",
