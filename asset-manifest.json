@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/friendConnect/static/css/main.9907c837.css",
-    "main.js": "/friendConnect/static/js/main.e783dbfe.js",
+    "main.css": "/friendConnect/static/css/main.c83a487f.css",
+    "main.js": "/friendConnect/static/js/main.fbd63a74.js",
     "static/media/source-sans-pro-latin-ext-400-normal.woff": "/friendConnect/static/media/source-sans-pro-latin-ext-400-normal.185cedfb4e64a9a8801a.woff",
     "static/media/source-sans-pro-latin-ext-700-normal.woff": "/friendConnect/static/media/source-sans-pro-latin-ext-700-normal.a72613fd5e96ed9e41cd.woff",
     "static/media/source-sans-pro-latin-ext-600-normal.woff": "/friendConnect/static/media/source-sans-pro-latin-ext-600-normal.7388c38c78f7a7897242.woff",
@@ -30,6 +30,7 @@
     "static/media/source-sans-pro-vietnamese-400-normal.woff": "/friendConnect/static/media/source-sans-pro-vietnamese-400-normal.ed0bf5e1a4bd41349850.woff",
     "static/media/source-sans-pro-vietnamese-600-normal.woff": "/friendConnect/static/media/source-sans-pro-vietnamese-600-normal.1a6e8b1613f589567b28.woff",
     "static/media/source-sans-pro-vietnamese-700-normal.woff": "/friendConnect/static/media/source-sans-pro-vietnamese-700-normal.3985262533dbd8ab5436.woff",
+    "static/media/icons-sprite.svg": "/friendConnect/static/media/icons-sprite.6739640b78e63afe8f8d2738b17ba54a.svg",
     "static/media/source-sans-pro-greek-400-normal.woff2": "/friendConnect/static/media/source-sans-pro-greek-400-normal.9c7d72dcc7a044db07b1.woff2",
     "static/media/source-sans-pro-greek-600-normal.woff2": "/friendConnect/static/media/source-sans-pro-greek-600-normal.d957dc4c044b538e2427.woff2",
     "static/media/source-sans-pro-greek-700-normal.woff2": "/friendConnect/static/media/source-sans-pro-greek-700-normal.64102f7204fc75f9aa8c.woff2",
@@ -42,17 +43,16 @@
     "static/media/source-sans-pro-vietnamese-400-normal.woff2": "/friendConnect/static/media/source-sans-pro-vietnamese-400-normal.540007fe6de95f52230e.woff2",
     "static/media/source-sans-pro-vietnamese-600-normal.woff2": "/friendConnect/static/media/source-sans-pro-vietnamese-600-normal.6f8f2aa1e3816d0ec479.woff2",
     "static/media/source-sans-pro-vietnamese-700-normal.woff2": "/friendConnect/static/media/source-sans-pro-vietnamese-700-normal.449204a0d0dfbe4e7d6d.woff2",
-    "static/media/icons-sprite.svg": "/friendConnect/static/media/icons-sprite.ffb3cd1f1ec2a53c269b49a66d1ce9c2.svg",
     "static/media/source-sans-pro-cyrillic-ext-400-normal.woff2": "/friendConnect/static/media/source-sans-pro-cyrillic-ext-400-normal.de95c5209ef26bf69ccf.woff2",
     "static/media/source-sans-pro-cyrillic-ext-600-normal.woff2": "/friendConnect/static/media/source-sans-pro-cyrillic-ext-600-normal.29a55ddb4816749dfc22.woff2",
     "static/media/source-sans-pro-cyrillic-ext-700-normal.woff2": "/friendConnect/static/media/source-sans-pro-cyrillic-ext-700-normal.88f4c479ac07fe28684c.woff2",
     "index.html": "/friendConnect/index.html",
     "static/media/loader.svg": "/friendConnect/static/media/loader.8ec08948408c6d87f3f0551761347120.svg",
-    "main.9907c837.css.map": "/friendConnect/static/css/main.9907c837.css.map",
-    "main.e783dbfe.js.map": "/friendConnect/static/js/main.e783dbfe.js.map"
+    "main.c83a487f.css.map": "/friendConnect/static/css/main.c83a487f.css.map",
+    "main.fbd63a74.js.map": "/friendConnect/static/js/main.fbd63a74.js.map"
   },
   "entrypoints": [
-    "static/css/main.9907c837.css",
-    "static/js/main.e783dbfe.js"
+    "static/css/main.c83a487f.css",
+    "static/js/main.fbd63a74.js"
   ]
 }
