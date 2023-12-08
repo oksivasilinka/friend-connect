@@ -1,8 +1,12 @@
 import { AppThunk, InferActionsType } from './store'
 import { Articles, newsAPI } from 'api/newsApi'
+import { FilterNewsForm } from 'pages/newsPage/news/NewsSearchForm'
 
 let initialState = {
-    news: [] as Articles[]
+    news: [] as Articles[],
+    filter: {
+        country: 'us' as string
+    }
 }
 
 export const newsReducer = (state = initialState, action: ActionTypes): InitialStateType => {
@@ -20,8 +24,8 @@ export const newsActions = {
     getNewsData: (data: Articles[]) => ({ type: 'SET_NEWS_DATA', data }) as const
 }
 
-export const getNews = (): AppThunk => (dispatch) => {
-    newsAPI.getNews()
+export const getNews = (filter: FilterNewsForm): AppThunk => (dispatch) => {
+    newsAPI.getNews(filter.country)
         .then(res => {
             dispatch(newsActions.getNewsData(res.data.articles))
         })

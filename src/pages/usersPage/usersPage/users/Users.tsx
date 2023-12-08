@@ -63,7 +63,7 @@ export const Users = () => {
                             filter={filter}
             />
 
-            {isFetching ? <Preloader /> : null}
+            {isFetching && <Preloader />}
 
             <div className={s.userWrapper}>
                 {users.map(user => <User key={user.id} user={user} />)}
