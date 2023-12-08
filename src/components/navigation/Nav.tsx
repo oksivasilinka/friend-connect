@@ -5,7 +5,8 @@ import s from './Nav.module.css'
 const menuItems = [
     { id: 'profile', title: 'Profile' },
     { id: 'users', title: 'Users' },
-    { id: 'chat', title: 'Chat' }
+    { id: 'chat', title: 'Chat' },
+    { id: 'news', title: 'News' }
 ]
 
 export const Nav = () => {

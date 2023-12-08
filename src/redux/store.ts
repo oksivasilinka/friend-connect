@@ -8,6 +8,7 @@ import { reducer as formReducer } from 'redux-form'
 import { appReducer } from './appReducer'
 import { chatReducer } from 'redux/chat.reducer'
 import { useDispatch } from 'react-redux'
+import { newsReducer } from 'redux/newsReducer'
 
 
 let rootReducer = combineReducers({
@@ -17,7 +18,8 @@ let rootReducer = combineReducers({
     auth: authReducer,
     form: formReducer,
     app: appReducer,
-    chat: chatReducer
+    chat: chatReducer,
+    news: newsReducer
 })
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
