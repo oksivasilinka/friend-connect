@@ -6,6 +6,7 @@ import { follow, unFollow } from 'redux/usersReducer'
 import { getFollowingInProgress } from 'pages/usersPage'
 import { useAppDispatch } from 'redux/store'
 import { Button, Typography } from 'components/common'
+import { isAuthSelector } from 'pages/loginPage'
 import s from './user.module.css'
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
 export const User = ({ user }: Props) => {
 
     const followingInProgress = useSelector(getFollowingInProgress)
+    const isAuth = useSelector(isAuthSelector)
     const dispatch = useAppDispatch()
 
     const followHandler = (id: number) => {
@@ -24,6 +26,7 @@ export const User = ({ user }: Props) => {
     const unfollowHandler = (id: number) => {
         dispatch(unFollow(id))
     }
+    const buttonDisabled = (followingInProgress.some(id => id === user.id)) || !isAuth
 
     return (
         <div className={s.card}>
@@ -38,7 +41,7 @@ export const User = ({ user }: Props) => {
 
             {user.followed && (
                 <Button
-                    disabled={followingInProgress.some(id => id === user.id)}
+                    disabled={buttonDisabled}
                     callback={() => followHandler(user.id)}>
                     <Typography variant={'body1'}>UNFOLLOW</Typography>
                 </Button>
@@ -46,7 +49,7 @@ export const User = ({ user }: Props) => {
 
             {!user.followed && (
                 <Button className={s.buttonFollow}
-                        disabled={followingInProgress.some(id => id === user.id)}
+                        disabled={buttonDisabled}
                         callback={() => unfollowHandler(user.id)}>
                     <Typography className={s.textButton} variant={'body1'}>FOLLOW</Typography>
                 </Button>
