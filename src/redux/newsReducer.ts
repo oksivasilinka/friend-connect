@@ -12,7 +12,7 @@ let initialState = {
 export const newsReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
         case 'SET_NEWS_DATA' :
-            return { ...state, news: action.data }
+            return { ...state, news: action.data.filter(i => i.title !== '[Removed]') }
 
         default:
             return state || initialState

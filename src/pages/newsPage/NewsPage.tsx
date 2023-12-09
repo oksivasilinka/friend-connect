@@ -39,9 +39,7 @@ export const NewsPage = () => {
             <Typography variant={'h2'} as={'h2'}>News</Typography>
             {isFetching && <Preloader />}
             <NewsSearchForm />
-            <div>
-                {newsList.map((news) => <News news={news} />)}
-            </div>
+            {newsList.map((news) => <News news={news} />)}
         </section>
     )
 }
