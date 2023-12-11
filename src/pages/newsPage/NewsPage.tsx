@@ -1,16 +1,15 @@
 import { useEffect } from 'react'
 import { getNews } from 'redux/newsReducer'
 import { useSelector } from 'react-redux'
-import { AppRootStateType, useAppDispatch } from 'redux/store'
+import { useAppDispatch } from 'redux/store'
 import { Preloader, Typography } from 'components/common'
-import { News } from 'pages/newsPage/news/News'
-import { NewsSearchForm } from 'pages/newsPage/news/NewsSearchForm'
+import { News, NewsSearchForm, filterSelector, newsListSelector } from 'pages/newsPage'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getIsFetching } from 'pages/usersPage'
 
 export const NewsPage = () => {
-    const newsList = useSelector((state: AppRootStateType) => state.news.news)
-    const filter = useSelector((state: AppRootStateType) => state.news.filter)
+    const newsList = useSelector(newsListSelector)
+    const filter = useSelector(filterSelector)
     const isFetching = useSelector(getIsFetching)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()

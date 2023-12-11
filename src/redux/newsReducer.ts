@@ -1,11 +1,10 @@
 import { AppThunk, InferActionsType } from './store'
-import { Articles, newsAPI } from 'api/newsApi'
-import { FilterNewsForm } from 'pages/newsPage/news/NewsSearchForm'
+import { Articles, FilterNewsForm, newsAPI } from 'api/newsApi'
 
 let initialState = {
     news: [] as Articles[],
     filter: {
-        country: 'us' as string,
+        country: 'us',
         category: ''
     }
 }

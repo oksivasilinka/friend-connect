@@ -1,14 +1,12 @@
 import { useFormik } from 'formik'
 import { useSelector } from 'react-redux'
-import { Form, Select } from 'antd'
-import { AppRootStateType, useAppDispatch } from 'redux/store'
-import { Button, Typography } from 'components/common'
+import { Form } from 'antd'
+import { useAppDispatch } from 'redux/store'
 import { getNews } from 'redux/newsReducer'
+import { SelectNews, filterSelector } from 'pages/newsPage'
+import { FilterNewsForm } from 'api/newsApi'
 
-export type FilterNewsForm = {
-    country: string
-    category: string
-}
+
 const countries = [
     { id: 'ae', name: 'UAE' },
     { id: 'ar', name: 'Argentina' },
@@ -64,7 +62,6 @@ const countries = [
     { id: 've', name: 'Venezuela' },
     { id: 'za', name: 'South Africa' }
 ]
-
 const categories = [
     { id: 'business', name: 'Business' },
     { id: 'entertainment', name: 'Entertainment' },
@@ -76,8 +73,7 @@ const categories = [
 
 export const NewsSearchForm = () => {
 
-    const filter = useSelector((state: AppRootStateType) => state.news.filter)
-
+    const filter = useSelector(filterSelector)
     const dispatch = useAppDispatch()
 
     const onFilterChanged = (filter: FilterNewsForm) => {
@@ -96,32 +92,13 @@ export const NewsSearchForm = () => {
     })
 
     return (
-
         <Form onFinish={formik.handleSubmit} initialValues={{ country: filter.country, category: filter.category }}>
-            <Typography as={'label'}>Choose a country</Typography>
-            <Select style={{ width: 200 }}
-                    onChange={(value) => formik.setFieldValue('country', value)} defaultValue={'us'}
-            >
-                {countries.map((country: { id: string, name: string }) => {
-                    return <Select.Option key={country.id} value={country.id}>{country.name}</Select.Option>
-                })}
-            </Select>
-
-            <Button children={'Find'} />
-            <Typography as={'label'}>Choose a category</Typography>
-            <Select style={{ width: 200 }}
-                    onChange={(value) => formik.setFieldValue('category', value)} defaultValue={'All'}
-            >
-                {categories.map((category: { id: string, name: string }) => {
-                    return <Select.Option key={category.id} value={category.id}>{category.name}</Select.Option>
-                })}
-            </Select>
-
-            <Button children={'Find'} />
-
-
+            <SelectNews label={'Choose a country'} values={countries} onChange={formik.setFieldValue}
+                        defaultValue={'us'}
+                        type={'country'} />
+            <SelectNews label={'Choose a category'} values={categories} onChange={formik.setFieldValue}
+                        defaultValue={'All'}
+                        type={'category'} />
         </Form>
-
-
     )
 }
