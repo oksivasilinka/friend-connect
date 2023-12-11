@@ -3,9 +3,10 @@ import { getNews } from 'redux/newsReducer'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'redux/store'
 import { Preloader, Typography } from 'components/common'
-import { News, NewsSearchForm, filterSelector, newsListSelector } from 'pages/newsPage'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getIsFetching } from 'pages/usersPage'
+import { filterSelector, newsListSelector } from 'pages/newsPage/model'
+import { News, NewsSearchForm } from 'pages/newsPage/news'
 
 export const NewsPage = () => {
     const newsList = useSelector(newsListSelector)

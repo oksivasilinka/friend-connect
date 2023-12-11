@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux'
 import { Form } from 'antd'
 import { useAppDispatch } from 'redux/store'
 import { getNews } from 'redux/newsReducer'
-import { SelectNews, filterSelector } from 'pages/newsPage'
 import { FilterNewsForm } from 'api/newsApi'
+import { filterSelector } from 'pages/newsPage/model'
+import { SelectNews } from 'pages/newsPage/news/NewsSearchForm/SelectNews'
 
 
 const countries = [
