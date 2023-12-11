@@ -2,11 +2,12 @@ import { useFormik } from 'formik'
 import { useSelector } from 'react-redux'
 import { Form, Select } from 'antd'
 import { AppRootStateType, useAppDispatch } from 'redux/store'
-import { Button } from 'components/common'
+import { Button, Typography } from 'components/common'
 import { getNews } from 'redux/newsReducer'
 
 export type FilterNewsForm = {
     country: string
+    category: string
 }
 const countries = [
     { id: 'ae', name: 'UAE' },
@@ -64,6 +65,15 @@ const countries = [
     { id: 'za', name: 'South Africa' }
 ]
 
+const categories = [
+    { id: 'business', name: 'Business' },
+    { id: 'entertainment', name: 'Entertainment' },
+    { id: 'general', name: 'General' },
+    { id: 'health', name: 'Health' },
+    { id: 'science', name: 'Science' },
+    { id: 'sports', name: 'Technology' }
+]
+
 export const NewsSearchForm = () => {
 
     const filter = useSelector((state: AppRootStateType) => state.news.filter)
@@ -76,7 +86,8 @@ export const NewsSearchForm = () => {
 
     const formik = useFormik({
         initialValues: {
-            country: 'us'
+            country: 'us',
+            category: ''
         },
 
         onSubmit: (values: FilterNewsForm) => {
@@ -86,8 +97,8 @@ export const NewsSearchForm = () => {
 
     return (
 
-        <Form onFinish={formik.handleSubmit} initialValues={{ country: filter.country }}>
-
+        <Form onFinish={formik.handleSubmit} initialValues={{ country: filter.country, category: filter.category }}>
+            <Typography as={'label'}>Choose a country</Typography>
             <Select style={{ width: 200 }}
                     onChange={(value) => formik.setFieldValue('country', value)} defaultValue={'us'}
             >
@@ -97,6 +108,17 @@ export const NewsSearchForm = () => {
             </Select>
 
             <Button children={'Find'} />
+            <Typography as={'label'}>Choose a category</Typography>
+            <Select style={{ width: 200 }}
+                    onChange={(value) => formik.setFieldValue('category', value)} defaultValue={'All'}
+            >
+                {categories.map((category: { id: string, name: string }) => {
+                    return <Select.Option key={category.id} value={category.id}>{category.name}</Select.Option>
+                })}
+            </Select>
+
+            <Button children={'Find'} />
+
 
         </Form>
 

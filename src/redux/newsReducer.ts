@@ -5,7 +5,8 @@ import { FilterNewsForm } from 'pages/newsPage/news/NewsSearchForm'
 let initialState = {
     news: [] as Articles[],
     filter: {
-        country: 'us' as string
+        country: 'us' as string,
+        category: ''
     }
 }
 
@@ -25,7 +26,7 @@ export const newsActions = {
 }
 
 export const getNews = (filter: FilterNewsForm): AppThunk => (dispatch) => {
-    newsAPI.getNews(filter.country)
+    newsAPI.getNews(filter.country, filter.category)
         .then(res => {
             dispatch(newsActions.getNewsData(res.data.articles))
         })

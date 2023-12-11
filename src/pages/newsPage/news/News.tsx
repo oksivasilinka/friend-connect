@@ -22,7 +22,6 @@ export const News = ({ news }: Props) => {
             <Typography className={s.date} variant={'subtitle3'}>published: {date}</Typography>
             <Typography as={'a'} variant={'caption1'} href={news.url}>link to source</Typography>
             <img className={s.image} src={news.urlToImage} alt={news.urlToImage} />
-            <Typography variant={'caption2'}>author: {news.author}</Typography>
         </div>
     )
 }
