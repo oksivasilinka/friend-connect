@@ -1,6 +1,7 @@
 import { Button, Typography } from 'components/common'
 import { Select } from 'antd'
 import { SelectItem } from 'api/newsApi'
+import s from './SelectNews.module.css'
 
 type Props = {
     label: string
@@ -12,16 +13,16 @@ type Props = {
 
 export const SelectNews = ({ label, values, onChange, defaultValue, type }: Props) => {
     return (
-        <div>
-            <Typography as={'label'}>{label}</Typography>
-            <Select style={{ width: 200 }}
+        <div className={s.wrapper}>
+            <Typography variant={'caption2'} className={s.label} as={'label'}>{label}</Typography>
+            <Select className={s.select}
                     onChange={(value) => onChange(type, value)} defaultValue={defaultValue}
             >
                 {values.map((item: SelectItem) => {
                     return <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>
                 })}
             </Select>
-            <Button children={'Find'} />
+            <Button className={s.button} children={'Find'} />
         </div>
     )
 }

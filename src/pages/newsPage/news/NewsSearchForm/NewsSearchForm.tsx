@@ -6,6 +6,7 @@ import { getNews } from 'redux/newsReducer'
 import { FilterNewsForm } from 'api/newsApi'
 import { filterSelector } from 'pages/newsPage/model'
 import { SelectNews } from 'pages/newsPage/news/NewsSearchForm/SelectNews'
+import s from './NewsSearchForm.module.css'
 
 
 const countries = [
@@ -93,7 +94,8 @@ export const NewsSearchForm = () => {
     })
 
     return (
-        <Form onFinish={formik.handleSubmit} initialValues={{ country: filter.country, category: filter.category }}>
+        <Form className={s.form} onFinish={formik.handleSubmit}
+              initialValues={{ country: filter.country, category: filter.category }}>
             <SelectNews label={'Choose a country'} values={countries} onChange={formik.setFieldValue}
                         defaultValue={'us'}
                         type={'country'} />

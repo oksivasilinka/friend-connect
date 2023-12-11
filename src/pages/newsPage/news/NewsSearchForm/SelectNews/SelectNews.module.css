@@ -1,0 +1,19 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 160px 60px;
+    column-gap: 5px;
+}
+
+.label {
+    padding: 4px;
+    opacity: 0.8;
+}
+
+.select {
+    grid-column-start: 1;
+}
+
+.button {
+    grid-column-start: 2;
+    height: 30px;
+}
