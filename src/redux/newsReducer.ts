@@ -4,6 +4,7 @@ import { Articles, FilterNewsForm, newsAPI } from 'api/newsApi'
 let initialState = {
     news: [] as Articles[],
     filter: {
+        search: '',
         country: 'us',
         category: ''
     }
@@ -25,7 +26,7 @@ export const newsActions = {
 }
 
 export const getNews = (filter: FilterNewsForm): AppThunk => (dispatch) => {
-    newsAPI.getNews(filter.country, filter.category)
+    newsAPI.getNews(filter.country, filter.category, filter.search)
         .then(res => {
             dispatch(newsActions.getNewsData(res.data.articles))
         })

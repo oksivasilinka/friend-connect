@@ -21,6 +21,7 @@ export const NewsPage = () => {
 
         const country = searchParams.get('country')
         const category = searchParams.get('category')
+        const search = searchParams.get('q')
         let actualFilter = filter
         if (country) {
             actualFilter = { ...actualFilter, country: filter.country }
@@ -28,15 +29,18 @@ export const NewsPage = () => {
         if (category) {
             actualFilter = { ...actualFilter, category: filter.category }
         }
+        if (search) {
+            actualFilter = { ...actualFilter, search: filter.search }
+        }
         dispatch(getNews(actualFilter))
     }, [])
 
     useEffect(() => {
         navigate({
             pathname: '/news',
-            search: `?country=${filter.country}&category=${filter.category}`
+            search: `?country=${filter.country}` + filter.search && `&q=${filter.search}` + `&category=${filter.category}`
         })
-    }, [filter.country, filter.category])
+    }, [filter.country, filter.category, filter.search])
 
     return (
         <section>

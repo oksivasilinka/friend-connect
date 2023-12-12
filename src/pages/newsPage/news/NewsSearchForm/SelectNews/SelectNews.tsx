@@ -1,4 +1,4 @@
-import { Button, Typography } from 'components/common'
+import { Typography } from 'components/common'
 import { Select } from 'antd'
 import { SelectItem } from 'api/newsApi'
 import s from './SelectNews.module.css'

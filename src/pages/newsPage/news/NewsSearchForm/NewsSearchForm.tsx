@@ -1,6 +1,6 @@
 import { useFormik } from 'formik'
 import { useSelector } from 'react-redux'
-import { Form } from 'antd'
+import { Form, Input } from 'antd'
 import { useAppDispatch } from 'redux/store'
 import { getNews } from 'redux/newsReducer'
 import { FilterNewsForm } from 'api/newsApi'
@@ -85,6 +85,7 @@ export const NewsSearchForm = () => {
 
     const formik = useFormik({
         initialValues: {
+            search: '',
             country: 'us',
             category: ''
         },
@@ -97,6 +98,11 @@ export const NewsSearchForm = () => {
     return (
         <Form className={s.form} onFinish={formik.handleSubmit}
               initialValues={{ country: filter.country, category: filter.category }}>
+            <Input
+                name='search'
+                type='text'
+                onChange={formik.handleChange} placeholder={'Search'}
+            />
             <SelectNews label={'Choose a country'} values={countries} onChange={formik.setFieldValue}
                         defaultValue={'us'}
                         type={'country'} />
