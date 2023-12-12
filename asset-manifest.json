@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/friendConnect/static/css/main.87adf86d.css",
-    "main.js": "/friendConnect/static/js/main.aaf0d8a2.js",
+    "main.css": "/friendConnect/static/css/main.a9e7099d.css",
+    "main.js": "/friendConnect/static/js/main.640d870b.js",
     "static/media/source-sans-pro-latin-ext-400-normal.woff": "/friendConnect/static/media/source-sans-pro-latin-ext-400-normal.185cedfb4e64a9a8801a.woff",
     "static/media/source-sans-pro-latin-ext-700-normal.woff": "/friendConnect/static/media/source-sans-pro-latin-ext-700-normal.a72613fd5e96ed9e41cd.woff",
     "static/media/source-sans-pro-latin-ext-600-normal.woff": "/friendConnect/static/media/source-sans-pro-latin-ext-600-normal.7388c38c78f7a7897242.woff",
@@ -48,11 +48,11 @@
     "static/media/source-sans-pro-cyrillic-ext-700-normal.woff2": "/friendConnect/static/media/source-sans-pro-cyrillic-ext-700-normal.88f4c479ac07fe28684c.woff2",
     "index.html": "/friendConnect/index.html",
     "static/media/loader.svg": "/friendConnect/static/media/loader.8ec08948408c6d87f3f0551761347120.svg",
-    "main.87adf86d.css.map": "/friendConnect/static/css/main.87adf86d.css.map",
-    "main.aaf0d8a2.js.map": "/friendConnect/static/js/main.aaf0d8a2.js.map"
+    "main.a9e7099d.css.map": "/friendConnect/static/css/main.a9e7099d.css.map",
+    "main.640d870b.js.map": "/friendConnect/static/js/main.640d870b.js.map"
   },
   "entrypoints": [
-    "static/css/main.87adf86d.css",
-    "static/js/main.aaf0d8a2.js"
+    "static/css/main.a9e7099d.css",
+    "static/js/main.640d870b.js"
   ]
 }
