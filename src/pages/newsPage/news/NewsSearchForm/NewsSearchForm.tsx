@@ -7,6 +7,7 @@ import { FilterNewsForm } from 'api/newsApi'
 import { filterSelector } from 'pages/newsPage/model'
 import { SelectNews } from 'pages/newsPage/news/NewsSearchForm/SelectNews'
 import s from './NewsSearchForm.module.css'
+import { Button } from 'components/common'
 
 
 const countries = [
@@ -102,6 +103,7 @@ export const NewsSearchForm = () => {
             <SelectNews label={'Choose a category'} values={categories} onChange={formik.setFieldValue}
                         defaultValue={'All'}
                         type={'category'} />
+            <Button className={s.button} children={'Find'} />
         </Form>
     )
 }

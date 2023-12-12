@@ -15,14 +15,12 @@ export const SelectNews = ({ label, values, onChange, defaultValue, type }: Prop
     return (
         <div className={s.wrapper}>
             <Typography variant={'caption2'} className={s.label} as={'label'}>{label}</Typography>
-            <Select className={s.select}
-                    onChange={(value) => onChange(type, value)} defaultValue={defaultValue}
-            >
+            <Select onChange={(value) => onChange(type, value)} defaultValue={defaultValue}>
                 {values.map((item: SelectItem) => {
                     return <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>
                 })}
             </Select>
-            <Button className={s.button} children={'Find'} />
+
         </div>
     )
 }
