@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 export const newsAPI = {
-    getNews: (country: string = 'us', category: string = '', search: string = '') => {
+    getNews: (page: number, pageSize: number, country: string = 'us', category: string = '', search: string = '') => {
         return axios.get<newsResponse>(
-            `https://newsapi.org/v2/top-headlines?country=${country}&q=${search}&category=${category}&apiKey=0cf1e11d29844bf3b420111e32430e4a`
+            `https://newsapi.org/v2/top-headlines?page=${page}&pageSize=${pageSize}&country=${country}&q=${search}&category=${category}&apiKey=0cf1e11d29844bf3b420111e32430e4a`
         )
     }
 }

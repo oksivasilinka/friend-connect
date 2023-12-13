@@ -66,6 +66,7 @@ const countries = [
     { id: 'za', name: 'South Africa' }
 ]
 const categories = [
+    { id: '', name: 'All' },
     { id: 'business', name: 'Business' },
     { id: 'entertainment', name: 'Entertainment' },
     { id: 'general', name: 'General' },
@@ -74,13 +75,18 @@ const categories = [
     { id: 'sports', name: 'Technology' }
 ]
 
-export const NewsSearchForm = () => {
+type Props = {
+    pageSize: number
+    currentPage: number
+}
+
+export const NewsSearchForm = ({ pageSize, currentPage }: Props) => {
 
     const filter = useSelector(filterSelector)
     const dispatch = useAppDispatch()
 
     const onFilterChanged = (filter: FilterNewsForm) => {
-        dispatch(getNews(filter))
+        dispatch(getNews(currentPage, pageSize, filter))
     }
 
     const formik = useFormik({

@@ -7,3 +7,11 @@ export const filterSelector = (state: AppRootStateType) => {
 export const newsListSelector = (state: AppRootStateType) => {
     return state.news.news
 }
+
+export const currentPageNewsSelector = (state: AppRootStateType) => {
+    return state.news.currentPage
+}
+
+export const totalCountNewsSelector = (state: AppRootStateType) => {
+    return state.news.totalCount
+}
