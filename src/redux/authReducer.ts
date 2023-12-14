@@ -48,10 +48,10 @@ export const login = (email: string, password: string, rememberMe: boolean = tru
         try {
             const data = await authAPI.login(email, password, rememberMe, captcha)
             if (data.resultCode === ResultCode.SUCCESS) {
-                await dispatch(getAuthMe())
+                dispatch(getAuthMe())
                 dispatch(appActions.setError(null))
             } else if (data.resultCode === ResultCodeForCaptcha.CAPTCHA) {
-                await dispatch(getCaptchaUrlTC())
+                dispatch(getCaptchaUrlTC())
             } else if (data.resultCode === ResultCode.ERROR) {
                 if (data.messages.length) {
                     dispatch(appActions.setError(data.messages[0]))
@@ -61,22 +61,22 @@ export const login = (email: string, password: string, rememberMe: boolean = tru
                 }
             }
         } catch (e: any) {
-            let errorMessage = "Some error occurred";
+            let errorMessage = 'Some error occurred'
 
             if (axios.isAxiosError(e)) {
-                errorMessage = e.response?.data?.message || e?.message || errorMessage;
+                errorMessage = e.response?.data?.message || e?.message || errorMessage
             } else if (e instanceof Error) {
-                errorMessage = `Native error: ${e.message}`;
+                errorMessage = `Native error: ${e.message}`
             } else {
-                errorMessage = JSON.stringify(e);
+                errorMessage = JSON.stringify(e)
             }
-            dispatch(appActions.setError(errorMessage));
+            dispatch(appActions.setError(errorMessage))
         }
     }
 
 export const getCaptchaUrlTC = (): AppThunk => async (dispatch) => {
     const captchaData = await securityAPI.getCaptchaUrl()
-    await dispatch(getAuthMe())
+    dispatch(getAuthMe())
     let captchaUrl = captchaData.url
     dispatch(authActions.getCaptchaUrlSuccess(captchaUrl))
 }

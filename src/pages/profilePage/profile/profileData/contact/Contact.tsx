@@ -10,7 +10,7 @@ export const Contact = ({ contactTitle, contactValue }: Props) => {
     return (
         <div className={s.contact}>
             <span className={s.subtitle}>{`${contactTitle}: `}</span>
-            <a className={s.text} href={'#'}>{contactValue}</a>
+            <a className={s.text} href={contactValue || '#'}>{contactValue}</a>
         </div>
     )
 
