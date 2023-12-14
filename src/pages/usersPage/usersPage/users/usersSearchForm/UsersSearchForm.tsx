@@ -34,7 +34,7 @@ export const UsersSearchForm = ({ pageSize }: Props) => {
 
     return (
 
-        <Form onFinish={formik.handleSubmit} initialValues={{ term: filter.term, friend: filter.friend }}
+        <Form onFinish={formik.handleSubmit} initialValues={{ term: filter?.term, friend: filter?.friend }}
               className={s.formBlock}>
 
             <Input

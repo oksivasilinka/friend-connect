@@ -31,9 +31,9 @@ export type newsResponse = {
 }
 
 export type FilterNewsForm = {
-    country?: string
-    category?: string
-    search?: string
+    country: string
+    category: string
+    search: string
 }
 
 export type SelectItem = {

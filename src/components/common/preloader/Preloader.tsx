@@ -1,11 +1,11 @@
-import loader from '../../../assets/img/loader.svg'
 import s from './preloader.module.css'
 import React from 'react'
+import { Spin } from 'antd'
 
 export const Preloader = () => {
     return (
-        <div>
-            <img className={s.preloader} src={loader} alt={'loader'} />
+        <div className={s.wrapper}>
+            <Spin size='large' />
         </div>
     )
 }

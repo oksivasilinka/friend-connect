@@ -71,7 +71,7 @@ export const getUsersTC = (currentPage: number, pageSize: number, filter: Filter
     dispatch(usersActions.toggleIsFetching(true))
     dispatch(usersActions.setCurrentPage(currentPage))
     dispatch(usersActions.setFilter(filter))
-    const usersData = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
+    const usersData = await usersAPI.getUsers(currentPage, pageSize, filter?.term, filter?.friend)
     dispatch(usersActions.toggleIsFetching(false))
     dispatch(usersActions.setUsers(usersData.data.items))
     dispatch(usersActions.setTotalUsersCount(usersData.data.totalCount))

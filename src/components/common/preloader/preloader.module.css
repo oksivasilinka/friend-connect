@@ -1,4 +1,5 @@
-
-.preloader {
-    width: 100px;
+.wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
 }

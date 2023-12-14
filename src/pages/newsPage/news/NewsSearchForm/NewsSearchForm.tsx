@@ -103,7 +103,7 @@ export const NewsSearchForm = ({ pageSize, currentPage }: Props) => {
 
     return (
         <Form className={s.form} onFinish={formik.handleSubmit}
-              initialValues={{ country: filter.country, category: filter.category }}>
+              initialValues={{ country: filter?.country, category: filter?.category }}>
             <Input
                 name='search'
                 type='text'

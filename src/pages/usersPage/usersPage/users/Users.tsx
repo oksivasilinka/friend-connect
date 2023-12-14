@@ -49,7 +49,7 @@ export const Users = () => {
     useEffect(() => {
         navigate({
             pathname: '/users',
-            search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+            search: `?term=${filter?.term}&friend=${filter?.friend}&page=${currentPage}`
         })
     }, [filter, currentPage])
 
