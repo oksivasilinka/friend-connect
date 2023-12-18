@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { useAppDispatch } from 'redux/store'
 import { Typography } from 'components/common'
 import { authorizedUserIdSelector } from 'pages/loginPage'
+import { MyFriends } from 'pages/profilePage/myFriends/MyFriends'
 
 type PathParams = {
     userId?: string | undefined
@@ -17,8 +18,11 @@ export const ProfilePage = () => {
     const { userId } = useParams<PathParams>()
     const dispatch = useAppDispatch()
 
+    const meId = String(authorizedUserId)
+
+    let id = userId ? Number(userId) : authorizedUserId
+
     const refreshProfile = async () => {
-        let id = userId ? Number(userId) : authorizedUserId
         if (id) {
             await dispatch(getProfile(id))
             await dispatch(getStatus(id))
@@ -29,10 +33,13 @@ export const ProfilePage = () => {
         refreshProfile().then()
     }, [userId])
 
+    let showFriends = id && (String(id) === meId)
+
     return (
         <section>
             <Typography variant={'h2'} as={'h2'}>Profile</Typography>
             <Profile isOwner={!userId} />
+            {showFriends && <MyFriends />}
         </section>
     )
 }
