@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { UsersPage } from 'pages/usersPage'
 import { Login } from 'pages/loginPage'
-import ChatPage from 'pages/chatPage/ChatPage'
 import { NewsPage } from 'pages/newsPage/NewsPage'
 import { ProfilePage } from 'pages/profilePage/ProfilePage'
+import { ChatPage } from 'pages/chatPage'
 
 
 export const RoutesPages = () => {

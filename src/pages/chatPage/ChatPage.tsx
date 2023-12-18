@@ -1,7 +1,7 @@
 import { Chat } from 'pages/chatPage'
 import { Typography } from 'components/common'
 
-const ChatPage = () => {
+export const ChatPage = () => {
     return (
         <section>
             <Typography variant={'h2'} as={'h2'}>Messages</Typography>
@@ -9,5 +9,3 @@ const ChatPage = () => {
         </section>
     )
 }
-
-export default ChatPage
