@@ -24,7 +24,7 @@
         background-color: var(--main-color-300);
     }
 
-    &:active a, &:active svg {
+    &:active span, &:active svg {
         color: var(--font-color-100);
     }
 }
@@ -38,7 +38,7 @@
     }
 }
 
-.active a, .active svg {
+.active span, .active svg {
     color: var(--font-color-100);
 
     &:hover {
@@ -46,7 +46,7 @@
     }
 }
 
-.active:hover a, .active:hover svg {
+.active:hover span, .active:hover svg {
     color: var(--main-color-400);
 
 }

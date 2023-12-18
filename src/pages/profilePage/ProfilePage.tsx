@@ -3,15 +3,15 @@ import { Profile } from 'pages/profilePage/profile'
 import { useSelector } from 'react-redux'
 import { getProfile, getStatus } from 'redux/profileReducer'
 import { useParams } from 'react-router-dom'
-import { authorizedUserIdSelector } from 'pages/profilePage'
 import { useAppDispatch } from 'redux/store'
 import { Typography } from 'components/common'
+import { authorizedUserIdSelector } from 'pages/loginPage'
 
 type PathParams = {
     userId?: string | undefined
 }
 
-const ProfilePage = () => {
+export const ProfilePage = () => {
 
     const authorizedUserId = useSelector(authorizedUserIdSelector)
     const { userId } = useParams<PathParams>()
@@ -26,7 +26,7 @@ const ProfilePage = () => {
     }
 
     useEffect(() => {
-        refreshProfile()
+        refreshProfile().then()
     }, [userId])
 
     return (
@@ -36,5 +36,3 @@ const ProfilePage = () => {
         </section>
     )
 }
-
-export default ProfilePage

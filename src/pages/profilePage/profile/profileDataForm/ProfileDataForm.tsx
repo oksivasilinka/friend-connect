@@ -42,7 +42,7 @@ const ProfileDataForm = ({ handleSubmit, error, profile }: Props) => {
             <Typography variant={'subtitle2'}> My skills: </Typography>
             {createField<ProfileFormPropertiesType>('My skills...', 'lookingForAJobDescription', [], Textarea)}
             <div>
-                {profile?.contacts && Object.keys(profile.contacts).map((key) => {
+                {profile?.contacts && Object.keys(profile?.contacts).map((key) => {
                     return (
                         <div key={key}>
                             <Typography variant={'subtitle2'}>{key}: </Typography>

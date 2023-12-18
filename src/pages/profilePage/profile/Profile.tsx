@@ -1,5 +1,4 @@
 import { ChangeEvent, useState } from 'react'
-import { ProfileData, ProfileReduxDataForm, profileSelector, ProfileStatus } from 'pages/profilePage'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'redux/store'
 import { Preloader } from 'components/common/preloader'
@@ -9,6 +8,10 @@ import userPhoto from 'assets/img/user.png'
 import { Button, Icon, Typography } from 'components/common'
 import s from './Profile.module.css'
 import { loginSelector } from 'pages/loginPage'
+import { profileSelector } from 'pages/profilePage/model'
+import { ProfileStatus } from 'pages/profilePage/profile/profileStatus'
+import { ProfileReduxDataForm } from 'pages/profilePage/profile/profileDataForm'
+import { ProfileData } from 'pages/profilePage/profile/profileData'
 
 type Props = {
     isOwner: boolean

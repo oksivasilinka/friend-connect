@@ -9,3 +9,5 @@ export const loginSelector = (state: AppRootStateType) => state.auth.login
 export const errorSelector = (state: AppRootStateType) => state.app.error
 
 export const avatarSelector = (state: AppRootStateType) => state.auth.avatar
+
+export const authorizedUserIdSelector = (state: AppRootStateType) => state.auth.id

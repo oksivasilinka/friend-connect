@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { updateStatus } from 'redux/profileReducer'
-import { statusSelector } from 'pages/profilePage'
 import { useAppDispatch } from 'redux/store'
 import s from './ProfileStatus.module.css'
+import { statusSelector } from 'pages/profilePage/model'
 
 
 export const ProfileStatus = () => {

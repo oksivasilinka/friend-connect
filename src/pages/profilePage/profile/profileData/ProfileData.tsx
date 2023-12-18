@@ -1,7 +1,7 @@
 import { ProfileResponseType } from 'api/profileApi'
-import { Contact } from 'pages/profilePage'
 import s from './ProfileData.module.css'
 import { Typography } from 'components/common'
+import { Contact } from 'pages/profilePage/profile/profileData/contact'
 
 
 type Props = {
@@ -25,7 +25,7 @@ export const ProfileData = ({ profile }: Props) => {
             <div className={`${s.item} ${s.contacts}`}>
                 <Typography variant={'subtitle2'}> Contacts: </Typography>
 
-                {profile.contacts && Object.entries(profile.contacts).map(([key, value]) => {
+                {profile?.contacts && Object.entries(profile?.contacts).map(([key, value]) => {
                     return <Contact key={key} contactTitle={key} contactValue={value} />
                 })}
             </div>
