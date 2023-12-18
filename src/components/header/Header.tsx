@@ -3,17 +3,16 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'redux/store'
 import { logOut } from 'redux/authReducer'
-import { loginSelector, profileSelector } from 'pages/profilePage'
 import userPhoto from 'assets/img/user.png'
 import logo from 'assets/img/logo.svg'
 import { Button, Typography } from 'components/common'
-import { isAuthSelector } from 'pages/loginPage/model'
+import { avatarSelector, isAuthSelector, loginSelector } from 'pages/loginPage/model'
 import s from './Header.module.css'
 
 export const AppHeader = () => {
     const isAuth = useSelector(isAuthSelector)
     const login = useSelector(loginSelector)
-    const profile = useSelector(profileSelector)
+    const avatar = useSelector(avatarSelector)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
@@ -39,7 +38,7 @@ export const AppHeader = () => {
                     <Typography variant={'body1'} className={s.login}>{login}</Typography>
                     <img alt={login || ''}
                          className={s.avatar}
-                         src={profile?.photos.large || userPhoto}
+                         src={avatar || userPhoto}
                     />
                     <Button callback={logoutHandler}>
                         <Typography variant={'body2'}>LOGOUT</Typography>
@@ -48,7 +47,7 @@ export const AppHeader = () => {
             )}
             {!isAuth && (
                 <Button className={s.button}>
-                    <NavLink to={'/login'}  className={s.link}>
+                    <NavLink to={'/login'} className={s.link}>
                         <Typography variant={'body2'}>LOGIN</Typography>
                     </NavLink>
                 </Button>

@@ -1,4 +1,4 @@
-import { ResultCode } from 'api/profileApi'
+import { profileAPI, ResultCode } from 'api/profileApi'
 import { AppThunk, InferActionsType } from './store'
 import { authAPI, ResultCodeForCaptcha } from 'api/authApi'
 import { securityAPI } from 'api/securityApi'
@@ -10,7 +10,8 @@ let initialState = {
     login: null as string | null,
     email: null as string | null,
     isAuth: false,
-    captchaUrl: null as string | null
+    captchaUrl: null as string | null,
+    avatar: null as string | null
 }
 
 export const authReducer = (state = initialState, action: ActionTypes): InitialStateType => {
@@ -37,9 +38,11 @@ export const authActions = {
 
 export const getAuthMe = (): AppThunk => async (dispatch) => {
     const meData = await authAPI.me()
+    const profileData = await profileAPI.getUserProfile(meData.data.id)
+    const avatar = profileData.photos.large
     if (meData.resultCode === ResultCode.SUCCESS) {
         const { id, login, email } = meData.data
-        dispatch(authActions.setUserData({ id, email, login, isAuth: true, captchaUrl: null }))
+        dispatch(authActions.setUserData({ id, email, login, isAuth: true, captchaUrl: null, avatar }))
     }
 }
 
@@ -89,7 +92,8 @@ export const logOut = (): AppThunk => async (dispatch) => {
             login: null,
             email: null,
             isAuth: false,
-            captchaUrl: null
+            captchaUrl: null,
+            avatar: null
         }))
     }
 }

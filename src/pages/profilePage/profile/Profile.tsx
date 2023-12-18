@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react'
-import { ProfileData, ProfileReduxDataForm, ProfileStatus, loginSelector, profileSelector } from 'pages/profilePage'
+import { ProfileData, ProfileReduxDataForm, profileSelector, ProfileStatus } from 'pages/profilePage'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'redux/store'
 import { Preloader } from 'components/common/preloader'
@@ -8,6 +8,7 @@ import { ProfileResponseType } from 'api/profileApi'
 import userPhoto from 'assets/img/user.png'
 import { Button, Icon, Typography } from 'components/common'
 import s from './Profile.module.css'
+import { loginSelector } from 'pages/loginPage'
 
 type Props = {
     isOwner: boolean
@@ -62,7 +63,8 @@ export const Profile = ({ isOwner }: Props) => {
             <div>
                 <div className={s.nameWrapper}>
                     <Typography variant={'h3'} as={'h3'}>{user?.fullName || login || ''}</Typography>
-                    {profile.lookingForAJob && <Typography variant={'caption1'} className={s.smallText}>in looking of work</Typography>}
+                    {profile.lookingForAJob &&
+                        <Typography variant={'caption1'} className={s.smallText}>in looking of work</Typography>}
                 </div>
                 < ProfileStatus />
                 {editMode && <ProfileReduxDataForm initialValues={profile} onSubmit={onSubmit} profile={profile} />}
