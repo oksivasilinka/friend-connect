@@ -11,7 +11,7 @@ The Friend Connect is a platform where users can create their profiles, connect 
 **Key Features**
 * User profiles: Users can create and customize their profiles, upload profile pictures, and update personal information.
 * Friends: Users can add other users as friends and view profiles of their friends.
-* News feed: Users can view news and updates from their friends in their feed.
+* News Feed: Users can view news from around the world
 * Chat: Users can exchange messages with other users.
 
 
@@ -33,4 +33,4 @@ Clone the project repository to your computer.
 Navigate to the project's root folder.
 Install dependencies by running the command `yarn install`.
 Start the application with the command `yarn start`.
-Open a web browser and visit http://localhost:3000 to use the social network.
+Open a web browser and visit http://localhost:3000 to use the Friend Connect.
