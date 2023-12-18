@@ -1,4 +1,4 @@
-import { AppThunk, InferActionsType } from './store'
+import { AppThunk, InferActions } from './store'
 import { chatApi } from 'api/chat.api'
 import { Dispatch } from 'redux'
 import { v1 } from 'uuid'
@@ -65,7 +65,7 @@ export const sendMessage = (message: string): AppThunk => async () => {
 }
 
 type InitialStateType = typeof initialState
-export type ActionTypes = InferActionsType<typeof chatActions>
+export type ActionTypes = InferActions<typeof chatActions>
 export type ChatMessageApi = {
     message: string
     photo: string
