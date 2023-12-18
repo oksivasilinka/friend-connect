@@ -1,6 +1,6 @@
 import { Input, Textarea } from 'components/common/formsControls/FormControls'
 import { InjectedFormProps, reduxForm } from 'redux-form'
-import { ProfileResponseType } from 'api/profileApi'
+import { ProfileResponse } from 'api/profileApi'
 import { createField } from 'utils/createField/createField'
 import { Button, Icon, Typography } from 'components/common'
 import s from './ProfileDataForm.module.css'
@@ -14,10 +14,10 @@ type ProfileFormData = {
 
 type ProfileFormPropertiesType = Extract<keyof ProfileFormData, string>
 type ProfileOwnProps = {
-    profile: ProfileResponseType | null
+    profile: ProfileResponse | null
 }
 
-type Props = InjectedFormProps<ProfileResponseType, ProfileOwnProps> & ProfileOwnProps
+type Props = InjectedFormProps<ProfileResponse, ProfileOwnProps> & ProfileOwnProps
 
 const ProfileDataForm = ({ handleSubmit, error, profile }: Props) => {
     return (
@@ -55,4 +55,4 @@ const ProfileDataForm = ({ handleSubmit, error, profile }: Props) => {
     )
 }
 
-export const ProfileReduxDataForm = reduxForm<ProfileResponseType, ProfileOwnProps>({ form: 'edit-profilePage' })(ProfileDataForm)
+export const ProfileReduxDataForm = reduxForm<ProfileResponse, ProfileOwnProps>({ form: 'edit-profilePage' })(ProfileDataForm)

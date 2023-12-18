@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'redux/store'
-import { logOut } from 'redux/authReducer'
+import { logout } from 'redux/authReducer'
 import userPhoto from 'assets/img/user.png'
 import logo from 'assets/img/logo.svg'
 import { Button, Typography } from 'components/common'
@@ -23,7 +23,7 @@ export const AppHeader = () => {
     }, [isAuth, navigate])
 
     const logoutHandler = () => {
-        dispatch(logOut())
+        dispatch(logout())
         navigate('/login')
     }
 

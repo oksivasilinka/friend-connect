@@ -1,6 +1,6 @@
 import userPhoto from 'assets/img/user.png'
 import { NavLink } from 'react-router-dom'
-import { UserResponseType } from 'api/usersApi'
+import { UserResponse } from 'api/usersApi'
 import { useSelector } from 'react-redux'
 import { follow, unFollow } from 'redux/usersReducer'
 import { getFollowingInProgress } from 'pages/usersPage'
@@ -10,7 +10,7 @@ import { isAuthSelector } from 'pages/loginPage'
 import s from './user.module.css'
 
 type Props = {
-    user: UserResponseType
+    user: UserResponse
 }
 
 export const User = ({ user }: Props) => {

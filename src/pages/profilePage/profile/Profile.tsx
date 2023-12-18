@@ -3,15 +3,15 @@ import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'redux/store'
 import { Preloader } from 'components/common/preloader'
 import { savePhoto, saveProfile } from 'redux/profileReducer'
-import { ProfileResponseType } from 'api/profileApi'
+import { ProfileResponse } from 'api/profileApi'
 import userPhoto from 'assets/img/user.png'
 import { Button, Icon, Typography } from 'components/common'
 import s from './Profile.module.css'
 import { loginSelector } from 'pages/loginPage'
-import { profileSelector } from 'pages/profilePage/model'
 import { ProfileStatus } from 'pages/profilePage/profile/profileStatus'
 import { ProfileReduxDataForm } from 'pages/profilePage/profile/profileDataForm'
 import { ProfileData } from 'pages/profilePage/profile/profileData'
+import { profileSelector } from 'pages/profilePage/model/profileSelector'
 
 type Props = {
     isOwner: boolean
@@ -25,13 +25,13 @@ export const Profile = ({ isOwner }: Props) => {
     const login = useSelector(loginSelector)
     const dispatch = useAppDispatch()
 
-    const onMainPhotoSelected = async (e: ChangeEvent<HTMLInputElement>) => {
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget && e.currentTarget.files && e.currentTarget.files.length) {
-            await dispatch(savePhoto(e.currentTarget.files[0]))
+            dispatch(savePhoto(e.currentTarget.files[0]))
         }
     }
 
-    const onSubmit = async (formData: ProfileResponseType) => {
+    const onSubmit = async (formData: ProfileResponse) => {
         try {
             dispatch(saveProfile(formData))
             setEditMode(false)

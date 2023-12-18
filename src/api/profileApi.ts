@@ -1,40 +1,42 @@
-import { BaseResponseType, instance } from 'api/commonApi'
+import { BaseResponse, instance } from 'api/commonApi'
 
 export const profileAPI = {
     getUserProfile: async (userId: number) => {
-        const res = await instance.get<ProfileResponseType>(`profile/${userId}`)
-        return res.data
+        if (userId) {
+            const res = await instance.get<ProfileResponse>(`profile/${userId}`)
+            return res.data
+        }
     },
     getStatus: async (userId: number) => {
         const res = await instance.get<string>(`profile/status/${userId}`)
         return res.data
     },
     updateStatus: async (status: string) => {
-        const res = await instance.put<BaseResponseType>(`profile/status`, { status })
+        const res = await instance.put<BaseResponse>(`profile/status`, { status })
         return res.data
     },
     savePhoto: async (file: File) => {
         let formData = new FormData()
         formData.append('image', file)
-        const res = await instance.put<BaseResponseType<{ photos: PhotosType }>>(`profile/photo`, formData, {
+        const res = await instance.put<BaseResponse<{ photos: Photos }>>(`profile/photo`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         return res.data
     },
-    saveProfile: async (profile: ProfileResponseType) => {
-        const res = await instance.put<BaseResponseType>('profile', profile)
+    saveProfile: async (profile: ProfileResponse) => {
+        const res = await instance.put<BaseResponse>('profile', profile)
         return res.data
     }
 }
 
 
-export type ProfileResponseType = {
+export type ProfileResponse = {
     userId?: number | undefined
     lookingForAJob?: boolean | undefined
     lookingForAJobDescription?: string | undefined
     fullName?: string | undefined
     contacts?: ContactsType | undefined | {}
-    photos: PhotosType
+    photos: Photos
     aboutMe?: string | undefined // or mainLink
 }
 
@@ -49,7 +51,7 @@ export type ContactsType = {
     mainLink?: string | null
 }
 
-export type PhotosType = {
+export type Photos = {
     small: string | null
     large: string | null
 }

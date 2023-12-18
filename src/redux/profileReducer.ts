@@ -1,13 +1,15 @@
-import { PhotosType, profileAPI, ProfileResponseType, ResultCode } from 'api/profileApi'
-import { AppRootStateType, AppThunk, BaseThunkType, InferActionsType } from 'redux/store'
-import { FormAction, stopSubmit } from 'redux-form'
+import { Photos, profileAPI, ProfileResponse, ResultCode } from 'api/profileApi'
+import { AppRootState, AppThunk } from 'redux/store'
+import { stopSubmit } from 'redux-form'
+import { helpersError } from 'utils/helpersError'
+import { setError } from 'redux/appReducer'
 
 let initialState = {
-    profile: null as ProfileResponseType | null,
+    profile: null as ProfileResponse | null,
     status: ''
 }
 
-export const profileReducer = (state = initialState, action: ActionTypes): InitialStateType => {
+export const profileReducer = (state = initialState, action: ActionTypes): InitialState => {
     switch (action.type) {
         case 'SET_USER_PROFILE':
             return { ...state, profile: action.profile }
@@ -19,58 +21,75 @@ export const profileReducer = (state = initialState, action: ActionTypes): Initi
             return state || initialState
     }
 }
-export const profileActions = {
-    setUserProfile: (profile: ProfileResponseType) => ({ type: 'SET_USER_PROFILE', profile }) as const,
-    setStatus: (status: string) => ({ type: 'SET_STATUS', status }) as const,
-    setPhotoSuccess: (photos: PhotosType) => ({ type: 'SET_PHOTO', photos }) as const
-}
+
+export const setUserProfile = (profile: ProfileResponse) => ({ type: 'SET_USER_PROFILE', profile }) as const
+export const setStatus = (status: string) => ({ type: 'SET_STATUS', status }) as const
+export const setPhoto = (photos: Photos) => ({ type: 'SET_PHOTO', photos }) as const
 
 
-export const getProfile = (id: number): ThunkType => async (dispatch) => {
+export const getProfile = (id: number): AppThunk => async (dispatch) => {
     let data = await profileAPI.getUserProfile(id)
     try {
-        dispatch(profileActions.setUserProfile(data))
-    } finally {
+        if (data) {
+            dispatch(setUserProfile(data))
+        }
+    } catch (e: unknown) {
+        helpersError(e, dispatch)
     }
 }
 
-export const getStatus = (userId: number): ThunkType => async (dispatch) => {
+export const getStatus = (userId: number): AppThunk => async (dispatch) => {
     let data = await profileAPI.getStatus(userId)
-    dispatch(profileActions.setStatus(data))
+    try {
+        dispatch(setStatus(data))
+    } catch (e: unknown) {
+        helpersError(e, dispatch)
+    }
 }
 
-export const updateStatus = (status: string): ThunkType => async (dispatch) => {
+export const updateStatus = (status: string): AppThunk => async (dispatch) => {
     let data = await profileAPI.updateStatus(status)
-    if (data.resultCode === ResultCode.SUCCESS) {
-        dispatch(profileActions.setStatus(status))
-    } else {
-        console.log(data.messages[0])
+    try {
+        if (data.resultCode === ResultCode.SUCCESS) {
+            dispatch(setStatus(status))
+        } else {
+            dispatch(setError(data.messages[0]))
+        }
+    } catch (e) {
+        helpersError(e, dispatch)
     }
 }
 
-export const savePhoto = (file: File): ThunkType => async (dispatch) => {
+export const savePhoto = (file: File): AppThunk => async (dispatch) => {
     let photoData = await profileAPI.savePhoto(file)
-    if (photoData.resultCode === ResultCode.SUCCESS) {
-        dispatch(profileActions.setPhotoSuccess(photoData.data.photos))
+    try {
+        if (photoData.resultCode === ResultCode.SUCCESS) {
+            dispatch(setPhoto(photoData.data.photos))
+        }
+    } catch (e: unknown) {
+        helpersError(e, dispatch)
     }
 }
 
-export const saveProfile = (profile: ProfileResponseType): AppThunk =>
-    async (dispatch, getState: () => AppRootStateType) => {
+export const saveProfile = (profile: ProfileResponse): AppThunk =>
+    async (dispatch, getState: () => AppRootState) => {
         const userId = getState().auth.id
-        if (!!userId) {
-            const data = await profileAPI.saveProfile(profile)
-            if (data.resultCode === ResultCode.SUCCESS) {
-                await dispatch(getProfile(userId))
-                return Promise.resolve()
-            } else {
-                dispatch(stopSubmit('edit-profilePage', { _error: data.messages[0] }))
-                return Promise.reject(data.messages[0])
+        try {
+            if (!!userId) {
+                const data = await profileAPI.saveProfile(profile)
+                if (data.resultCode === ResultCode.SUCCESS) {
+                    dispatch(getProfile(userId))
+                    return Promise.resolve()
+                } else {
+                    dispatch(stopSubmit('edit-profilePage', { _error: data.messages[0] }))
+                    return Promise.reject(data.messages[0])
+                }
             }
+        } catch (e: unknown) {
+            helpersError(e, dispatch)
         }
     }
 
 
-type InitialStateType = typeof initialState
-type ActionTypes = InferActionsType<typeof profileActions>
-type ThunkType = BaseThunkType<ActionTypes | FormAction>
+type InitialState = typeof initialState
+type ActionTypes = ReturnType<typeof setUserProfile> | ReturnType<typeof setStatus> | ReturnType<typeof setPhoto>

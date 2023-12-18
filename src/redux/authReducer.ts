@@ -1,9 +1,9 @@
 import { profileAPI, ResultCode } from 'api/profileApi'
-import { AppThunk, InferActionsType } from './store'
+import { AppThunk } from './store'
 import { authAPI, ResultCodeForCaptcha } from 'api/authApi'
 import { securityAPI } from 'api/securityApi'
-import { appActions } from 'redux/appReducer'
-import axios from 'axios'
+import { helpersError } from 'utils/helpersError'
+import { setError } from 'redux/appReducer'
 
 let initialState = {
     id: null as number | null,
@@ -14,13 +14,13 @@ let initialState = {
     avatar: null as string | null
 }
 
-export const authReducer = (state = initialState, action: ActionTypes): InitialStateType => {
+export const authReducer = (state = initialState, action: ActionTypes): InitialState => {
     switch (action.type) {
         case 'SET_USER_DATA' :
             return { ...state, ...action.data, isAuth: true }
-        case 'LOGOUT_USER_DATA' :
+        case 'LOGOUT_USER' :
             return { ...state, ...action.data, isAuth: false }
-        case 'GET_CAPTCHA_URL' :
+        case 'GET_CAPTCHA' :
             return { ...state, ...action.payload }
         default:
             return state || initialState
@@ -28,21 +28,23 @@ export const authReducer = (state = initialState, action: ActionTypes): InitialS
 }
 
 
-export const authActions = {
-    setUserData: (data: InitialStateType) => ({ type: 'SET_USER_DATA', data }) as const,
-    logOutUser: (data: InitialStateType) => ({ type: 'LOGOUT_USER_DATA', data }) as const,
-    getCaptchaUrlSuccess: (captchaUrl: string | null) => ({
-        type: 'GET_CAPTCHA_URL', payload: { captchaUrl }
-    }) as const
-}
+export const setUserData = (data: InitialState) => ({ type: 'SET_USER_DATA', data }) as const
+export const logoutUser = (data: InitialState) => ({ type: 'LOGOUT_USER', data }) as const
+export const getCaptcha = (captchaUrl: string | null) => ({
+    type: 'GET_CAPTCHA', payload: { captchaUrl }
+}) as const
 
 export const getAuthMe = (): AppThunk => async (dispatch) => {
     const meData = await authAPI.me()
     const profileData = await profileAPI.getUserProfile(meData.data.id)
-    const avatar = profileData.photos.large
-    if (meData.resultCode === ResultCode.SUCCESS) {
-        const { id, login, email } = meData.data
-        dispatch(authActions.setUserData({ id, email, login, isAuth: true, captchaUrl: null, avatar }))
+    try {
+        const avatar = profileData?.photos?.large
+        if (meData.resultCode === ResultCode.SUCCESS) {
+            const { id, login, email } = meData.data
+            dispatch(setUserData({ id, email, login, isAuth: true, captchaUrl: null, avatar: avatar || null }))
+        }
+    } catch (e: unknown) {
+        helpersError(e, dispatch)
     }
 }
 
@@ -52,52 +54,47 @@ export const login = (email: string, password: string, rememberMe: boolean = tru
             const data = await authAPI.login(email, password, rememberMe, captcha)
             if (data.resultCode === ResultCode.SUCCESS) {
                 dispatch(getAuthMe())
-                dispatch(appActions.setError(null))
+                dispatch(setError(null))
             } else if (data.resultCode === ResultCodeForCaptcha.CAPTCHA) {
-                dispatch(getCaptchaUrlTC())
+                dispatch(getCaptchaUrl())
             } else if (data.resultCode === ResultCode.ERROR) {
                 if (data.messages.length) {
-                    dispatch(appActions.setError(data.messages[0]))
+                    dispatch(setError(data.messages[0]))
                     console.log(data.messages[0])
                 } else {
-                    dispatch(appActions.setError('Some error occurred'))
+                    dispatch(setError('Some error occurred'))
                 }
             }
-        } catch (e: any) {
-            let errorMessage = 'Some error occurred'
-
-            if (axios.isAxiosError(e)) {
-                errorMessage = e.response?.data?.message || e?.message || errorMessage
-            } else if (e instanceof Error) {
-                errorMessage = `Native error: ${e.message}`
-            } else {
-                errorMessage = JSON.stringify(e)
-            }
-            dispatch(appActions.setError(errorMessage))
+        } catch (e: unknown) {
+            helpersError(e, dispatch)
         }
     }
 
-export const getCaptchaUrlTC = (): AppThunk => async (dispatch) => {
+export const getCaptchaUrl = (): AppThunk => async (dispatch) => {
     const captchaData = await securityAPI.getCaptchaUrl()
-    dispatch(getAuthMe())
-    let captchaUrl = captchaData.url
-    dispatch(authActions.getCaptchaUrlSuccess(captchaUrl))
-}
-
-export const logOut = (): AppThunk => async (dispatch) => {
-    let logoutData = await authAPI.logout()
-    if (logoutData.resultCode === ResultCode.SUCCESS) {
-        dispatch(authActions.logOutUser({
-            id: null,
-            login: null,
-            email: null,
-            isAuth: false,
-            captchaUrl: null,
-            avatar: null
-        }))
+    try {
+        dispatch(getAuthMe())
+        let captchaUrl = captchaData.url
+        dispatch(getCaptcha(captchaUrl))
+    } catch (e: unknown) {
+        helpersError(e, dispatch)
     }
 }
 
-type InitialStateType = typeof initialState
-export type ActionTypes = InferActionsType<typeof authActions>
+export const logout = (): AppThunk => async (dispatch) => {
+    let logoutData = await authAPI.logout()
+    try {
+        if (logoutData.resultCode === ResultCode.SUCCESS) {
+            dispatch(logoutUser({ id: null, login: null, email: null, isAuth: false, captchaUrl: null, avatar: null }))
+        }
+    } catch (e: unknown) {
+        helpersError(e, dispatch)
+    }
+}
+
+type InitialState = typeof initialState
+export type ActionTypes =
+    ReturnType<typeof setUserData>
+    | ReturnType<typeof logoutUser>
+    | ReturnType<typeof getCaptcha>
 

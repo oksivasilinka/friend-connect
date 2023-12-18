@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Nav } from 'components/navigation'
 import { useSelector } from 'react-redux'
-import { AppRootStateType, useAppDispatch } from 'redux/store'
+import { AppRootState, useAppDispatch } from 'redux/store'
 import { Preloader } from 'components/common/preloader'
 import { initializeApp } from 'redux/appReducer'
 import { AppHeader } from 'components/header/Header'
@@ -11,7 +11,7 @@ import s from './App.module.css'
 
 const App = () => {
 
-    const initialized = useSelector((state: AppRootStateType) => state.app.initialized)
+    const initialized = useSelector((state: AppRootState) => state.app.isInitialized)
     const dispatch = useAppDispatch()
 
     useEffect(() => {

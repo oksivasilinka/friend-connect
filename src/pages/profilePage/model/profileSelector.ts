@@ -1,4 +1,4 @@
-import { AppRootStateType } from 'redux/store'
+import { AppRootState } from 'redux/store'
 
-export const profileSelector = (state: AppRootStateType) => state.profilePage.profile
-export const statusSelector = (state: AppRootStateType) => state.profilePage.status
+export const profileSelector = (state: AppRootState) => state.profilePage.profile
+export const statusSelector = (state: AppRootState) => state.profilePage.status

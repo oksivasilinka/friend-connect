@@ -1,6 +1,5 @@
-import { Action, AnyAction, applyMiddleware, combineReducers, legacy_createStore } from 'redux'
+import { AnyAction, applyMiddleware, combineReducers, legacy_createStore } from 'redux'
 import { profileReducer } from './profileReducer'
-import { sidebarReducer } from './sidebarReducer'
 import { usersReducer } from './usersReducer'
 import { authReducer } from './authReducer'
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
@@ -13,7 +12,6 @@ import { newsReducer } from 'redux/newsReducer'
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
-    sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
     form: formReducer,
@@ -22,18 +20,15 @@ let rootReducer = combineReducers({
     news: newsReducer
 })
 
-export type AppRootStateType = ReturnType<typeof rootReducer>
+export type AppRootState = ReturnType<typeof rootReducer>
 
-export type InferActionsType<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never
+export type InferActions<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
 
-export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppRootStateType, unknown, A>
-
-
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AnyAction>
-export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>
-export const useAppDispatch =  () => useDispatch<AppDispatch>()
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootState, unknown, AnyAction>
+export type AppDispatch = ThunkDispatch<AppRootState, unknown, AnyAction>
+export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 
 // @ts-ignore

@@ -1,13 +1,13 @@
 import { Message } from 'pages/chatPage'
 import { useSelector } from 'react-redux'
-import { AppRootStateType } from 'redux/store'
+import { AppRootState } from 'redux/store'
 import React, { useEffect, useRef, useState } from 'react'
 import { ChatMessage } from 'redux/chat.reducer'
 import s from './Messages.module.css'
 
 export const Messages = () => {
 
-    const messages = useSelector((state: AppRootStateType) => state.chat.messages)
+    const messages = useSelector((state: AppRootState) => state.chat.messages)
     const messagesAnchorRef = useRef<HTMLDivElement>(null)
     const [isAutoScroll, setIsAutoScroll] = useState(true)
 

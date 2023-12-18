@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { updateStatus } from 'redux/profileReducer'
 import { useAppDispatch } from 'redux/store'
 import s from './ProfileStatus.module.css'
-import { statusSelector } from 'pages/profilePage/model'
+import { statusSelector } from 'pages/profilePage/model/profileSelector'
 
 
 export const ProfileStatus = () => {
@@ -16,9 +16,9 @@ export const ProfileStatus = () => {
         setUserStatus(status)
     }, [status])
 
-    const onDoubleClickHandler = async () => {
+    const onDoubleClickHandler = () => {
         setEditMode(!editMode)
-        await dispatch(updateStatus(userStatus))
+        dispatch(updateStatus(userStatus))
     }
 
     const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {

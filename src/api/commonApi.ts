@@ -3,12 +3,12 @@ import { ResultCode } from 'api/profileApi'
 
 export const instance = axios.create({
     withCredentials: true,
-    headers: { 'API-KEY': '10ea9e36-ad5d-4a98-8bf1-6ac6abd14f8d' },
+    headers: { 'API-KEY': 'daee8b0a-f79f-4c77-a8a2-1e2410d2bc56' },
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 })
 
 
-export type BaseResponseType<T = {}, R = ResultCode> = {
+export type BaseResponse<T = {}, R = ResultCode> = {
     data: T
     messages: string[]
     resultCode: R

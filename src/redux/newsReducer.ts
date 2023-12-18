@@ -1,5 +1,6 @@
 import { AppThunk } from './store'
 import { Articles, FilterNewsForm, newsAPI } from 'api/newsApi'
+import { helpersError } from 'utils/helpersError'
 
 let initialState = {
     news: [] as Articles[],
@@ -13,7 +14,7 @@ let initialState = {
     isLoading: false
 }
 
-export const newsReducer = (state = initialState, action: ActionTypes): InitialStateType => {
+export const newsReducer = (state = initialState, action: ActionTypes): InitialState => {
     switch (action.type) {
         case 'SET_NEWS_DATA' :
             return { ...state, news: action.data.filter((i: Articles) => i.title !== '[Removed]') }
@@ -42,14 +43,17 @@ export const getNews = (page: number, pageSize: number, filter: FilterNewsForm):
     dispatch(setFilter(filter))
     dispatch(setCurrentPage(page))
     const res = await newsAPI.getNews(page, pageSize, filter?.country, filter?.category, filter?.search)
-    dispatch(setTotalCount(res.data.totalResults))
-    dispatch(getNewsData(res.data.articles))
-    dispatch(setIsLoading(false))
+    try {
+        dispatch(setTotalCount(res.data.totalResults))
+        dispatch(getNewsData(res.data.articles))
+        dispatch(setIsLoading(false))
+    } catch (e: unknown) {
+        helpersError(e, dispatch)
+    }
 }
 
-type InitialStateType = typeof initialState
+type InitialState = typeof initialState
 export type ActionTypes = NewsActions
-
 type NewsActions =
     ReturnType<typeof getNewsData>
     | ReturnType<typeof setCurrentPage>

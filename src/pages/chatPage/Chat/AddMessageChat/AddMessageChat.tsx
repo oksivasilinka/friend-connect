@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { sendMessage } from 'redux/chat.reducer'
-import { AppRootStateType, useAppDispatch } from 'redux/store'
+import { AppRootState, useAppDispatch } from 'redux/store'
 import { Button, Typography } from 'components/common'
 import s from './AddMessageChat.module.css'
 
 export const AddMessageChat = () => {
 
-    const status = useSelector((state: AppRootStateType) => state.chat.status)
+    const status = useSelector((state: AppRootState) => state.chat.status)
     const dispatch = useAppDispatch()
     const [message, setMessage] = useState('')
 

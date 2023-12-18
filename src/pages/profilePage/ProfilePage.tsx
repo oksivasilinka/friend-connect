@@ -24,8 +24,8 @@ export const ProfilePage = () => {
 
     const refreshProfile = async () => {
         if (id) {
-            await dispatch(getProfile(id))
-            await dispatch(getStatus(id))
+            dispatch(getProfile(id))
+            dispatch(getStatus(id))
         }
     }
 
@@ -33,7 +33,7 @@ export const ProfilePage = () => {
         refreshProfile().then()
     }, [userId])
 
-    let showFriends = id && (String(id) === meId)
+    let showFriends = id && meId && (String(id) === meId)
 
     return (
         <section>

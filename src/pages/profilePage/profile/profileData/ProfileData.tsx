@@ -1,11 +1,11 @@
-import { ProfileResponseType } from 'api/profileApi'
+import { ProfileResponse } from 'api/profileApi'
 import s from './ProfileData.module.css'
 import { Typography } from 'components/common'
 import { Contact } from 'pages/profilePage/profile/profileData/contact'
 
 
 type Props = {
-    profile: ProfileResponseType
+    profile: ProfileResponse
 }
 
 export const ProfileData = ({ profile }: Props) => {

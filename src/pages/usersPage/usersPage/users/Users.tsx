@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 import { PaginationPage, Preloader } from 'components/common'
 import {
-    User, UsersSearchForm,
     currentPageSelector,
     getIsFetching,
     pageSizeSelector,
     totalUsersCount,
+    User,
     usersFilterSelector,
+    UsersSearchForm,
     usersSelector
 } from 'pages/usersPage'
 import { getUsersTC } from 'redux/usersReducer'

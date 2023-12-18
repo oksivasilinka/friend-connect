@@ -2,10 +2,10 @@ import { NavLink } from 'react-router-dom'
 import userPhoto from 'assets/img/user.png'
 import { Typography } from 'components/common'
 import s from './Friend.module.css'
-import { UserResponseType } from 'api/usersApi'
+import { UserResponse } from 'api/usersApi'
 
 type Props = {
-    friend: UserResponseType
+    friend: UserResponse
 }
 
 export const Friend = ({friend}: Props) => {
